@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32317.152
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedMauiCoreLibrary", "SharedMauiCoreLibrary\SharedMauiCoreLibrary.csproj", "{9B283D7C-1C1C-4DB6-9A2F-A10FE77D869D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B283D7C-1C1C-4DB6-9A2F-A10FE77D869D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B283D7C-1C1C-4DB6-9A2F-A10FE77D869D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B283D7C-1C1C-4DB6-9A2F-A10FE77D869D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B283D7C-1C1C-4DB6-9A2F-A10FE77D869D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E9B6BBF-614A-4B83-9508-8F7CADF9D31D}
+	EndGlobalSection
+EndGlobal
