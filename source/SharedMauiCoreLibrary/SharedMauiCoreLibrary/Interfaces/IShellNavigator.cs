@@ -1,6 +1,6 @@
 ﻿namespace AndreasReitberger.Shared.Core.Interfaces
 {
-    public interface IShellNavigationManager
+    public interface IShellNavigator
     {
         #region Properties
         string CurrentRoute { get; }
