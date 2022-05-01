@@ -12,7 +12,7 @@ namespace AndreasReitberger.Shared.Core.Interfaces
         #endregion
 
         #region Methods
-        Uri GetImageUri(string cultureCode);
+        //Uri GetImageUri(string cultureCode);
         LocalizationInfo GetLocalizationInfoBasedOnCode(string cultureCode);
         void SetLanguages(List<LocalizationInfo> languages);
         void Change(LocalizationInfo info);

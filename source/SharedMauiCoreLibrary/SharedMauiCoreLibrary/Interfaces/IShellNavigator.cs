@@ -12,7 +12,7 @@
         #region Methods
 
         Task<bool> GoToAsync(string target, bool flyoutIsPresented = false, int delay = -1, bool animate = true);
-        Task GoBackAsync(bool flyoutIsPresented = false, int delay = -1, bool animate = true);
+        Task GoBackAsync(bool flyoutIsPresented = false, int delay = -1, bool animate = true, bool confirm = false);
         bool IsCurrentPathRoot();
         void RegisterRoutes();
         #endregion

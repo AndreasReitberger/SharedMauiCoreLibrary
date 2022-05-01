@@ -1,10 +1,5 @@
 ﻿using AndreasReitberger.Shared.Core.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AndreasReitberger.Shared.Core.Localization
 {
@@ -20,7 +15,7 @@ namespace AndreasReitberger.Shared.Core.Localization
                 lock (Lock)
                 {
                     if (_instance == null)
-                        _instance = new LocalizationManager(_defaultCultureCode);
+                        _instance = new();
                 }
                 return _instance;
             }
@@ -39,25 +34,31 @@ namespace AndreasReitberger.Shared.Core.Localization
 
         #region Variables
         const string _defaultCultureCode = "en-US";
-        const string _baseFlagImageUri = @"";
+        //const string _baseFlagImageUri = @"";
         #endregion
 
         #region Properties
+        public string BaseFlagImageUri { get; set; } = "";
         public List<LocalizationInfo> Languages { get; set; } = new();
         public LocalizationInfo CurrentLanguage { get; set; } = new();
         public CultureInfo CurrentCulture { get; set; }
         #endregion
 
         #region Constructor
-        public LocalizationManager(string cultureCode)
+        public LocalizationManager()
+        {
+
+        }
+        #endregion
+
+        #region Methods
+        public void InitialLanguage(string cultureCode = "")
         {
             if (string.IsNullOrEmpty(cultureCode))
             {
                 cultureCode = CultureInfo.CurrentCulture.Name;
             }
-
             LocalizationInfo info = GetLocalizationInfoBasedOnCode(cultureCode) ?? Languages.FirstOrDefault();
-
             if (info.Code != Languages.First().Code)
             {
                 Change(info);
@@ -68,9 +69,7 @@ namespace AndreasReitberger.Shared.Core.Localization
                 CurrentCulture = new CultureInfo(info.Code);
             }
         }
-        #endregion
 
-        #region Methods
         public void SetLanguages(List<LocalizationInfo> languages)
         {
             Languages = languages ?? new();
@@ -80,14 +79,17 @@ namespace AndreasReitberger.Shared.Core.Localization
             return Languages.FirstOrDefault(x => x.Code == cultureCode) ?? null;
         }
 
-        public Uri GetImageUri(string cultureCode)
+        public static Uri GetImageUri(string baseFlagUri, string cultureCode)
         {
+            /*
             Uri image = DeviceInfo.Platform.ToString() switch
             {
-                "Android" => new Uri(_baseFlagImageUri + cultureCode.Replace("-", "_") + ".png", UriKind.RelativeOrAbsolute),
-                "iOS" => new Uri(_baseFlagImageUri + cultureCode, UriKind.RelativeOrAbsolute),
-                _ => new Uri(_baseFlagImageUri + cultureCode + ".png", UriKind.RelativeOrAbsolute),
+                "Android" => new Uri(baseFlagUri + cultureCode.Replace("-", "_") + ".png", UriKind.RelativeOrAbsolute),
+                "iOS" => new Uri(baseFlagUri + cultureCode.Replace("-", "_"), UriKind.RelativeOrAbsolute),
+                _ => new Uri(baseFlagUri + cultureCode + ".png", UriKind.RelativeOrAbsolute),
             };
+            */
+            Uri image = new($"{baseFlagUri}/{cultureCode.Replace("-", "_")}.png", UriKind.RelativeOrAbsolute);
             return image;
         }
 
