@@ -2,7 +2,7 @@
 
 namespace AndreasReitberger.Shared.Core.Converters
 {
-    public sealed class KlipperUnixDateToDateTimeConverter : IValueConverter
+    public sealed class UnixDateToDateTimeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
