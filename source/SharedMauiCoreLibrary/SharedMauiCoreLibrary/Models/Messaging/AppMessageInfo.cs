@@ -2,6 +2,6 @@
 {
     public partial class AppMessageInfo
     {
-
+        public string Message { get; set; }
     }
 }

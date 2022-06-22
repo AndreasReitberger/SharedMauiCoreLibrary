@@ -12,7 +12,7 @@ xmlns:behaviors="clr-namespace:AndreasReitberger.Shared.Core.Behaviors;assembly=
 ```
 
 #### EventToCommandBehavior
-This behavior executes a `Command` when the specified `Event` is fired.
+This `Behavior` executes a `Command` when the specified `Event` is fired.
 
 ```xaml
 <sliders:SfSlider
@@ -182,3 +182,102 @@ This `Converter` converts a `Double` (UNIX based) into a `TimeSpan`.
 #### UriToStringConverter
 This `Converter` converts a `Uri` into a `String`.
 
+### Helpers
+
+#### Namespace
+```cs
+namespace AndreasReitberger.Shared.Core
+```
+
+#### ViewModelBase
+This `Class` contains all needed properties for a ViewModel. You can inherit from this Class directly for your ViewModel,
+or create an own ViewModelBase and inherit there form this class.
+
+```cs
+public partial class BaseViewModel : ViewModelBase
+    {
+        #region Properties
+
+        #region App
+        bool _isBeta = SettingsStaticDefault.App_IsBeta;
+        public new bool IsBeta
+        {
+            get { return _isBeta; }
+            set { SetProperty(ref _isBeta, value); }
+        }
+        bool _isLightVersion = SettingsStaticDefault.App_IsLightVersion;
+        public bool IsLightVersion
+        {
+            get { return _isLightVersion; }
+            set { SetProperty(ref _isLightVersion, value); }
+        }
+
+        bool _isTabletMode = false;
+        public bool IsTabletMode
+        {
+            get { return _isTabletMode; }
+            set { SetProperty(ref _isTabletMode, value); }
+        }
+        #endregion
+
+        #region Navigation
+        bool _isViewShown = false;
+        public bool IsViewShown
+        {
+            get { return _isViewShown; }
+            set { SetProperty(ref _isViewShown, value); }
+        }
+        #endregion
+
+        #region Connection
+        bool _isConnecting = false;
+        public bool IsConnecting
+        {
+            get { return _isConnecting; }
+            set { SetProperty(ref _isConnecting, value); }
+        }
+        #endregion
+        
+        #endregion
+
+        #region Constructor
+        public BaseViewModel()
+        {
+
+        }
+        #endregion
+
+        #region LiveCycle
+        public void OnDisappearing()
+        {
+            try
+            {
+                if (SettingsApp.SettingsChanged)
+                {
+                    // Notify other modules
+                    MessagingCenter.Send(new AppMessageInfo(), AppMessages.OnSettingsChanged.ToString());
+                    SettingsApp.SaveSettings();
+                    SettingsApp.SettingsChanged = false;
+                }
+            }
+            catch (Exception exc)
+            {
+                // Log error
+                EventManager.Instance.LogError(exc);
+            }
+        }
+        #endregion
+    }
+```
+
+#### JsonConvertHelper
+This `Class` uses Newtonsoft.JSON in order to serialize and deserialize objects to strings and vice reverse.
+This is helpful if you want to store Collections or custom objects in the MAUI.Preferences (Settings).
+
+```cs
+// Convert to a String
+SettingsApp.WebCam_DefaultWebCamSettings = JsonConvertHelper.ToSettingsString(value);
+
+// Convert back to an object
+ObservableCollection<KlipperWebCamSettingsInfo> webcams = JsonConvertHelper.ToObject(SettingsApp.WebCam_Settings, new ObservableCollection<KlipperWebCamSettingsInfo>());
+```
