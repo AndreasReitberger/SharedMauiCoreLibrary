@@ -27,6 +27,9 @@
 		<PackageLicenseExpression>apache-2.0</PackageLicenseExpression>
 		<RootNamespace>AndreasReitberger.Shared.Core</RootNamespace>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Version>1.0.0-alpha</Version>
+		<Title>MAUI-Core Shared Library</Title>
 	</PropertyGroup>
 
 	<ItemGroup>
