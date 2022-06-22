@@ -182,10 +182,3 @@ This `Converter` converts a `Double` (UNIX based) into a `TimeSpan`.
 #### UriToStringConverter
 This `Converter` converts a `Uri` into a `String`.
 
-
-| Function                            | Added?| Tested? |
-| ----------------------------------- |:-----:| -------:|
-| Get Klippy host information         | ✅   | ✅      |
-| Emergency Stop                      | ✅   | ✅      |
-| Host Restart                        | ✅   | ✅      |
-| Firmware Restart                    | ✅   | ✅      |
