@@ -1,6 +1,11 @@
 # SharedMauiCoreLibrary
 A shared library containing recurring features &amp; utilities for .NET MAUI applications
 
+# Nuget
+Get the latest version from nuget.org<br>
+[![NuGet](https://img.shields.io/nuget/v/SharedMauiCoreLibrary.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/SharedMauiCoreLibrary/)
+[![NuGet](https://img.shields.io/nuget/dt/SharedMauiCoreLibrary.svg)](https://www.nuget.org/packages/SharedMauiCoreLibrary)
+
 ## Available content
 Please find a list of available content below.
 
