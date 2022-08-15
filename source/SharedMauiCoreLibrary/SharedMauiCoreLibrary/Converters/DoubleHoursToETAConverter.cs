@@ -2,33 +2,37 @@
 
 namespace AndreasReitberger.Shared.Core.Converters
 {
-    public sealed class DoubleHoursToTimeSpanConverter : IValueConverter
+    public sealed class DoubleHoursToETAConverter : IValueConverter
     {
         public bool RespectMilliSeconds { get; set; } = false;
-        /* Translate the name of the accent */
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             try
             {
                 TimeSpan ts = TimeSpan.FromHours(System.Convert.ToDouble(value));
-                if(!RespectMilliSeconds)
+                // Ignore ms for better displaying
+                if (!RespectMilliSeconds)
                 {
                     ts = new TimeSpan(ts.Days, ts.Hours, ts.Minutes, ts.Seconds);
                 }
-                return ts;
+                DateTime eta = DateTime.Now.Add(ts);
+                return eta;
             }
             catch (Exception)
             {
-                return TimeSpan.Zero;
+                return DateTime.Now;
             }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            TimeSpan ts = (TimeSpan)value;
-            if (ts == null)
-                return 0;
-            return ts.TotalHours;
+            if (value is DateTime eta)
+            {
+                TimeSpan time = eta.Subtract(DateTime.Now);
+                return time.TotalHours;
+            }
+            else return 0;
         }
     }
 }

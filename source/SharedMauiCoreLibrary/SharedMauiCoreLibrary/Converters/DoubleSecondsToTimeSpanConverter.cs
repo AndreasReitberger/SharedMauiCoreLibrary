@@ -2,7 +2,7 @@
 
 namespace AndreasReitberger.Shared.Core.Converters
 {
-    public sealed class DoubleHoursToTimeSpanConverter : IValueConverter
+    public sealed class DoubleSecondsToTimeSpanConverter : IValueConverter
     {
         public bool RespectMilliSeconds { get; set; } = false;
         /* Translate the name of the accent */
@@ -10,7 +10,7 @@ namespace AndreasReitberger.Shared.Core.Converters
         {
             try
             {
-                TimeSpan ts = TimeSpan.FromHours(System.Convert.ToDouble(value));
+                TimeSpan ts = TimeSpan.FromSeconds(System.Convert.ToDouble(value));
                 if(!RespectMilliSeconds)
                 {
                     ts = new TimeSpan(ts.Days, ts.Hours, ts.Minutes, ts.Seconds);
@@ -28,7 +28,7 @@ namespace AndreasReitberger.Shared.Core.Converters
             TimeSpan ts = (TimeSpan)value;
             if (ts == null)
                 return 0;
-            return ts.TotalHours;
+            return ts.TotalSeconds;
         }
     }
 }
