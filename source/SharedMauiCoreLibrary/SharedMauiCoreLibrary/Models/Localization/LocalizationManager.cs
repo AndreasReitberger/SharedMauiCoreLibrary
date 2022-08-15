@@ -79,17 +79,19 @@ namespace AndreasReitberger.Shared.Core.Localization
             return Languages.FirstOrDefault(x => x.Code == cultureCode) ?? null;
         }
 
+        public Uri GetImageUri(string cultureCode)
+        {
+           Uri image = string.IsNullOrEmpty(BaseFlagImageUri) ?
+                new($"{cultureCode.Replace("-", "_").ToLowerInvariant()}.png", UriKind.RelativeOrAbsolute) :
+                new($"{BaseFlagImageUri}/{cultureCode.Replace("-", "_").ToLowerInvariant()}.png", UriKind.RelativeOrAbsolute);
+            return image;
+        }
+
         public static Uri GetImageUri(string baseFlagUri, string cultureCode)
         {
-            /*
-            Uri image = DeviceInfo.Platform.ToString() switch
-            {
-                "Android" => new Uri(baseFlagUri + cultureCode.Replace("-", "_") + ".png", UriKind.RelativeOrAbsolute),
-                "iOS" => new Uri(baseFlagUri + cultureCode.Replace("-", "_"), UriKind.RelativeOrAbsolute),
-                _ => new Uri(baseFlagUri + cultureCode + ".png", UriKind.RelativeOrAbsolute),
-            };
-            */
-            Uri image = new($"{baseFlagUri}/{cultureCode.Replace("-", "_")}.png", UriKind.RelativeOrAbsolute);
+           Uri image = string.IsNullOrEmpty(baseFlagUri) ?
+                new($"{cultureCode.Replace("-", "_").ToLowerInvariant()}.png", UriKind.RelativeOrAbsolute) :
+                new($"{baseFlagUri}/{cultureCode.Replace("-", "_").ToLowerInvariant()}.png", UriKind.RelativeOrAbsolute);
             return image;
         }
 

@@ -56,7 +56,7 @@ namespace AndreasReitberger.Shared.Core.Behaviors
             }
 
             EventInfo eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
-            if (eventInfo == null)
+           if (eventInfo == null)
             {
                 throw new ArgumentException(string.Format("EventToCommandBehavior: Can't register the '{0}' event.", EventName));
             }
