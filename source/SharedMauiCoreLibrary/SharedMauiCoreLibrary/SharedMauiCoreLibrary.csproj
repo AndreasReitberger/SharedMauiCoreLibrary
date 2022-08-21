@@ -22,15 +22,16 @@
 		<RepositoryUrl>https://github.com/AndreasReitberger/SharedMauiCoreLibrary</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>MAUI, Utilites, Core, Library, Helper, C#, dotnet</PackageTags>
-		<AssemblyVersion>1.0.2</AssemblyVersion>
-		<FileVersion>1.0.2</FileVersion>
+		<AssemblyVersion>1.0.3</AssemblyVersion>
+		<FileVersion>1.0.3</FileVersion>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<RootNamespace>AndreasReitberger.Shared.Core</RootNamespace>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>1.0.2</Version>
+		<Version>1.0.3</Version>
 		<Title>MAUI-Core Shared Library</Title>
 		<Authors>Andreas Reitberger</Authors>
+		<Description>A core libray used for our .NET MAUI libraries.</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -39,7 +40,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-	  <PackageReference Include="RCoreSharp" Version="1.0.7" />
+	  <PackageReference Include="RCoreSharp" Version="1.0.8" />
 	</ItemGroup>
 
 	<ItemGroup>
