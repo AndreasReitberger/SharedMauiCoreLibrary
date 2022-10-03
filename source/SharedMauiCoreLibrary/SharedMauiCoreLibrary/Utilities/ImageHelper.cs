@@ -10,7 +10,7 @@
 
             image.Save(memory);
             return memory.ToArray();
-        }        
+        }
         #endregion
     }
 }

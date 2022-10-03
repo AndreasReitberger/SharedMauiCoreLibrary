@@ -11,7 +11,7 @@ namespace AndreasReitberger.Shared.Core.Converters
             try
             {
                 TimeSpan ts = TimeSpan.FromHours(System.Convert.ToDouble(value));
-                if(!RespectMilliSeconds)
+                if (!RespectMilliSeconds)
                 {
                     ts = new TimeSpan(ts.Days, ts.Hours, ts.Minutes, ts.Seconds);
                 }

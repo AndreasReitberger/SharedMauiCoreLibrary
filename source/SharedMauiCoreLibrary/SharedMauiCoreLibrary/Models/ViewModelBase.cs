@@ -27,42 +27,42 @@ namespace AndreasReitberger.Shared.Core
             get { return _isReady; }
             set { SetProperty(ref _isReady, value); }
         }
-        
+
         bool _isStartUp = true;
         public bool IsStartUp
         {
             get { return _isStartUp; }
             set { SetProperty(ref _isStartUp, value); }
         }
-        
+
         bool _isStartingUp = false;
         public bool IsStartingUp
         {
             get { return _isStartingUp; }
             set { SetProperty(ref _isStartingUp, value); }
         }
-        
+
         bool _isRefreshing = false;
         public bool IsRefreshing
         {
             get { return _isRefreshing; }
             set { SetProperty(ref _isRefreshing, value); }
         }
-        
+
         bool _isResuming = false;
         public bool IsResuming
         {
             get { return _isResuming; }
             set { SetProperty(ref _isResuming, value); }
         }
-        
+
         bool _isBeta = false;
         public bool IsBeta
         {
             get { return _isBeta; }
             set { SetProperty(ref _isBeta, value); }
         }
-        
+
         bool _isPortrait = true;
         public bool IsPortrait
         {
