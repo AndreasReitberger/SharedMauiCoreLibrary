@@ -22,17 +22,25 @@
 		<RepositoryUrl>https://github.com/AndreasReitberger/SharedMauiCoreLibrary</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>MAUI, Utilites, Core, Library, Helper, C#, dotnet</PackageTags>
-		<AssemblyVersion>1.0.3</AssemblyVersion>
-		<FileVersion>1.0.3</FileVersion>
+		<AssemblyVersion>1.0.4</AssemblyVersion>
+		<FileVersion>1.0.4</FileVersion>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<RootNamespace>AndreasReitberger.Shared.Core</RootNamespace>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
 		<Title>MAUI-Core Shared Library</Title>
 		<Authors>Andreas Reitberger</Authors>
 		<Description>A core libray used for our .NET MAUI libraries.</Description>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Platforms\Android\Utilities\**" />
+	  <EmbeddedResource Remove="Platforms\Android\Utilities\**" />
+	  <MauiCss Remove="Platforms\Android\Utilities\**" />
+	  <MauiXaml Remove="Platforms\Android\Utilities\**" />
+	  <None Remove="Platforms\Android\Utilities\**" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<None Include="..\..\..\README.md" Pack="true" PackagePath="\" />
@@ -41,10 +49,6 @@
 	<ItemGroup>
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	  <PackageReference Include="RCoreSharp" Version="1.0.8" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Platforms\Android\Utilities\" />
 	</ItemGroup>
 
 </Project>
