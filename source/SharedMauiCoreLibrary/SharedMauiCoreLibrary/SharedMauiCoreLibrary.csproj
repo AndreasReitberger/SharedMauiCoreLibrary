@@ -30,6 +30,8 @@
 		<Title>MAUI-Core Shared Library</Title>
 		<Authors>Andreas Reitberger</Authors>
 		<Description>A core libray used for our .NET MAUI libraries.</Description>
+		<FileVersion>1.0.5</FileVersion>
+		<Version>1.0.5</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
