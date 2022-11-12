@@ -2,11 +2,11 @@
 
 	<PropertyGroup>
 		<!--
-		<TargetFrameworks>net6.0;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(MSBuildRuntimeType)' == 'Full'">$(TargetFrameworks);net6.0-windows10.0.19041</TargetFrameworks>
+		<TargetFrameworks>net7.0;net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(MSBuildRuntimeType)' == 'Full'">$(TargetFrameworks);net7.0-windows10.0.19041</TargetFrameworks>
 		-->
-		<TargetFrameworks>net6.0;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net7.0;net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -22,7 +22,7 @@
 		<RepositoryUrl>https://github.com/AndreasReitberger/SharedMauiCoreLibrary</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>MAUI, Utilites, Core, Library, Helper, C#, dotnet</PackageTags>
-		<AssemblyVersion>1.0.5</AssemblyVersion>
+		<AssemblyVersion>1.0.6</AssemblyVersion>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<RootNamespace>AndreasReitberger.Shared.Core</RootNamespace>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -30,8 +30,8 @@
 		<Title>MAUI-Core Shared Library</Title>
 		<Authors>Andreas Reitberger</Authors>
 		<Description>A core libray used for our .NET MAUI libraries.</Description>
-		<FileVersion>1.0.5</FileVersion>
-		<Version>1.0.5</Version>
+		<FileVersion>1.0.6</FileVersion>
+		<Version>1.0.6</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
