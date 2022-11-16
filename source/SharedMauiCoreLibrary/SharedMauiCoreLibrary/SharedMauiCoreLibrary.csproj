@@ -22,7 +22,7 @@
 		<RepositoryUrl>https://github.com/AndreasReitberger/SharedMauiCoreLibrary</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>MAUI, Utilites, Core, Library, Helper, C#, dotnet</PackageTags>
-		<AssemblyVersion>1.0.6</AssemblyVersion>
+		<AssemblyVersion>1.0.7</AssemblyVersion>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<RootNamespace>AndreasReitberger.Shared.Core</RootNamespace>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -30,8 +30,8 @@
 		<Title>MAUI-Core Shared Library</Title>
 		<Authors>Andreas Reitberger</Authors>
 		<Description>A core libray used for our .NET MAUI libraries.</Description>
-		<FileVersion>1.0.6</FileVersion>
-		<Version>1.0.6</Version>
+		<FileVersion>1.0.7</FileVersion>
+		<Version>1.0.7</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
