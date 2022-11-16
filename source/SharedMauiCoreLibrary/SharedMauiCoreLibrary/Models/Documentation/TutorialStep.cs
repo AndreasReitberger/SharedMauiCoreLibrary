@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace AndreasReitberger.Shared.Core.Models.Documentation
+namespace AndreasReitberger.Shared.Core.Documentation
 {
     public partial class TutorialStep : ObservableObject
     {
