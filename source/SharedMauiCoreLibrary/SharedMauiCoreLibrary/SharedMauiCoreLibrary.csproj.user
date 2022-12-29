@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ActiveDebugProfile>iPhone 11 iOS 16.0</ActiveDebugProfile>
+    <ActiveDebugProfile>iPhone AR</ActiveDebugProfile>
     <ActiveDebugFramework>net6.0-windows10.0.19041.0</ActiveDebugFramework>
     <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
     <DefaultDevice>tablet_m-dpi_10_1in_q_10_0_-_api_29</DefaultDevice>
