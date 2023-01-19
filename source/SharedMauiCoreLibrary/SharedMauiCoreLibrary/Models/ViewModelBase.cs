@@ -5,12 +5,20 @@ namespace AndreasReitberger.Shared.Core
 {
     public partial class ViewModelBase : ObservableObject, IViewModelBase
     {
+        #region Dispatcher
+        [ObservableProperty]
+        IDispatcher dispatcher;
+        #endregion
+
         #region Properties
         [ObservableProperty]
         bool isLoading = false;
 
         [ObservableProperty]
         bool isBusy = false;
+
+        [ObservableProperty]
+        int isBusyCounter = 0;
 
         [ObservableProperty]
         bool isReady = false;
@@ -33,6 +41,14 @@ namespace AndreasReitberger.Shared.Core
         [ObservableProperty]
         bool isPortrait = true;
 
+        #endregion
+
+        #region Ctor
+        public ViewModelBase() { }
+        public ViewModelBase(IDispatcher dispatcher)
+        {
+            Dispatcher = dispatcher;
+        }
         #endregion
 
         #region Dispose
