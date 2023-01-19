@@ -25,10 +25,10 @@ namespace AndreasReitberger.Shared.Core.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            TimeSpan ts = (TimeSpan)value;
-            if (ts == null)
+            if (value is TimeSpan ts)
+                return ts.TotalSeconds;
+            else
                 return 0;
-            return ts.TotalSeconds;
         }
     }
 }

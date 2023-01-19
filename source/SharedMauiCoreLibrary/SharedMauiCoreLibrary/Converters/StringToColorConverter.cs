@@ -16,7 +16,7 @@ namespace AndreasReitberger.Shared.Core.Converters
             {
                 color = Color.FromArgb(str[0] != '#' ? $"#{str}" : str);
             }
-            catch (Exception exc)
+            catch (Exception)
             {
                 return color;
             }
