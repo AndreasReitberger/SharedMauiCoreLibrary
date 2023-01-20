@@ -33,7 +33,7 @@ namespace AndreasReitberger.Shared.Core.Extensions
         public static async Task RunTaskAsync(this Dispatcher dispatcher,
             Func<Task> func, ThreadPriority priority = ThreadPriority.Normal) =>
             await RunTaskAsync(dispatcher, async () => { await func(); return false; }, priority);
-        
+
         public static async Task<T> DispatchAsync<T>(this IDispatcher dispatcher,
             Func<Task<T>> func, ThreadPriority priority = ThreadPriority.Normal)
         {
