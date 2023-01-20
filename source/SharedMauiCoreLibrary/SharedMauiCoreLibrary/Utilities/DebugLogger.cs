@@ -22,10 +22,10 @@ namespace AndreasReitberger.Shared.Core.Utilities
         {
             Stack<Exception> exceptions = new();
             exceptions.Push(exception);
-            while(exceptions.Count > 0)
+            while (exceptions.Count > 0)
             {
                 Exception innerException = exceptions.Pop()?.InnerException;
-                if(innerException != null )
+                if (innerException != null)
                 {
                     exceptions.Push(innerException);
                 }

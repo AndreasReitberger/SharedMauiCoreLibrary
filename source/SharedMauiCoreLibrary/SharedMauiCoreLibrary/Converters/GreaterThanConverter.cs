@@ -8,7 +8,7 @@ namespace AndreasReitberger.Shared.Core.Converters
         public bool AllowEqual { get; set; } = true;
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is double dVal)
+            if (value is double dVal)
             {
                 return AllowEqual ? dVal >= Threshold : dVal > Threshold;
             }
