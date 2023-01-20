@@ -28,7 +28,7 @@
 		<Authors>Andreas Reitberger</Authors>
 		<Description>A core libray used for our .NET MAUI libraries.</Description>
 		<FileVersion>1.0.11</FileVersion>
-		<Version>1.0.11-preview</Version>
+		<Version>1.0.11</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -44,7 +44,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0-preview3" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 	  <PackageReference Include="RCoreSharp" Version="1.0.8" />
 	</ItemGroup>
