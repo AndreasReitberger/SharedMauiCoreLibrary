@@ -2,20 +2,18 @@
 
 namespace AndreasReitberger.Shared.Core.Documentation
 {
-    public class ChangelogInfo
+    public class ChangeInfo
     {
         #region Properties
         public ChangelogType Type { get; set; }
         public string Changelog { get; set; } = string.Empty;
-        public string Version { get; set; } = string.Empty;
         public string GlyphIcon { get; set; } = string.Empty;
         #endregion
 
         #region Constructor
-        public ChangelogInfo() { }
-        public ChangelogInfo(string version, string changelog, ChangelogType type = ChangelogType.New)
+        public ChangeInfo() { }
+        public ChangeInfo(string changelog, ChangelogType type = ChangelogType.New)
         {
-            Version = version;
             Changelog = changelog;
             Type = type;
         }
