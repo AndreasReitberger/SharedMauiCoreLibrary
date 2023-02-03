@@ -6,5 +6,6 @@
         New,
         Changed,
         Updated,
+        Improvement,
     }
 }
