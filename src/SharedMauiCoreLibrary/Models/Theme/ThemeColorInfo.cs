@@ -12,6 +12,9 @@ namespace AndreasReitberger.Shared.Core.Theme
         [ObservableProperty]
         string themeName;
 
+        [ObservableProperty]
+        bool isAppDefault = false;
+
         /// <summary>
         /// The primary color for this theme info. The ligther and darker color will be set automatically 
         /// based on this color and the set `Factor`.
