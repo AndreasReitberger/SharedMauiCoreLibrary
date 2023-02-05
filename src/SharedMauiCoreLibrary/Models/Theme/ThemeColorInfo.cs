@@ -1,7 +1,7 @@
 ﻿using AndreasReitberger.Shared.Core.Utilities;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace AndreasReitberger.Shared.Core.Models.Theme
+namespace AndreasReitberger.Shared.Core.Theme
 {
     public partial class ThemeColorInfo : ObservableObject
     {
@@ -35,13 +35,15 @@ namespace AndreasReitberger.Shared.Core.Models.Theme
 
         // https://github.com/CommunityToolkit/dotnet/issues/555
         // Not yet supported
-        //[ObservableProperty]
+        [ObservableProperty]
+        Color primaryLigtherColor;
         //public partial Color PrimaryDarkerColor { get; private set; }
 
-        //[ObservableProperty]
+        [ObservableProperty]
+        Color primaryDarkerColor;
         //public partial Color PrimaryLigtherColor { get; private set; };
-        public Color PrimaryDarkerColor { get; private set; }
-        public Color PrimaryLigtherColor { get; private set; }
+        //public Color PrimaryDarkerColor { get; private set; }
+        //public Color PrimaryLigtherColor { get; private set; }
         #endregion
 
         #region Ctor
@@ -58,8 +60,10 @@ namespace AndreasReitberger.Shared.Core.Models.Theme
 
         void UpdatePrimaryColorDependencies(Color primaryColor)
         {
-            PrimaryLigtherColor = ColorExtensions.Lighten(primaryColor, Factor);
-            PrimaryDarkerColor = ColorExtensions.Darken(primaryColor, Factor);
+            //PrimaryLigtherColor = ColorExtensions.Lighten(primaryColor, Factor);
+            //PrimaryDarkerColor = ColorExtensions.Darken(primaryColor, Factor);
+            PrimaryLigtherColor = ColorExtensions.Tint(primaryColor, Factor);
+            PrimaryDarkerColor = ColorExtensions.Shade(primaryColor, Factor);
         }
 
         #endregion

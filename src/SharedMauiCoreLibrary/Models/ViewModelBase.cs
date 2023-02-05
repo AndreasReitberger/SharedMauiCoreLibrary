@@ -52,6 +52,7 @@ namespace AndreasReitberger.Shared.Core
         #endregion
 
         #region Dispose
+        /*
         public void Dispose()
         {
             Dispose(true);
@@ -68,6 +69,7 @@ namespace AndreasReitberger.Shared.Core
 
             }
         }
+        */
         #endregion
 
     }
