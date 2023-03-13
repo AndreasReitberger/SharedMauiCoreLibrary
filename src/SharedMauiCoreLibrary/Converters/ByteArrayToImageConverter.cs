@@ -10,7 +10,7 @@ namespace AndreasReitberger.Shared.Core.Converters
             {
                 return null;
             }
-            ImageSource image = ImageSource.FromStream(() => new MemoryStream(imageAsBytes));
+            ImageSource image = imageAsBytes?.Length > 0 ? ImageSource.FromStream(() => new MemoryStream(imageAsBytes)) : null;
             return image;
         }
 
