@@ -26,7 +26,7 @@
 		<Title>MAUI-Core Shared Library</Title>
 		<Authors>Andreas Reitberger</Authors>
 		<Description>A core libray used for our .NET MAUI libraries.</Description>
-		<Version>1.0.12</Version>
+		<Version>1.0.13</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -10,7 +10,7 @@ namespace AndreasReitberger.Shared.Core.Converters
             try
             {
                 TimeSpan ts = TimeSpan.FromSeconds(System.Convert.ToDouble(value));
-                if (WithMiliSeconds)
+                if (!WithMiliSeconds)
                     ts = new TimeSpan(ts.Days, ts.Hours, ts.Minutes, ts.Seconds);
                 return ts;
             }
