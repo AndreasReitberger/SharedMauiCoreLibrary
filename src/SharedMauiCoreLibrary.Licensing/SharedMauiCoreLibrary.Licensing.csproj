@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\..\common.props" />
-	
+
 	<PropertyGroup>
 		<TargetFrameworks>net7.0;net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
@@ -16,10 +16,12 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 
-		<PackageTags>MAUI, Utilites, Core, Library, Helper, C#, dotnet</PackageTags>
-		<RootNamespace>AndreasReitberger.Shared.Core</RootNamespace>
-		<Title>MAUI-Core Shared Library</Title>
-		<Description>A core libray used for our .NET MAUI libraries.</Description>
+		<PackageTags>MAUI, Utilites, Core, Library, Helper, C#, dotnet, Licensing, Handler</PackageTags>
+		<RootNamespace>AndreasReitberger.Shared.Core.Licensing</RootNamespace>
+		<Title>MAUI-Core Shared Licensing Library</Title>
+		<Authors>Andreas Reitberger</Authors>
+		<Description>A libray used for .NET MAUI projects to manage licenses.</Description>
+
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -38,6 +40,12 @@
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="RCoreSharp" Version="1.0.8" />
+	  <PackageReference Include="RestSharp" Version="108.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Services\" />
+	  <Folder Include="Utilities\" />
 	</ItemGroup>
 
 </Project>
