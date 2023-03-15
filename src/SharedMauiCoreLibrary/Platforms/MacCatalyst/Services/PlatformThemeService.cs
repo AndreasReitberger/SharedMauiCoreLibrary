@@ -14,7 +14,7 @@ namespace AndreasReitberger.Shared.Core.Services
             new ObjCRuntime.Selector("setBackgroundColor:")))
             {
                 // change to your desired color 
-                statusBar.BackgroundColor = Color.FromArgb("#7f6550").ToPlatform();
+                statusBar.BackgroundColor = color.ToPlatform();
             }
         }
     }
