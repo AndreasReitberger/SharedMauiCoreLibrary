@@ -1,10 +1,12 @@
 ﻿using AndreasReitberger.Shared.Core.Licensing.Enums;
 using AndreasReitberger.Shared.Core.Licensing.Interfaces;
+using AndreasReitberger.Shared.Core.Licensing.Models;
 using AndreasReitberger.Shared.Core.Licensing.WooCommerce;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace AndreasReitberger.Shared.Core.Licensing
 {
@@ -17,11 +19,16 @@ namespace AndreasReitberger.Shared.Core.Licensing
         #region Properties
 
         [ObservableProperty]
+        string licenseCheckPattern; 
+
+        [ObservableProperty]
         Uri licenseServer;
 
         [ObservableProperty]
         int? port = null;
 
+        [ObservableProperty]
+        LicenseOptions? options;
         #endregion
 
         #region Ctor
@@ -51,6 +58,12 @@ namespace AndreasReitberger.Shared.Core.Licensing
         {
             if (client == null) Initialize();
             LicenseQueryResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
+            if (Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(Options?.LicenseCheckPattern))
+            {
+                bool licenseFormatValid = VerifyLicenseFormat(license, Options.LicenseCheckPattern);
+                result.Message = "License format is invalid";
+                return result;
+            }
             switch (target)
             {
                 case LicenseServerTarget.WooCommerce:
@@ -87,13 +100,58 @@ namespace AndreasReitberger.Shared.Core.Licensing
 
         public async Task<ILicenseQueryResult> CheckLicenseAsync(ILicenseInfo license, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null)
         {
-            throw new NotImplementedException();
+            if (client == null) Initialize();
+            LicenseQueryResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
+            if (Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(Options?.LicenseCheckPattern))
+            {
+                bool licenseFormatValid = VerifyLicenseFormat(license, Options.LicenseCheckPattern);
+                result.Message = "License format is invalid";
+                return result;
+            }
+            switch (target)
+            {
+                case LicenseServerTarget.WooCommerce:
+                    WooActivationResponse[] wooResult = await QueryWooCommerceAsync(WooSoftwareLicenseAction.StatusCheck, license).ConfigureAwait(false);
+                    if (wooResult?.All(result => result.Status == "success" && (result.ErrorCode == "s205" || result.ErrorCode == "s215")) == true)
+                    {
+                        result = new()
+                        {
+                            Success = true,
+                            Message = string.Join("|", wooResult?.Select(result => result.ErrorMessage)),
+                            TimeStamp = DateTimeOffset.Now,
+                        };
+                    }
+                    else
+                    {
+                        result = new()
+                        {
+                            Success = false,
+                            Message = string.Join("|", wooResult?.Select(result => result.ErrorMessage)),
+                            TimeStamp = DateTimeOffset.Now,
+                        };
+                    }
+                    break;
+                case LicenseServerTarget.Envato:
+                    break;
+                case LicenseServerTarget.Custom:
+                default:
+                    break;
+            }
+            if (result.Success) OnSuccess?.Invoke();
+            else OnError?.Invoke();
+            return result;
         }
 
         public async Task<ILicenseQueryResult> DeactivateLicenseAsync(ILicenseInfo license, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null)
         {
             if (client == null) Initialize();
             LicenseQueryResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
+            if (Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(Options?.LicenseCheckPattern))
+            {
+                bool licenseFormatValid = VerifyLicenseFormat(license, Options.LicenseCheckPattern);
+                result.Message = "License format is invalid";
+                return result;
+            }
             switch (target)
             {
                 case LicenseServerTarget.WooCommerce:
@@ -166,111 +224,118 @@ namespace AndreasReitberger.Shared.Core.Licensing
             return result;
         }
 
-        #region Private
-        async Task<string> RestApiCallAsync(
-            string command,
-            Method method = Method.Get,
-            Dictionary<string, string> parameters = null,
-            Dictionary<string, string> headers = null,
-            CancellationTokenSource cts = default
-            )
+        public bool VerifyLicenseFormat(ILicenseInfo license, string checkPattern)
         {
-            string result = string.Empty;
-            if (cts == default)
-            {
-                cts = new(10000);
-            }
-
-            RestRequest request = new(command, method)
-            {
-                RequestFormat = DataFormat.Json
-            };
-            if (headers?.Count > 0)
-            {
-                foreach (KeyValuePair<string, string> pair in headers)
-                {
-                    request.AddHeader(pair.Key, pair.Value);
-                }
-            }
-            if (parameters?.Count > 0)
-            {
-                foreach (KeyValuePair<string, string> pair in parameters)
-                {
-                    request.AddQueryParameter(pair.Key, pair.Value);
-                }
-            }
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
-            Uri fullUri = client.BuildUri(request);
-            RestResponse respone = await client.ExecuteAsync(request, cts.Token).ConfigureAwait(false);
-            if (respone.StatusCode == HttpStatusCode.OK && respone.ResponseStatus == ResponseStatus.Completed)
-            {
-                result = respone?.Content;
-            }
-            return result;
+            if (string.IsNullOrEmpty(license?.License)) return false;
+            Regex check = new Regex(checkPattern);
+            return check.IsMatch(license?.License);
         }
 
-        #region WooCommerce
-        async Task<WooActivationResponse[]> QueryWooCommerceAsync(string action, ILicenseInfo license)
+        #region Private
+        async Task<string> RestApiCallAsync(
+        string command,
+        Method method = Method.Get,
+        Dictionary<string, string> parameters = null,
+        Dictionary<string, string> headers = null,
+        CancellationTokenSource cts = default
+        )
+    {
+        string result = string.Empty;
+        if (cts == default)
         {
-            try
-            {
-                string command = string.Empty;
+            cts = new(10000);
+        }
 
-                Dictionary<string, string> parameters = new() {
-                    { "woo_sl_action", action },
-                    { "product_unique_id", license.Application },
-                    { "licence_key", license.License },
-                };
+        RestRequest request = new(command, method)
+        {
+            RequestFormat = DataFormat.Json
+        };
+        if (headers?.Count > 0)
+        {
+            foreach (KeyValuePair<string, string> pair in headers)
+            {
+                request.AddHeader(pair.Key, pair.Value);
+            }
+        }
+        if (parameters?.Count > 0)
+        {
+            foreach (KeyValuePair<string, string> pair in parameters)
+            {
+                request.AddQueryParameter(pair.Key, pair.Value);
+            }
+        }
+
+        ServicePointManager.Expect100Continue = true;
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+        Uri fullUri = client.BuildUri(request);
+        RestResponse respone = await client.ExecuteAsync(request, cts.Token).ConfigureAwait(false);
+        if (respone.StatusCode == HttpStatusCode.OK && respone.ResponseStatus == ResponseStatus.Completed)
+        {
+            result = respone?.Content;
+        }
+        return result;
+    }
+
+    #region WooCommerce
+    async Task<WooActivationResponse[]> QueryWooCommerceAsync(string action, ILicenseInfo license)
+    {
+        try
+        {
+            string command = string.Empty;
+
+            Dictionary<string, string> parameters = new() {
+                { "woo_sl_action", action },
+                { "product_unique_id", license.Application },
+                { "licence_key", license.License },
+            };
+            if (action != WooSoftwareLicenseAction.DeleteKey)
+            {
+                parameters.Add("domain", license.Id.ToString());
+            }
+            string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
+
+            WooActivationResponse[] result = JsonConvert.DeserializeObject<WooActivationResponse[]>(jsonResult);
+            return result;
+        }
+        catch (Exception exc)
+        {
+            OnError(new ErrorEventArgs(exc) { });
+            return null;
+        }
+    }
+    async Task<WooCodeVersionResponse[]> QueryLatestApplicationVersionFromWooCommerceAsync(string action, ILicenseInfo license)
+    {
+        try
+        {
+            string command = string.Empty;        
+            Dictionary<string, string> parameters = new() {
+                { "woo_sl_action", action },
+                { "product_unique_id", license.Application },
+            };
+            if (license?.License != null)
+            {
+                parameters.Add(
+                "licence_key",license.License);
                 if (action != WooSoftwareLicenseAction.DeleteKey)
                 {
                     parameters.Add("domain", license.Id.ToString());
                 }
-                string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
+            }
+            string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
 
-                WooActivationResponse[] result = JsonConvert.DeserializeObject<WooActivationResponse[]>(jsonResult);
-                return result;
-            }
-            catch (Exception exc)
-            {
-                OnError(new ErrorEventArgs(exc) { });
-                return null;
-            }
+            WooCodeVersionResponse[] result = JsonConvert.DeserializeObject<WooCodeVersionResponse[]>(jsonResult);
+            return result;
         }
-        async Task<WooCodeVersionResponse[]> QueryLatestApplicationVersionFromWooCommerceAsync(string action, ILicenseInfo license)
+        catch (Exception exc)
         {
-            try
-            {
-                string command = string.Empty;        
-                Dictionary<string, string> parameters = new() {
-                    { "woo_sl_action", action },
-                    { "product_unique_id", license.Application },
-                };
-                if (license?.License != null)
-                {
-                    parameters.Add(
-                    "licence_key",license.License);
-                    if (action != WooSoftwareLicenseAction.DeleteKey)
-                    {
-                        parameters.Add("domain", license.Id.ToString());
-                    }
-                }
-                string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
-
-                WooCodeVersionResponse[] result = JsonConvert.DeserializeObject<WooCodeVersionResponse[]>(jsonResult);
-                return result;
-            }
-            catch (Exception exc)
-            {
-                OnError(new ErrorEventArgs(exc) { });
-                return null;
-            }
+            OnError(new ErrorEventArgs(exc) { });
+            return null;
         }
-        #endregion
+    }
+    #endregion
 
-        #endregion
+    #endregion
 
         #endregion
     }
