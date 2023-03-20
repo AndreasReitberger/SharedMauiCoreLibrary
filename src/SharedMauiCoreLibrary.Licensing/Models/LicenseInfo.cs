@@ -1,8 +1,10 @@
 ﻿using AndreasReitberger.Shared.Core.Licensing.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace AndreasReitberger.Shared.Core.Licensing {
-    public partial class LicenseInfo : ObservableObject, ILicenseInfo {
+namespace AndreasReitberger.Shared.Core.Licensing
+{
+    public partial class LicenseInfo : ObservableObject, ILicenseInfo
+    {
 
         #region Properties
         [ObservableProperty]

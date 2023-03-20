@@ -13,7 +13,7 @@ namespace SharedMauiCoreLibrary.Test.Utilities
             IConfigurationBuilder builder = new ConfigurationBuilder()
                 .AddUserSecrets<Tests>()
             ;
-            IConfigurationRoot configurationRoot = builder.Build();          
+            IConfigurationRoot configurationRoot = builder.Build();
             return configurationRoot.GetSection(sectionName).Get<T>();
 #if false
             // Needs the Directory.Build.targets in order to work (copies the secret.json as EmbeddedResource to the app)

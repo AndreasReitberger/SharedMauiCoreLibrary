@@ -20,7 +20,7 @@ public class Tests
         appSecrets = new SecretAppSettingReader().ReadSectionFromConfigurationRoot<SecretAppSetting>("CoreTests");
 
         manager = new LicenseManager.LicenseManagerConnectionBuilder()
-            .WithLicenseServer(serverAddress: licenseUri, port: null, https: true)       
+            .WithLicenseServer(serverAddress: licenseUri, port: null, https: true)
             .Build();
         info = new LicenseInfo.LicenseInfoBuilder()
             .WithProductIdentifier(appSecrets.ProductCode)
@@ -52,7 +52,7 @@ public class Tests
             result = await manager.ActivateLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
             Assert.IsTrue(result?.Success == true);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Assert.Fail(ex.Message);
         }

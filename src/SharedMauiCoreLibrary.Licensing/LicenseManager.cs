@@ -40,15 +40,15 @@ namespace AndreasReitberger.Shared.Core.Licensing
         {
             LicenseServer = licenseServer;
         }
-        
+
         #endregion
 
         #region Methods
 
         public void Initialize(Uri licenseServer = null, int? port = null)
         {
-            if(licenseServer != null) LicenseServer = licenseServer;
-            if(port != null)
+            if (licenseServer != null) LicenseServer = licenseServer;
+            if (port != null)
             {
                 Port = port;
                 client = new RestClient($"{LicenseServer}:{Port}");
@@ -71,7 +71,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             {
                 case LicenseServerTarget.WooCommerce:
                     WooActivationResponse[] wooResult = await QueryWooCommerceAsync(WooSoftwareLicenseAction.Activate, license).ConfigureAwait(false);
-                    if(wooResult?.All(result => result.Status == "success" && (result.ErrorCode == "s100" || result.ErrorCode == "s101")) == true)
+                    if (wooResult?.All(result => result.Status == "success" && (result.ErrorCode == "s100" || result.ErrorCode == "s101")) == true)
                     {
                         result = new()
                         {
@@ -137,7 +137,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                     break;
                 case LicenseServerTarget.Envato:
                     EnvatoVerifyPurchaseCodeRespone envatoResult = await QueryEnvatoAsync(license).ConfigureAwait(false);
-                    if(envatoResult?.Item?.Id == license?.ProductCode)
+                    if (envatoResult?.Item?.Id == license?.ProductCode)
                     {
                         result = new()
                         {
@@ -210,7 +210,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             else OnError?.Invoke();
             return result;
         }
-        
+
         public async Task<ILicenseQueryResult> DeleteLicenseAsync(ILicenseInfo license, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null)
         {
             if (client == null) Initialize();
@@ -379,7 +379,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
         {
             try
             {
-                string command = string.Empty;        
+                string command = string.Empty;
                 Dictionary<string, string> parameters = new() {
                     { "woo_sl_action", action },
                     { "product_unique_id", license.ProductCode },
@@ -387,7 +387,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 if (license?.License != null)
                 {
                     parameters.Add(
-                    "licence_key",license.License);
+                    "licence_key", license.License);
                     if (action != WooSoftwareLicenseAction.DeleteKey)
                     {
                         parameters.Add("domain", license.Domain);
@@ -412,7 +412,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             try
             {
                 string command = string.Empty;
-                if (string.IsNullOrEmpty(AccessToken)) 
+                if (string.IsNullOrEmpty(AccessToken))
                     throw new InvalidDataException($"To query data from `Envato`, an `AccessToken` is mandatory. However this token was null or empty!");
                 Dictionary<string, string> headers = new() {
                     { "Authorization", $"Bearer {AccessToken}" },

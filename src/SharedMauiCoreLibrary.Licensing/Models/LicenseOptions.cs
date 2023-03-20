@@ -21,8 +21,8 @@ namespace AndreasReitberger.Shared.Core.Licensing.Models
 
         #region Ctor
         public LicenseOptions()
-		{
-		}
+        {
+        }
         #endregion
     }
 }
