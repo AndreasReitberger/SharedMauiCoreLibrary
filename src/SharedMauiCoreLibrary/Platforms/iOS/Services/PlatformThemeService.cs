@@ -20,7 +20,7 @@ namespace AndreasReitberger.Shared.Core.Services
                 if (UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) is UIView statusBar && statusBar.RespondsToSelector(
                 new ObjCRuntime.Selector("setBackgroundColor:"))) {
                     // change to your desired color 
-                    statusBar.BackgroundColor = Color.FromArgb("#7f6550").ToPlatform();
+                    statusBar.BackgroundColor = color.ToPlatform();
                 }
             }
         }
