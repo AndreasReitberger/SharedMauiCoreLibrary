@@ -1,5 +1,9 @@
 ﻿using AndreasReitberger.Shared.Core.Licensing;
 using AndreasReitberger.Shared.Core.Licensing.Enums;
+using AndreasReitberger.Shared.Core.Licensing.Interfaces;
+using AndreasReitberger.Shared.Core.Licensing.Models;
+using AndreasReitberger.Shared.Core.Utilities;
+using SharedMauiCoreLibrary.Test.Utilities;
 
 namespace SharedMauiCoreLibrary.Test;
 
@@ -12,25 +16,44 @@ public class Tests
     [SetUp]
     public void Setup()
     {
+        SecretAppSetting appSecrets = new SecretAppSettingReader().ReadSectionFromConfigurationRoot<SecretAppSetting>("CoreTests");
+
         manager = new LicenseManager.LicenseManagerConnectionBuilder()
-            .WithLicenseServer(serverAddress: licenseUri, port: null, https: true)
-            .WithOptions(new AndreasReitberger.Shared.Core.Licensing.Models.LicenseOptions()
+            .WithLicenseServer(serverAddress: licenseUri, port: null, https: true)       
+            .Build();
+        info = new LicenseInfo.LicenseInfoBuilder()
+            .WithProductIdentifier(appSecrets.ProductCode)
+            .WithLicense(appSecrets.License)
+            .WithDomain(appSecrets.Domain)
+            .WithOptions(new LicenseOptions()
             {
                 ProductName = "3D Print Cost Calculator",
-                ProductIdentifier = "AR-3DDKKV2",
+                ProductIdentifier = appSecrets.ProductCode,
                 LicenseCheckPattern = "^AR-((\\w{8})-){2}(\\w{8})$",
             })
             .Build();
-        info = new LicenseInfo()
-        {
-            Application = "AR-3DDKKV2",
-        };
     }
 
     [Test]
-    public async Task Test1()
+    public async Task TestLicenseServer()
     {
-        var result = await manager.CheckLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
-        Assert.Pass();
+        try
+        {
+            ILicenseQueryResult result = await manager.CheckLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
+            Assert.IsTrue(result?.Success == true);
+
+            result = await manager.DeactivateLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
+            Assert.IsTrue(result?.Success == true);
+
+            result = await manager.CheckLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
+            Assert.IsTrue(result?.Success == false);
+
+            result = await manager.ActivateLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
+            Assert.IsTrue(result?.Success == true);
+        }
+        catch(Exception ex)
+        {
+            Assert.Fail(ex.Message);
+        }
     }
 }

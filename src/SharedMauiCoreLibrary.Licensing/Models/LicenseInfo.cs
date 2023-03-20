@@ -9,13 +9,16 @@ namespace AndreasReitberger.Shared.Core.Licensing {
         Guid id;
 
         [ObservableProperty]
+        string domain;
+
+        [ObservableProperty]
         string license;
 
         [ObservableProperty]
         string owner;
 
         [ObservableProperty]
-        string application;
+        string productCode;
 
         [ObservableProperty]
         bool isValid;
@@ -25,6 +28,9 @@ namespace AndreasReitberger.Shared.Core.Licensing {
 
         [ObservableProperty]
         DateTimeOffset lastCheck;
+
+        [ObservableProperty]
+        ILicenseOptions options;
         #endregion
     }
 }

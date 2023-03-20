@@ -18,8 +18,8 @@ namespace AndreasReitberger.Shared.Core.Licensing
 
         #region Properties
 
-        [ObservableProperty]
-        string licenseCheckPattern; 
+        //[ObservableProperty]
+        //string licenseCheckPattern; 
 
         [ObservableProperty]
         Uri licenseServer;
@@ -27,8 +27,8 @@ namespace AndreasReitberger.Shared.Core.Licensing
         [ObservableProperty]
         int? port = null;
 
-        [ObservableProperty]
-        LicenseOptions? options;
+        //[ObservableProperty]
+        //LicenseOptions? options;
         #endregion
 
         #region Ctor
@@ -58,9 +58,9 @@ namespace AndreasReitberger.Shared.Core.Licensing
         {
             if (client == null) Initialize();
             LicenseQueryResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
-            if (Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(Options?.LicenseCheckPattern))
+            if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
-                bool licenseFormatValid = VerifyLicenseFormat(license, Options.LicenseCheckPattern);
+                bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
                 result.Message = "License format is invalid";
                 return result;
             }
@@ -102,9 +102,9 @@ namespace AndreasReitberger.Shared.Core.Licensing
         {
             if (client == null) Initialize();
             LicenseQueryResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
-            if (Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(Options?.LicenseCheckPattern))
+            if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
-                bool licenseFormatValid = VerifyLicenseFormat(license, Options.LicenseCheckPattern);
+                bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
                 result.Message = "License format is invalid";
                 return result;
             }
@@ -146,9 +146,9 @@ namespace AndreasReitberger.Shared.Core.Licensing
         {
             if (client == null) Initialize();
             LicenseQueryResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
-            if (Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(Options?.LicenseCheckPattern))
+            if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
-                bool licenseFormatValid = VerifyLicenseFormat(license, Options.LicenseCheckPattern);
+                bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
                 result.Message = "License format is invalid";
                 return result;
             }
@@ -286,12 +286,12 @@ namespace AndreasReitberger.Shared.Core.Licensing
 
             Dictionary<string, string> parameters = new() {
                 { "woo_sl_action", action },
-                { "product_unique_id", license.Application },
+                { "product_unique_id", license.ProductCode },
                 { "licence_key", license.License },
             };
             if (action != WooSoftwareLicenseAction.DeleteKey)
             {
-                parameters.Add("domain", license.Id.ToString());
+                parameters.Add("domain", license.Domain);
             }
             string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
 
@@ -311,7 +311,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             string command = string.Empty;        
             Dictionary<string, string> parameters = new() {
                 { "woo_sl_action", action },
-                { "product_unique_id", license.Application },
+                { "product_unique_id", license.ProductCode },
             };
             if (license?.License != null)
             {
@@ -319,7 +319,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 "licence_key",license.License);
                 if (action != WooSoftwareLicenseAction.DeleteKey)
                 {
-                    parameters.Add("domain", license.Id.ToString());
+                    parameters.Add("domain", license.Domain);
                 }
             }
             string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
@@ -337,6 +337,6 @@ namespace AndreasReitberger.Shared.Core.Licensing
 
     #endregion
 
-        #endregion
+    #endregion
     }
 }

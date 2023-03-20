@@ -32,19 +32,6 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 _manager.Port = port;
                 return this;
             }
-
-            public LicenseManagerConnectionBuilder WithLicenseCheckPattern(string licenseCheckPattern)
-            {
-                _manager.LicenseCheckPattern = licenseCheckPattern;
-                return this;
-            }
-
-            public LicenseManagerConnectionBuilder WithOptions(LicenseOptions options)
-            {
-                _manager.Options = options;
-                return this;
-            }
-
             #endregion
         }
     }

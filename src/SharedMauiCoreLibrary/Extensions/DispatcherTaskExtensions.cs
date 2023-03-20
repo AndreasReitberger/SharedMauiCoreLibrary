@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AndreasReitberger.Shared.Core.Extensions
+﻿namespace AndreasReitberger.Shared.Core.Extensions
 {
     // Source: https://github.com/microsoft/Windows-task-snippets/blob/master/tasks/UI-thread-task-await-from-background-thread.md
     // Modifed: Yes
