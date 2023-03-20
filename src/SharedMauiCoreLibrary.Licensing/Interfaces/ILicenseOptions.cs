@@ -4,9 +4,9 @@
     {
         #region Properties
         public bool VerifyLicenseFormat { get; set; }
-        public string ProductName { get; set; } 
-        public string ProductIdentifier { get; set; } 
-        public string LicenseCheckPattern { get; set; } 
+        public string ProductName { get; set; }
+        public string ProductIdentifier { get; set; }
+        public string LicenseCheckPattern { get; set; }
         #endregion
     }
 }

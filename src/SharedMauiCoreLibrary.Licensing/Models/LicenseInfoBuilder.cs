@@ -34,7 +34,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 _license.Options = options;
                 return this;
             }
-            
+
             public LicenseInfoBuilder WithLicense(string license)
             {
                 _license.License = license;

@@ -1,5 +1,7 @@
-﻿namespace AndreasReitberger.Shared.Core.Licensing.Interfaces {
-    public interface ILicenseInfo {
+﻿namespace AndreasReitberger.Shared.Core.Licensing.Interfaces
+{
+    public interface ILicenseInfo
+    {
 
         #region Properties
         Guid Id { get; set; }
