@@ -12,11 +12,12 @@ public class Tests
     string licenseUri = "andreas-reitberger.de";
     LicenseManager manager;
     LicenseInfo info;
+    SecretAppSetting appSecrets;
 
     [SetUp]
     public void Setup()
     {
-        SecretAppSetting appSecrets = new SecretAppSettingReader().ReadSectionFromConfigurationRoot<SecretAppSetting>("CoreTests");
+        appSecrets = new SecretAppSettingReader().ReadSectionFromConfigurationRoot<SecretAppSetting>("CoreTests");
 
         manager = new LicenseManager.LicenseManagerConnectionBuilder()
             .WithLicenseServer(serverAddress: licenseUri, port: null, https: true)       
@@ -52,6 +53,35 @@ public class Tests
             Assert.IsTrue(result?.Success == true);
         }
         catch(Exception ex)
+        {
+            Assert.Fail(ex.Message);
+        }
+    }
+
+    [Test]
+    public async Task TestEnvatoLicenseCheck()
+    {
+        try
+        {
+            manager = new LicenseManager.LicenseManagerConnectionBuilder()
+            .WithLicenseServer(serverAddress: "api.envato.com/v3/market/author/sale", port: null, https: true)
+            .WithAccessToken(appSecrets.AccessToken)
+            .Build();
+            info = new LicenseInfo.LicenseInfoBuilder()
+                .WithProductIdentifier(appSecrets.ItemId)
+                .WithLicense(appSecrets.PurchaseCode)
+                .WithOptions(new LicenseOptions()
+                {
+                    ProductName = "3D Print Cost Calculator",
+                    ProductIdentifier = appSecrets.ItemId,
+                    LicenseCheckPattern = "^(\\w{8})-((\\w{4})-){3}(\\w{12})$",
+                })
+                .Build();
+
+            ILicenseQueryResult result = await manager.CheckLicenseAsync(license: info, LicenseServerTarget.Envato);
+            Assert.IsTrue(result?.Success == true);
+        }
+        catch (Exception ex)
         {
             Assert.Fail(ex.Message);
         }

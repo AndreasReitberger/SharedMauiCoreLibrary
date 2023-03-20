@@ -32,6 +32,11 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 _manager.Port = port;
                 return this;
             }
+            public LicenseManagerConnectionBuilder WithAccessToken(string accessToken)
+            {
+                _manager.AccessToken = accessToken;
+                return this;
+            }
             #endregion
         }
     }
