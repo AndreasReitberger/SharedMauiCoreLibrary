@@ -6,6 +6,7 @@ namespace AndreasReitberger.Shared.Core.Licensing.Interfaces
     {
         #region Properties
         Uri LicenseServer { get; set; }
+        ILicenseInfo CurrentLicense { get; set; }
 
         #endregion
 
