@@ -1,7 +1,7 @@
 ﻿using AndreasReitberger.Shared.Core.Licensing.Enums;
 using AndreasReitberger.Shared.Core.Licensing.Envato;
+using AndreasReitberger.Shared.Core.Licensing.Events;
 using AndreasReitberger.Shared.Core.Licensing.Interfaces;
-using AndreasReitberger.Shared.Core.Licensing.Models;
 using AndreasReitberger.Shared.Core.Licensing.WooCommerce;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
@@ -99,6 +99,14 @@ namespace AndreasReitberger.Shared.Core.Licensing
             }
             if (result.Success) OnSuccess?.Invoke();
             else OnError?.Invoke();
+
+            OnLicenseChanged(new LicenseChangedEventArgs()
+            {
+                Message = result.Message,
+                CheckDate = result.TimeStamp,
+                Valid = result.Success,
+                LicenseKey = license.License,
+            });
             return result;
         }
 
@@ -163,6 +171,13 @@ namespace AndreasReitberger.Shared.Core.Licensing
             }
             if (result.Success) OnSuccess?.Invoke();
             else OnError?.Invoke();
+            OnLicenseChanged(new LicenseChangedEventArgs()
+            {
+                Message = result.Message,
+                CheckDate = result.TimeStamp,
+                Valid = result.Success,
+                LicenseKey = license.License,
+            });
             return result;
         }
 
@@ -208,6 +223,13 @@ namespace AndreasReitberger.Shared.Core.Licensing
             }
             if (result.Success) OnSuccess?.Invoke();
             else OnError?.Invoke();
+            OnLicenseChanged(new LicenseChangedEventArgs()
+            {
+                Message = result.Message,
+                CheckDate = result.TimeStamp,
+                Valid = false,
+                LicenseKey = license.License,
+            });
             return result;
         }
 
@@ -253,6 +275,13 @@ namespace AndreasReitberger.Shared.Core.Licensing
             }
             if (result.Success) OnSuccess?.Invoke();
             else OnError?.Invoke();
+            OnLicenseChanged(new LicenseChangedEventArgs()
+            {
+                Message = result.Message,
+                CheckDate = result.TimeStamp,
+                Valid = false,
+                LicenseKey = license.License,
+            });
             return result;
         }
 

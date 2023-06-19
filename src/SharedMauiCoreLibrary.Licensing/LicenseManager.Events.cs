@@ -1,4 +1,5 @@
-﻿using AndreasReitberger.Shared.Core.Licensing.Interfaces;
+﻿using AndreasReitberger.Shared.Core.Licensing.Events;
+using AndreasReitberger.Shared.Core.Licensing.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AndreasReitberger.Shared.Core.Licensing
@@ -18,6 +19,12 @@ namespace AndreasReitberger.Shared.Core.Licensing
         protected virtual void OnError(UnhandledExceptionEventArgs e)
         {
             Error?.Invoke(this, e);
+        }
+
+        public event EventHandler LicenseChanged;
+        protected virtual void OnLicenseChanged(LicenseChangedEventArgs e)
+        {
+            LicenseChanged?.Invoke(this, e);
         }
         #endregion
     }

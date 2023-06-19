@@ -5,9 +5,12 @@ namespace AndreasReitberger.Shared.Core
 {
     public partial class ViewModelBase : ObservableObject, IViewModelBase
     {
-        #region Dispatcher
+        #region Dependency Injection
         [ObservableProperty]
         IDispatcher dispatcher;
+
+        [ObservableProperty]
+        IServiceProvider provider;
         #endregion
 
         #region Properties
@@ -48,6 +51,11 @@ namespace AndreasReitberger.Shared.Core
         public ViewModelBase(IDispatcher dispatcher)
         {
             Dispatcher = dispatcher;
+        }
+        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider)
+        {
+            Dispatcher = dispatcher;
+            Provider = provider;
         }
         #endregion
 

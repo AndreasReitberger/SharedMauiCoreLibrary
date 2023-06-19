@@ -34,5 +34,12 @@ namespace AndreasReitberger.Shared.Core.Licensing
         [ObservableProperty]
         ILicenseOptions options;
         #endregion
+
+        #region Ctor
+        public LicenseInfo()
+        {
+            Id = Guid.NewGuid();
+        }
+        #endregion
     }
 }
