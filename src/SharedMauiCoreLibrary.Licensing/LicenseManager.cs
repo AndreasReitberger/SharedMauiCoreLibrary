@@ -61,6 +61,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
         {
             if (client == null) Initialize();
             LicenseQueryResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
+            if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
                 bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
@@ -114,6 +115,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
         {
             if (client == null) Initialize();
             LicenseQueryResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
+            if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
                 bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
@@ -185,6 +187,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
         {
             if (client == null) Initialize();
             LicenseQueryResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
+            if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
                 bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
@@ -237,6 +240,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
         {
             if (client == null) Initialize();
             LicenseQueryResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
+            if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
                 bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
@@ -289,6 +293,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
         {
             if (client == null) Initialize();
             ApplicationVersionResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
+            if (license == null) return result;
             switch (target)
             {
                 case LicenseServerTarget.WooCommerce:
