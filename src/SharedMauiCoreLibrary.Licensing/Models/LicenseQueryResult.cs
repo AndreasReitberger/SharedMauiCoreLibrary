@@ -8,7 +8,10 @@ namespace AndreasReitberger.Shared.Core.Licensing
         #region Properties
 
         [ObservableProperty]
-        bool success;
+        bool success = false;
+
+        [ObservableProperty]
+        bool valid = false;
 
         [ObservableProperty]
         DateTimeOffset timeStamp;
