@@ -114,7 +114,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
         public async Task<ILicenseQueryResult> CheckLicenseAsync(ILicenseInfo license, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null)
         {
             if (client == null) Initialize();
-            LicenseQueryResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
+            LicenseQueryResult result = new() { Success = false, Valid = false, TimeStamp = DateTimeOffset.Now };
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
@@ -131,6 +131,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                         result = new()
                         {
                             Success = true,
+                            Valid = true,
                             Message = string.Join("|", wooResult?.Select(result => result.ErrorMessage)),
                             TimeStamp = DateTimeOffset.Now,
                         };
@@ -140,6 +141,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                         result = new()
                         {
                             Success = false,
+                            Valid = false,
                             Message = string.Join("|", wooResult?.Select(result => result.ErrorMessage)),
                             TimeStamp = DateTimeOffset.Now,
                         };
@@ -177,7 +179,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             {
                 Message = result.Message,
                 CheckDate = result.TimeStamp,
-                Valid = result.Success,
+                Valid = result.Valid,
                 LicenseKey = license.License,
             });
             return result;
@@ -186,7 +188,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
         public async Task<ILicenseQueryResult> DeactivateLicenseAsync(ILicenseInfo license, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null)
         {
             if (client == null) Initialize();
-            LicenseQueryResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
+            LicenseQueryResult result = new() { Success = false, Valid = false, TimeStamp = DateTimeOffset.Now };
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
@@ -203,6 +205,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                         result = new()
                         {
                             Success = true,
+                            Valid = true,
                             Message = string.Join("|", wooResult?.Select(result => result.ErrorMessage)),
                             TimeStamp = DateTimeOffset.Now,
                         };
@@ -212,6 +215,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                         result = new()
                         {
                             Success = false,
+                            Valid = false,
                             Message = string.Join("|", wooResult?.Select(result => result.ErrorMessage)),
                             TimeStamp = DateTimeOffset.Now,
                         };
@@ -224,7 +228,11 @@ namespace AndreasReitberger.Shared.Core.Licensing
                     throw new NotImplementedException($"The features for {target} aren' implemented yet!");
                     //break;
             }
-            if (result.Success) OnSuccess?.Invoke();
+            if (result.Success)
+            { 
+                OnSuccess?.Invoke();
+                CurrentLicense = null;
+            }
             else OnError?.Invoke();
             OnLicenseChanged(new LicenseChangedEventArgs()
             {
@@ -239,7 +247,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
         public async Task<ILicenseQueryResult> DeleteLicenseAsync(ILicenseInfo license, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null)
         {
             if (client == null) Initialize();
-            LicenseQueryResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
+            LicenseQueryResult result = new() { Success = false, Valid = false, TimeStamp = DateTimeOffset.Now };
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
@@ -277,7 +285,11 @@ namespace AndreasReitberger.Shared.Core.Licensing
                     throw new NotImplementedException($"The features for {target} aren' implemented yet!");
                     //break;
             }
-            if (result.Success) OnSuccess?.Invoke();
+            if (result.Success)
+            {
+                OnSuccess?.Invoke();
+                CurrentLicense = null;
+            }
             else OnError?.Invoke();
             OnLicenseChanged(new LicenseChangedEventArgs()
             {
