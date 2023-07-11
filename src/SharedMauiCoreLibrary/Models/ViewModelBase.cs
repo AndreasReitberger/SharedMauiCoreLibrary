@@ -22,6 +22,12 @@ namespace AndreasReitberger.Shared.Core
 
         [ObservableProperty]
         int isBusyCounter = 0;
+        partial void OnIsBusyCounterChanged(int value)
+        {
+            // Avoid negative values
+            if(value < 0) IsBusyCounter = 0;
+            IsBusy = value > 0;
+        }
 
         [ObservableProperty]
         bool isReady = false;
@@ -30,7 +36,7 @@ namespace AndreasReitberger.Shared.Core
         bool isStartUp = true;
 
         [ObservableProperty]
-        bool _isStartingUp = false;
+        bool isStartingUp = false;
 
         [ObservableProperty]
         bool isRefreshing = false;
