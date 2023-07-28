@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\..\common.props" />
 
 	<PropertyGroup>
@@ -21,19 +21,30 @@
 		<Title>MAUI-Core Shared Licensing Library</Title>
 		<Authors>Andreas Reitberger</Authors>
 		<Description>A libray used for .NET MAUI projects to manage licenses.</Description>
+		<PackageReadmeFile>README_Licensing.md</PackageReadmeFile>
 
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <Compile Remove="Platforms\Android\Utilities\**" />
+	  <Compile Remove="Services\**" />
+	  <Compile Remove="Utilities\**" />
 	  <EmbeddedResource Remove="Platforms\Android\Utilities\**" />
+	  <EmbeddedResource Remove="Services\**" />
+	  <EmbeddedResource Remove="Utilities\**" />
 	  <MauiCss Remove="Platforms\Android\Utilities\**" />
+	  <MauiCss Remove="Services\**" />
+	  <MauiCss Remove="Utilities\**" />
 	  <MauiXaml Remove="Platforms\Android\Utilities\**" />
+	  <MauiXaml Remove="Services\**" />
+	  <MauiXaml Remove="Utilities\**" />
 	  <None Remove="Platforms\Android\Utilities\**" />
+	  <None Remove="Services\**" />
+	  <None Remove="Utilities\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\README_Licensing.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -41,11 +52,6 @@
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="RCoreSharp" Version="1.0.9" />
 	  <PackageReference Include="RestSharp" Version="110.2.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Services\" />
-	  <Folder Include="Utilities\" />
 	</ItemGroup>
 
 </Project>
