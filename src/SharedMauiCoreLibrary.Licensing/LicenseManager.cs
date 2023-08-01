@@ -77,6 +77,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                         result = new()
                         {
                             Success = true,
+                            Valid = true,
                             Message = string.Join("|", wooResult?.Select(result => result.ErrorMessage)),
                             TimeStamp = DateTimeOffset.Now,
                         };
@@ -86,6 +87,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                         result = new()
                         {
                             Success = false,
+                            Valid = false,
                             Message = string.Join("|", wooResult?.Select(result => result.ErrorMessage)),
                             TimeStamp = DateTimeOffset.Now,
                         };
@@ -101,11 +103,15 @@ namespace AndreasReitberger.Shared.Core.Licensing
             if (result.Success) OnSuccess?.Invoke();
             else OnError?.Invoke();
 
+            // Update the license
+            license.IsValid = result.Valid;
+            license.IsActive = result.Valid;
+
             OnLicenseChanged(new LicenseChangedEventArgs()
             {
                 Message = result.Message,
                 CheckDate = result.TimeStamp,
-                Valid = result.Success,
+                Valid = result.Valid,
                 LicenseKey = license.License,
             });
             return result;
@@ -154,6 +160,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                         result = new()
                         {
                             Success = true,
+                            Valid = true,
                             Message = "",
                             TimeStamp = DateTimeOffset.Now,
                         };
@@ -163,6 +170,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                         result = new()
                         {
                             Success = false,
+                            Valid = false,
                             Message = envatoResult == null ? "Result was null" : $"The ItemId's don't match! Got: {envatoResult?.Item?.Id} Expected: {license?.ProductCode}",
                             TimeStamp = DateTimeOffset.Now,
                         };
@@ -175,6 +183,11 @@ namespace AndreasReitberger.Shared.Core.Licensing
             }
             if (result.Success) OnSuccess?.Invoke();
             else OnError?.Invoke();
+
+            // Update the license
+            license.IsValid = result.Valid;
+            license.IsActive = result.Valid;
+
             OnLicenseChanged(new LicenseChangedEventArgs()
             {
                 Message = result.Message,
@@ -205,7 +218,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                         result = new()
                         {
                             Success = true,
-                            Valid = true,
+                            Valid = false,
                             Message = string.Join("|", wooResult?.Select(result => result.ErrorMessage)),
                             TimeStamp = DateTimeOffset.Now,
                         };
@@ -234,6 +247,11 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 CurrentLicense = null;
             }
             else OnError?.Invoke();
+
+            // Update the license
+            license.IsValid = result.Valid;
+            license.IsActive = result.Valid;
+
             OnLicenseChanged(new LicenseChangedEventArgs()
             {
                 Message = result.Message,
@@ -264,6 +282,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                         result = new()
                         {
                             Success = true,
+                            Valid = false,
                             Message = string.Join("|", wooResult?.Select(result => result.ErrorMessage)),
                             TimeStamp = DateTimeOffset.Now,
                         };
@@ -273,6 +292,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                         result = new()
                         {
                             Success = false,
+                            Valid = false,
                             Message = string.Join("|", wooResult?.Select(result => result.ErrorMessage)),
                             TimeStamp = DateTimeOffset.Now,
                         };
@@ -291,6 +311,11 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 CurrentLicense = null;
             }
             else OnError?.Invoke();
+
+            // Update the license
+            license.IsValid = result.Valid;
+            license.IsActive = result.Valid;
+
             OnLicenseChanged(new LicenseChangedEventArgs()
             {
                 Message = result.Message,
@@ -344,7 +369,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
         public bool VerifyLicenseFormat(ILicenseInfo license, string checkPattern)
         {
             if (string.IsNullOrEmpty(license?.License)) return false;
-            Regex check = new Regex(checkPattern);
+            Regex check = new(checkPattern);
             return check.IsMatch(license?.License);
         }
 
