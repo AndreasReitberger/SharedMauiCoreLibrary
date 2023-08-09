@@ -1,7 +1,7 @@
 
 <Project>
     <PropertyGroup>
-        <Version>1.0.14</Version>
+        <Version>1.0.15</Version>
         <!--<PackageIcon>logo_128.png</PackageIcon>-->
         <NeutralLanguage>en</NeutralLanguage>
         <PackageProjectUrl>https://github.com/AndreasReitberger/SharedMauiCoreLibrary</PackageProjectUrl>
