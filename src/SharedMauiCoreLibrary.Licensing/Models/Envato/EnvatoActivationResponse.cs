@@ -13,7 +13,7 @@ namespace AndreasReitberger.Shared.Core.Licensing.Envato
     ///"timestamp": 1473192358
     ///"errorcode": 101
     ///"errrormessage": Invalid license key...
-    ///"sig": "secret=null&activated=true&instance=1473192358&message=2 out of 5 activations remaining&timestamp=1473192358"
+    ///"sig": "secret=null; activated=true; instance=1473192358; message=2 out of 5 activations remaining; timestamp=1473192358"
     /// </summary>
     public partial class EnvatoActivationResponse : ObservableObject, IActivationResponse
     {

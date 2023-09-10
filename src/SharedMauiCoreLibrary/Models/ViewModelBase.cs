@@ -18,6 +18,18 @@ namespace AndreasReitberger.Shared.Core
         bool isLoading = false;
 
         [ObservableProperty]
+        bool isLoadingData = false;
+
+        [ObservableProperty]
+        int isLoadingDataCounter = 0;
+        partial void OnIsLoadingDataCounterChanged(int value)
+        {
+            // Avoid negative values
+            if (value < 0) IsLoadingDataCounter = 0;
+            IsLoadingData = value > 0;
+        }
+
+        [ObservableProperty]
         bool isBusy = false;
 
         [ObservableProperty]
