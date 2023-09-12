@@ -28,10 +28,10 @@ namespace AndreasReitberger.Shared.Core.Licensing
 #nullable enable
         [ObservableProperty]
         string? accessToken;
-#nullable disable
 
         [ObservableProperty]
         ILicenseInfo? currentLicense;
+#nullable disable
         #endregion
 
         #region Ctor

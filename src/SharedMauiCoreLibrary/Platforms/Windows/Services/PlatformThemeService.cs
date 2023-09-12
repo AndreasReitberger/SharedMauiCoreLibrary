@@ -8,20 +8,19 @@ namespace AndreasReitberger.Shared.Core.Services
 {
     public partial class PlatformThemeService
     {
-        AppWindow m_AppWindow;
+        //AppWindow m_AppWindow;
         public partial void SetStatusBarColor(Color color)
         {
             // https://learn.microsoft.com/en-us/windows/apps/develop/title-bar?tabs=wasdk
             if (AppWindowTitleBar.IsCustomizationSupported())
             {
                 // Not supported on WinUI3
-                /*
+                /* 
                 if (m_AppWindow == null)
                 {
                     m_AppWindow = GetAppWindowForCurrentWindow();
                 }
                 AppWindowTitleBar titleBar = m_AppWindow.TitleBar;
-
                 titleBar.BackgroundColor = color.ToWindowsColor();
                 */
             }
