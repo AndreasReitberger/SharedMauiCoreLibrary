@@ -242,7 +242,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                     //break;
             }
             if (result.Success)
-            { 
+            {
                 OnSuccess?.Invoke();
                 CurrentLicense = null;
             }
