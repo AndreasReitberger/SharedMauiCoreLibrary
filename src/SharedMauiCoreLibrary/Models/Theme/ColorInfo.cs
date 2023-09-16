@@ -18,7 +18,7 @@ namespace AndreasReitberger.Shared.Core.Theme
         Color color;
         partial void OnColorChanged(Color value)
         {
-            if(string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(Name))
                 Name = value?.ToArgbHex();
         }
 

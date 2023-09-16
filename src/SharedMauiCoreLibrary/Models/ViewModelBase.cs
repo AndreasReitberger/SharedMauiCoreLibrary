@@ -37,7 +37,7 @@ namespace AndreasReitberger.Shared.Core
         partial void OnIsBusyCounterChanged(int value)
         {
             // Avoid negative values
-            if(value < 0) IsBusyCounter = 0;
+            if (value < 0) IsBusyCounter = 0;
             IsBusy = value > 0;
         }
 
