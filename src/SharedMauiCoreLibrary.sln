@@ -8,11 +8,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{137C492A-7E0D-4B3C-8E99-F0F398DA7667}"
 	ProjectSection(SolutionItems) = preProject
 		..\common.props = ..\common.props
+		nuget.config = nuget.config
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedMauiCoreLibrary.Licensing", "SharedMauiCoreLibrary.Licensing\SharedMauiCoreLibrary.Licensing.csproj", "{AD6424CD-DC6A-43C5-8439-1EE6FF85FFDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedMauiCoreLibrary.Test", "SharedMauiCoreLibrary.Test\SharedMauiCoreLibrary.Test.csproj", "{CBC11BD4-540F-453D-94AB-29A6B68714A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedMauiCoreLibrary.Test", "SharedMauiCoreLibrary.Test\SharedMauiCoreLibrary.Test.csproj", "{CBC11BD4-540F-453D-94AB-29A6B68714A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
