@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\..\common.props" />
 
 	<PropertyGroup>
@@ -50,7 +50,7 @@
 	<ItemGroup>
 	  <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 	  <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="RestSharp" Version="110.2.0" />
 	</ItemGroup>
