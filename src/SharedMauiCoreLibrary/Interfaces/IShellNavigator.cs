@@ -3,18 +3,18 @@
     public interface IShellNavigator
     {
         #region Properties
-        string CurrentRoute { get; }
-        string PreviousRoute { get; }
-        string RootPage { get; }
-        List<string> AvailableEntryPages { get; }
+        public string CurrentRoute { get; }
+        public string PreviousRoute { get; }
+        public string RootPage { get; }
+        public List<string> AvailableEntryPages { get; }
         #endregion
 
         #region Methods
 
-        Task<bool> GoToAsync(string target, bool flyoutIsPresented = false, int delay = -1, bool animate = true);
-        Task<bool> GoToAsync(string target, Dictionary<string, object> parameters = null, bool flyoutIsPresented = false, int delay = -1, bool animate = true);
-        Task GoBackAsync(bool flyoutIsPresented = false, int delay = -1, bool animate = true, bool confirm = false);
-        Task GoBackAsync(Dictionary<string, object> parameters = null, bool flyoutIsPresented = false, int delay = -1, bool animate = true, bool confirm = false);
+        public Task<bool> GoToAsync(IDispatcher dispatcher, string target, bool flyoutIsPresented = false, int delay = -1, bool animate = true);
+        public Task<bool> GoToAsync(IDispatcher dispatcher, string target, Dictionary<string, object> parameters = null, bool flyoutIsPresented = false, int delay = -1, bool animate = true);
+        public Task GoBackAsync(IDispatcher dispatcher, bool flyoutIsPresented = false, int delay = -1, bool animate = true, bool confirm = false);
+        public Task GoBackAsync(IDispatcher dispatcher, Dictionary<string, object> parameters = null, bool flyoutIsPresented = false, int delay = -1, bool animate = true, bool confirm = false);
         bool IsCurrentPathRoot();
         void RegisterRoutes();
         #endregion

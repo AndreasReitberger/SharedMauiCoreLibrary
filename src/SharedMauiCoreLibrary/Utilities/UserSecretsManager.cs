@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Reflection;
 
@@ -18,8 +17,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
             {
                 lock (Lock)
                 {
-                    if (_instance == null)
-                        _instance = new UserSecretsManager();
+                    _instance ??= new UserSecretsManager();
                 }
                 return _instance;
             }

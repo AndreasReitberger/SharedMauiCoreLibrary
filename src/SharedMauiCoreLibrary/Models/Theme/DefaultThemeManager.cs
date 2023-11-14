@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AndreasReitberger.Shared.Core.Models.Theme
 {
-    public partial class DefaultThemeManager : ObservableObject
+    public partial class DefaultThemeManager : ObservableObject//, IThemeManager
     {
 
         #region Instance
@@ -15,12 +15,10 @@ namespace AndreasReitberger.Shared.Core.Models.Theme
             {
                 lock (Lock)
                 {
-                    if (_instance == null)
-                        _instance = new DefaultThemeManager();
+                    _instance ??= new DefaultThemeManager();
                 }
                 return _instance;
             }
-
             set
             {
                 if (_instance == value) return;

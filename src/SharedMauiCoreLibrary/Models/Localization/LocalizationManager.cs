@@ -14,8 +14,7 @@ namespace AndreasReitberger.Shared.Core.Localization
             {
                 lock (Lock)
                 {
-                    if (_instance == null)
-                        _instance = new();
+                    _instance ??= new();
                 }
                 return _instance;
             }

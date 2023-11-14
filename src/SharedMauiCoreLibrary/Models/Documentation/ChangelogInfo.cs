@@ -2,6 +2,7 @@
 
 namespace AndreasReitberger.Shared.Core.Documentation
 {
+    [Obsolete("Use ChangeInfo instead")]
     public class ChangelogInfo
     {
         #region Properties
