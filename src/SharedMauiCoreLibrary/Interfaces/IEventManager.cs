@@ -6,6 +6,9 @@ namespace AndreasReitberger.Shared.Core.Interfaces
     public interface IEventManager
     {
         #region Properties
+#nullable enable
+        IDispatcher? Dispatcher { get; set; }
+#nullable disable
         bool AllowCrashAnalyticsData { get; set; }
         bool AllowAnalyticsData { get; set; }
         bool HasCriticalError { get; set; }
@@ -14,12 +17,14 @@ namespace AndreasReitberger.Shared.Core.Interfaces
         #endregion
 
         #region Methods
-        void LogError(Exception exception, bool forceReport = false);
-        void LogError(AppErrorEvent error, bool forceReport = false);
-        void LogInfo(AppInfoEvent info, bool forceReport = false);
-        void LogWarning(AppWarningEvent warning, bool forceReport = false);
-        void LogEvent(AppEvent appEvent, bool forceReport = false);
-        void Clear();
+#nullable enable
+        void LogError(Exception exception, bool forceReport = false, IDispatcher? dispatcher = null);
+        void LogError(AppErrorEvent error, bool forceReport = false, IDispatcher? dispatcher = null);
+        void LogInfo(AppInfoEvent info, bool forceReport = false, IDispatcher? dispatcher = null);
+        void LogWarning(AppWarningEvent warning, bool forceReport = false, IDispatcher? dispatcher = null);
+        void LogEvent(AppEvent appEvent, bool forceReport = false, IDispatcher? dispatcher = null);
+        void Clear(IDispatcher? dispatcher = null);
+#nullable disable
         #endregion
     }
 }
