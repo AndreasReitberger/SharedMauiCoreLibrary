@@ -21,7 +21,7 @@ namespace AndreasReitberger.Shared.Core.Licensing.Interfaces
         Task<IApplicationVersionResult> GetLatestApplicationVersionAsync(ILicenseInfo license, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null);
         #endregion
 
-        #region MyRegion
+        #region Events
         event EventHandler Error;
         event EventHandler LicenseChanged;
         #endregion
