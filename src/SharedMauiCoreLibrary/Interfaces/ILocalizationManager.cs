@@ -12,13 +12,19 @@ namespace AndreasReitberger.Shared.Core.Interfaces
         #endregion
 
         #region Methods
-        //Uri GetImageUri(string cultureCode);
+        Uri GetImageUri(string cultureCode);
+        void InitialLanguage(string cultureCode);
         LocalizationInfo GetLocalizationInfoBasedOnCode(string cultureCode);
         void SetLanguages(List<LocalizationInfo> languages);
         void Change(LocalizationInfo info);
         void Change(LocalizationInfo info, Action<LocalizationInfo> action);
         bool Change(LocalizationInfo info, Func<LocalizationInfo, bool> function);
         //void ChangeOnTheFly(LocalizationInfo info);
+        #endregion
+
+        #region Events
+        //event EventHandler Error;
+        event EventHandler LanguageChanged;
         #endregion
     }
 }
