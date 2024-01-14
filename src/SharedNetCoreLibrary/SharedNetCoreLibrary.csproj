@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\common.props" />
+  <PropertyGroup>
+	  <PackageTags>Utilites, Core, Library, Helper, C#, dotnet</PackageTags>
+	  <RootNamespace>AndreasReitberger.Shared.Core</RootNamespace>
+	  <Title>NET-Core Shared Library</Title>
+	  <Description>A core libray used for our .NET libraries.</Description>
+
+	  <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="RCoreSharp" Version="1.0.9" />
+	</ItemGroup>
+
+</Project>
