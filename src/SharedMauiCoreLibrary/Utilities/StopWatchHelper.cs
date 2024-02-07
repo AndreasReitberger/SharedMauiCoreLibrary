@@ -23,7 +23,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
             string msg = $"Performance: Start => {methodName}: {DateTime.Now})";
             await dispatcher.DispatchAsync(() =>
             {
-                if(log) eventManager?.LogInfo(new EventLogger.AppInfoEvent() { Message = msg, SourceName = $"{nameof(StopWatchHelper)}.{nameof(StartAsync)}" });
+                if (log) eventManager?.LogInfo(new EventLogger.AppInfoEvent() { Message = msg, SourceName = $"{nameof(StopWatchHelper)}.{nameof(StartAsync)}" });
                 Debug.WriteLine(msg);
             });
         }
