@@ -67,7 +67,7 @@ namespace AndreasReitberger.Shared.Core
         #endregion
 
         #region Ctor
-        public ViewModelBase() : base() { } 
+        public ViewModelBase() : base() { }
         public ViewModelBase(IDispatcher dispatcher) : base()
         {
             Dispatcher = dispatcher;

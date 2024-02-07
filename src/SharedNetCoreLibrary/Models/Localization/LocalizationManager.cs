@@ -39,7 +39,7 @@ namespace AndreasReitberger.Shared.Core.Localization
 
         #region Properties
         [ObservableProperty]
-        string baseFlagImageUri  = string.Empty;
+        string baseFlagImageUri = string.Empty;
         [ObservableProperty]
         List<LocalizationInfo> languages = [];
         [ObservableProperty]
@@ -81,9 +81,9 @@ namespace AndreasReitberger.Shared.Core.Localization
         }
 
         public void SetLanguages(List<LocalizationInfo> languages) => Languages = languages ?? [];
-        
+
         public LocalizationInfo GetLocalizationInfoBasedOnCode(string cultureCode) => Languages.FirstOrDefault(x => x.Code == cultureCode) ?? null;
-        
+
         public Uri GetImageUri(string cultureCode)
         {
             Uri image = string.IsNullOrEmpty(BaseFlagImageUri) ?
