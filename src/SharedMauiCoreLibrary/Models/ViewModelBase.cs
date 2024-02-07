@@ -3,17 +3,19 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AndreasReitberger.Shared.Core
 {
-    public partial class ViewModelBase : ObservableObject, IViewModelBase
+    public partial class ViewModelBase : ViewModelCoreBase, IViewModelBase
     {
         #region Dependency Injection
         [ObservableProperty]
         IDispatcher dispatcher;
-
+        /*
         [ObservableProperty]
         IServiceProvider provider;
+        */
         #endregion
 
         #region Properties
+        /*
         [ObservableProperty]
         bool isLoading = false;
 
@@ -61,16 +63,16 @@ namespace AndreasReitberger.Shared.Core
 
         [ObservableProperty]
         bool isPortrait = true;
-
+        */
         #endregion
 
         #region Ctor
-        public ViewModelBase() { }
-        public ViewModelBase(IDispatcher dispatcher)
+        public ViewModelBase() : base() { } 
+        public ViewModelBase(IDispatcher dispatcher) : base()
         {
             Dispatcher = dispatcher;
         }
-        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider)
+        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider) : base(provider: provider)
         {
             Dispatcher = dispatcher;
             Provider = provider;

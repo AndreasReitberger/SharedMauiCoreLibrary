@@ -41,16 +41,16 @@ public class Tests
         try
         {
             ILicenseQueryResult result = await manager.CheckLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
-            Assert.IsTrue(result?.Success == true);
+            Assert.That(result?.Success == true);
 
             result = await manager.DeactivateLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
-            Assert.IsTrue(result?.Success == true);
+            Assert.That(result?.Success == true);
 
             result = await manager.CheckLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
-            Assert.IsTrue(result?.Success == false);
+            Assert.That(result?.Success == false);
 
             result = await manager.ActivateLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
-            Assert.IsTrue(result?.Success == true);
+            Assert.That(result?.Success == true);
         }
         catch (Exception ex)
         {
@@ -79,7 +79,7 @@ public class Tests
                 .Build();
 
             ILicenseQueryResult result = await manager.CheckLicenseAsync(license: info, LicenseServerTarget.Envato);
-            Assert.IsTrue(result?.Success == true);
+            Assert.That(result?.Success == true);
         }
         catch (Exception ex)
         {

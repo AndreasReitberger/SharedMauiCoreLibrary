@@ -47,6 +47,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	  <ProjectReference Include="..\SharedNetCoreLibrary\SharedNetCoreLibrary.csproj" />
 	</ItemGroup>
 </Project>

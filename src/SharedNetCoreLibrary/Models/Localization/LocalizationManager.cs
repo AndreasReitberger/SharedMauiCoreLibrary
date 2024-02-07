@@ -1,15 +1,16 @@
 ﻿using AndreasReitberger.Shared.Core.Interfaces;
 using AndreasReitberger.Shared.Core.Events;
 using System.Globalization;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AndreasReitberger.Shared.Core.Localization
 {
-    public partial class LocalizationManager : ILocalizationManager
+    public partial class LocalizationManager : ObservableObject, ILocalizationManager
     {
         #region Instance
-        static LocalizationManager _instance = null;
+        static LocalizationManager? _instance = null;
         static readonly object Lock = new();
-        public static LocalizationManager Instance
+        public static LocalizationManager? Instance
         {
             get
             {
@@ -19,7 +20,6 @@ namespace AndreasReitberger.Shared.Core.Localization
                 }
                 return _instance;
             }
-
             set
             {
                 if (_instance == value) return;
@@ -38,17 +38,18 @@ namespace AndreasReitberger.Shared.Core.Localization
         #endregion
 
         #region Properties
-        public string BaseFlagImageUri { get; set; } = "";
-        public List<LocalizationInfo> Languages { get; set; } = new();
-        public LocalizationInfo CurrentLanguage { get; set; } = new();
-        public CultureInfo CurrentCulture { get; set; }
+        [ObservableProperty]
+        string baseFlagImageUri  = string.Empty;
+        [ObservableProperty]
+        List<LocalizationInfo> languages = [];
+        [ObservableProperty]
+        LocalizationInfo currentLanguage = new();
+        [ObservableProperty]
+        CultureInfo? currentCulture;
         #endregion
 
         #region Constructor
-        public LocalizationManager()
-        {
-
-        }
+        public LocalizationManager() { }
         #endregion
 
         #region Events
@@ -67,8 +68,8 @@ namespace AndreasReitberger.Shared.Core.Localization
             {
                 cultureCode = CultureInfo.CurrentCulture.Name;
             }
-            LocalizationInfo info = GetLocalizationInfoBasedOnCode(cultureCode) ?? Languages.FirstOrDefault();
-            if (info.Code != Languages.First().Code)
+            LocalizationInfo? info = GetLocalizationInfoBasedOnCode(cultureCode) ?? Languages.FirstOrDefault();
+            if (info?.Code != Languages.First().Code)
             {
                 Change(info);
             }
@@ -99,14 +100,14 @@ namespace AndreasReitberger.Shared.Core.Localization
             return image;
         }
 
-        public void Change(LocalizationInfo info)
+        public void Change(LocalizationInfo? info)
         {
-            CurrentLanguage = info;
-            CurrentCulture = new CultureInfo(info.Code);
+            CurrentLanguage = info ?? new(_defaultCultureCode);
+            CurrentCulture = new CultureInfo(CurrentLanguage.Code);
             OnLanguageChanged(new()
             {
-                LangaugeInfo = info,
-                LangaugeCode = info.Code,
+                LangaugeInfo = CurrentLanguage,
+                LangaugeCode = CurrentLanguage.Code,
                 Culture = CurrentCulture,
             });
         }

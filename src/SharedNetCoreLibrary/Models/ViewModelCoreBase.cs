@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AndreasReitberger.Shared.Core
 {
-    public partial class ViewModelBase : ObservableObject, IViewModelBase
+    public partial class ViewModelCoreBase : ObservableObject, IViewModelCoreBase
     {
         #region Dependency Injection
 
@@ -63,8 +63,8 @@ namespace AndreasReitberger.Shared.Core
         #endregion
 
         #region Ctor
-        public ViewModelBase() { }
-        public ViewModelBase(IServiceProvider provider)
+        public ViewModelCoreBase() { }
+        public ViewModelCoreBase(IServiceProvider provider)
         {
             Provider = provider;
         }

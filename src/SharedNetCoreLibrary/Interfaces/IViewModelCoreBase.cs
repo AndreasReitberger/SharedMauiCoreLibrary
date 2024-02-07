@@ -2,9 +2,10 @@
 
 namespace AndreasReitberger.Shared.Core.Interfaces
 {
-    public interface IViewModelBase : INotifyPropertyChanged//, IDisposable
+    public interface IViewModelCoreBase : INotifyPropertyChanged//, IDisposable
     {
         #region Properties
+        IServiceProvider Provider { get; set; }
         int IsBusyCounter { get; set; }
         bool IsBusy { get; set; }
         bool IsLoading { get; set; }

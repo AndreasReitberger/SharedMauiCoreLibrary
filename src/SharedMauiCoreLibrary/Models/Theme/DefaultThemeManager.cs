@@ -5,11 +5,10 @@ namespace AndreasReitberger.Shared.Core.Models.Theme
 {
     public partial class DefaultThemeManager : ObservableObject//, IThemeManager
     {
-
         #region Instance
-        static DefaultThemeManager _instance = null;
+        static DefaultThemeManager? _instance = null;
         static readonly object Lock = new();
-        public static DefaultThemeManager Instance
+        public static DefaultThemeManager? Instance
         {
             get
             {
@@ -33,8 +32,8 @@ namespace AndreasReitberger.Shared.Core.Models.Theme
 
         #region Properties
         [ObservableProperty]
-        List<ThemeColorInfo> availableColors = new()
-        {
+        List<ThemeColorInfo> availableColors =
+        [
             new ThemeColorInfo() { ThemeName = ".NET MAUI", PrimaryColor = Color.FromArgb("#512BD4"), IsAppDefault = true },
             new ThemeColorInfo() { ThemeName = Colors.Gray.ToHex(), PrimaryColor = Colors.Gray },
             new ThemeColorInfo() { ThemeName = Colors.Brown.ToHex(), PrimaryColor = Colors.Brown },
@@ -50,7 +49,7 @@ namespace AndreasReitberger.Shared.Core.Models.Theme
             new ThemeColorInfo() { ThemeName = Colors.Violet.ToHex(), PrimaryColor = Colors.Violet },
             new ThemeColorInfo() { ThemeName = Colors.Silver.ToHex(), PrimaryColor = Colors.Silver },
             new ThemeColorInfo() { ThemeName = Colors.Gold.ToHex(), PrimaryColor = Colors.Gold },
-        };
+        ];
 
         public ThemeColorInfo ActiveTheme => AvailableColors?.FirstOrDefault(themeInfo => themeInfo.IsAppDefault);
         #endregion

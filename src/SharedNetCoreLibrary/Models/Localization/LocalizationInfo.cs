@@ -1,22 +1,28 @@
-﻿namespace AndreasReitberger.Shared.Core.Localization
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace AndreasReitberger.Shared.Core.Localization
 {
-    public partial class LocalizationInfo
+    public partial class LocalizationInfo : ObservableObject
     {
         #region Properties
-        public string Name { get; set; }
-        public string NativeName { get; set; }
-        public Uri FlagUri { get; set; }
-        public string Translator { get; set; }
-        public string Code { get; set; }
-        public double PercentTranslated { get; set; }
-        public bool IsOfficial { get; set; }
+        [ObservableProperty]
+        string name = string.Empty;
+        [ObservableProperty]
+        string nativeName = string.Empty;
+        [ObservableProperty]
+        Uri? flagUri;
+        [ObservableProperty]
+        string translator = string.Empty;
+        [ObservableProperty]
+        string code = string.Empty;
+        [ObservableProperty]
+        double percentTranslated = 0;
+        [ObservableProperty]
+        bool isOfficial = false;
         #endregion
 
         #region Constructors
-        public LocalizationInfo()
-        {
-
-        }
+        public LocalizationInfo() { }
 
         public LocalizationInfo(string code)
         {
