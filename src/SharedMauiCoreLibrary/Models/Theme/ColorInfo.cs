@@ -9,7 +9,7 @@ namespace AndreasReitberger.Shared.Core.Theme
         /// A matching name for the color information.
         /// </summary>
         [ObservableProperty]
-        string name;
+        string name = string.Empty;
 
         /// <summary>
         /// The color for this info.

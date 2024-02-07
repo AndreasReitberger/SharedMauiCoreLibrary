@@ -10,7 +10,7 @@ namespace AndreasReitberger.Shared.Core.Theme
         /// A matching name for the theme information.
         /// </summary>
         [ObservableProperty]
-        string themeName;
+        string themeName = string.Empty;
 
         [ObservableProperty]
         bool isAppDefault = false;

@@ -1,10 +1,15 @@
-﻿namespace AndreasReitberger.Shared.Core
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace AndreasReitberger.Shared.Core
 {
-    public class ColorPickerElement
+    public partial class ColorPickerElement : ObservableObject
     {
         #region Properties
-        public string Name { get; set; } = string.Empty;
-        public Color ChipColor { get; set; }
+        [ObservableProperty]
+        string name = string.Empty;
+
+        [ObservableProperty]
+        Color chipColor;
         #endregion
     }
 }
