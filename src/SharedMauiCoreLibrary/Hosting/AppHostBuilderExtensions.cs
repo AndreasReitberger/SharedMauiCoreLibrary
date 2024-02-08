@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Controls.Compatibility.Hosting;
-using AndreasReitberger.Shared.Core.Interfaces;
+﻿using AndreasReitberger.Shared.Core.Interfaces;
 using AndreasReitberger.Shared.Core.Localization;
 using CommunityToolkit.Maui;
 
@@ -9,7 +8,6 @@ namespace AndreasReitberger.Shared.Core.Hosting
     {
         public static MauiAppBuilder ConfigureCoreLibrary(this MauiAppBuilder builder)
         {
-            builder.UseMauiCompatibility();
             builder.UseMauiCommunityToolkit();
             return builder;
         }
