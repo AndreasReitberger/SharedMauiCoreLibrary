@@ -87,11 +87,11 @@ accurate `oreground` for a colored `Background`.
 
 ```xaml
 <Border
-    BackgroundColor="{Binding HexCode, Converter={StaticResource StringToColorConverter}, Mode=OneWay}"
+    Background="{Binding HexCode, Converter={StaticResource StringToColorConverter}, Mode=OneWay}"
     >
     <Label 
         Text="{Binding HexCode}"
-        TextColor="{Binding Source={RelativeSource AncestorType={x:Type Border}}, Path=BackgroundColor, Converter={StaticResource ColorToBlackWhiteConverter}, Mode=OneWay}"
+        TextColor="{Binding Source={RelativeSource AncestorType={x:Type Border}}, Path=Background, Converter={StaticResource BrushToBlackWhiteConverter}, Mode=OneWay}"
         Style="{StaticResource LabelStyle}"
         VerticalTextAlignment="Center"
         HorizontalTextAlignment="Center"
