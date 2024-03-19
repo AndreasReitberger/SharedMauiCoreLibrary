@@ -45,7 +45,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
         /// <param name="plainText">The text to be encrypted</param>
         /// <param name="key">The key for encryption</param>
         /// <returns>Encrypted <c>string</c></returns>
-        public static string EncryptStringToBase64String(string plainText, string key, int keySize = 256) 
+        public static string EncryptStringToBase64String(string plainText, string key, int keySize = 256)
             => EncryptStringToBase64String(plainText, GetBytesFromBase64Key(key), keySize);
         /// <summary>
         /// Encrypts a string with the passed key and returns a hased (encrypted) string. (#1 + #2)
@@ -95,7 +95,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
         /// <param name="cipherText">Encrypted string</param>
         /// <param name="key">The key for encryption</param>
         /// <returns>Plain text <c>string</c></returns>
-        public static string DecryptStringFromBase64String(string? cipherText, string key, int keySize = 256) 
+        public static string DecryptStringFromBase64String(string? cipherText, string key, int keySize = 256)
             => DecryptStringFromBase64String(cipherText, GetBytesFromBase64Key(key), keySize);
 
         /// <summary>
