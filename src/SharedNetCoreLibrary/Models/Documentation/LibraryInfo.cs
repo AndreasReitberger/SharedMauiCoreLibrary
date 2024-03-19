@@ -1,17 +1,31 @@
-﻿namespace AndreasReitberger.Shared.Core.Documentation
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace AndreasReitberger.Shared.Core.Documentation
 {
-    public class LibraryInfo
+    public partial class LibraryInfo : ObservableObject
     {
         #region Properties
-        public string Library { get; set; }
-        public string LibraryUrl { get; set; }
-        public string Description { get; set; }
-        public bool StateChanged { get; set; }
-        public string License { get; set; }
-        public string LicenseUrl { get; set; }
+        [ObservableProperty]
+        string library = string.Empty;
+
+        [ObservableProperty]
+        string libraryUrl = string.Empty;
+
+        [ObservableProperty]
+        string description = string.Empty;
+
+        [ObservableProperty]
+        bool stateChanged = false;
+
+        [ObservableProperty]
+        string license = string.Empty;
+
+        [ObservableProperty]
+        string licenseUrl = string.Empty;
         #endregion
 
         #region Constructor
+        public LibraryInfo() { }
         public LibraryInfo(string library, string libraryUrl, string description, string license, string licenseUrl, bool stateChanged = false)
         {
             Library = library;

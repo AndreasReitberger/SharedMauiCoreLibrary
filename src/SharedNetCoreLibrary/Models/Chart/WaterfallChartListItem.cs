@@ -1,11 +1,18 @@
-﻿namespace AndreasReitberger.Shared.Core.Chart
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace AndreasReitberger.Shared.Core.Chart
 {
-    public class WaterfallChartListItem
+    public partial class WaterfallChartListItem : ObservableObject
     {
         #region Properties
-        public string Name { get; set; }
-        public double Value { get; set; }
-        public bool IsSummary { get; set; } = false;
+        [ObservableProperty]
+        string name = string.Empty;
+
+        [ObservableProperty]
+        double value = 0;
+
+        [ObservableProperty]
+        bool isSummary = false;
         #endregion
     }
 }

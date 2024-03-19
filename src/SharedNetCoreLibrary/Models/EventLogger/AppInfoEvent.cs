@@ -2,7 +2,7 @@
 
 namespace AndreasReitberger.Shared.Core.EventLogger
 {
-    public class AppInfoEvent : AppEvent
+    public partial class AppInfoEvent : AppEvent
     {
         #region Properties
 

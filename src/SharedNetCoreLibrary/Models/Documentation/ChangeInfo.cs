@@ -1,13 +1,18 @@
 ﻿using AndreasReitberger.Shared.Core.Enums;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AndreasReitberger.Shared.Core.Documentation
 {
-    public class ChangeInfo
+    public partial class ChangeInfo : ObservableObject
     {
         #region Properties
-        public ChangelogType Type { get; set; }
-        public string Changelog { get; set; } = string.Empty;
-        public string GlyphIcon { get; set; } = string.Empty;
+        [ObservableProperty]
+        ChangelogType type = ChangelogType.New;
+
+        [ObservableProperty]
+        string changelog = string.Empty;
+        [ObservableProperty]
+        string glyphIcon = string.Empty;
         #endregion
 
         #region Constructor

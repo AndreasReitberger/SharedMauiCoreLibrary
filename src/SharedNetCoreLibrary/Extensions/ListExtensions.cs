@@ -1,7 +1,4 @@
-﻿using System.Reflection;
-using System.Xml;
-
-namespace AndreasReitberger.Shared.Core.Extensions
+﻿namespace AndreasReitberger.Shared.Core.Extensions
 {
     public static class ListExtensions
     {

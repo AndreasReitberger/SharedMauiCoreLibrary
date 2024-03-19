@@ -17,10 +17,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
             instance = new Lazy<Task<T>>(() => Task.Run(factory));
         }
 
-        public TaskAwaiter<T> GetAwaiter()
-        {
-            return instance.Value.GetAwaiter();
-        }
+        public TaskAwaiter<T> GetAwaiter() => instance.Value.GetAwaiter();       
     }
     /*
     public class AsyncLazy<S ,T>

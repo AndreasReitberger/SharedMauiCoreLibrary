@@ -1,12 +1,16 @@
-﻿using System.Collections.ObjectModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace AndreasReitberger.Shared.Core.Documentation
 {
-    public class VersionInfo
+    public partial class VersionInfo : ObservableObject
     {
         #region Properties
-        public string Version { get; set; } = string.Empty;
-        public ObservableCollection<ChangeInfo> Changes { get; set; } = new();
+        [ObservableProperty]
+        string version = string.Empty;
+
+        [ObservableProperty]
+        ObservableCollection<ChangeInfo> changes = [];
         #endregion
 
         #region Constructor
