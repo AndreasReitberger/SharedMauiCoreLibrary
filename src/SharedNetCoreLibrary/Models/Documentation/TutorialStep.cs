@@ -10,7 +10,7 @@ namespace AndreasReitberger.Shared.Core.Documentation
 
         [ObservableProperty]
         string heading = string.Empty;
-        
+
         [ObservableProperty]
         string content = string.Empty;
 

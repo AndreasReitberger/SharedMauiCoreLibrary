@@ -7,7 +7,7 @@ namespace AndreasReitberger.Shared.Core.Models
     {
         #region ICloneable
         public object Clone() => MemberwiseClone();
-        
+
         #endregion
 
         #region Dispose
