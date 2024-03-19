@@ -7,7 +7,7 @@ namespace AndreasReitberger.Shared.Core.EventLogger
     {
         #region Properties
         [ObservableProperty]
-        Exception? exceptio;
+        Exception? exception;
 
         [ObservableProperty]
         int type = 0;
