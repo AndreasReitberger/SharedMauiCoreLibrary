@@ -95,7 +95,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
         /// <param name="cipherText">Encrypted string</param>
         /// <param name="key">The key for encryption</param>
         /// <returns>Plain text <c>string</c></returns>
-        public static string DecryptStringFromBase64String(string cipherText, string key, int keySize = 256) 
+        public static string DecryptStringFromBase64String(string? cipherText, string key, int keySize = 256) 
             => DecryptStringFromBase64String(cipherText, GetBytesFromBase64Key(key), keySize);
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
         /// <param name="cipherText">Encrypted string</param>
         /// <param name="key">The key for encryption</param>
         /// <returns>Plain text <c>string</c></returns>
-        public static string DecryptStringFromBase64String(string cipherText, byte[] key, int keySize = 256)
+        public static string DecryptStringFromBase64String(string? cipherText, byte[] key, int keySize = 256)
         {
             // Check arguments. 
             if (string.IsNullOrEmpty(cipherText))
