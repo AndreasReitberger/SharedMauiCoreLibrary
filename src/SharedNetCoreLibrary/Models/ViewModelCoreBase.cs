@@ -8,7 +8,7 @@ namespace AndreasReitberger.Shared.Core
         #region Dependency Injection
 
         [ObservableProperty]
-        IServiceProvider provider;
+        IServiceProvider? provider;
         #endregion
 
         #region Properties

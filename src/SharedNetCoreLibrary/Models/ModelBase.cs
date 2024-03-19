@@ -6,10 +6,8 @@ namespace AndreasReitberger.Shared.Core.Models
     public partial class ModelBase : ObservableObject, IModelBase
     {
         #region ICloneable
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
+        public object Clone() => MemberwiseClone();
+        
         #endregion
 
         #region Dispose

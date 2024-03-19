@@ -1,11 +1,18 @@
-﻿namespace AndreasReitberger.Shared.Core.Documentation
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace AndreasReitberger.Shared.Core.Documentation
 {
-    public class ResourceInfo
+    public partial class ResourceInfo : ObservableObject
     {
         #region Properties
-        public string Resource { get; set; }
-        public string ResourceUrl { get; set; }
-        public string Description { get; set; }
+        [ObservableProperty]
+        string resource = string.Empty;
+
+        [ObservableProperty]
+        string resourceUrl = string.Empty;
+
+        [ObservableProperty]
+        string description = string.Empty;
         #endregion
 
         #region Constructor

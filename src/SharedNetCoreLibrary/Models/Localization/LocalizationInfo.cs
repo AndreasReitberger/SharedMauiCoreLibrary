@@ -7,16 +7,22 @@ namespace AndreasReitberger.Shared.Core.Localization
         #region Properties
         [ObservableProperty]
         string name = string.Empty;
+
         [ObservableProperty]
         string nativeName = string.Empty;
+
         [ObservableProperty]
         Uri? flagUri;
+
         [ObservableProperty]
         string translator = string.Empty;
+
         [ObservableProperty]
         string code = string.Empty;
+
         [ObservableProperty]
         double percentTranslated = 0;
+
         [ObservableProperty]
         bool isOfficial = false;
         #endregion

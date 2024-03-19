@@ -5,40 +5,21 @@ namespace AndreasReitberger.Shared.Core.Documentation
     public partial class TutorialStep : ObservableObject
     {
         #region Properties
-        Uri image;
-        public Uri Image
-        {
-            get => image;
-            set => SetProperty(ref image, value);
-        }
+        [ObservableProperty]
+        Uri? image;
 
-        string heading;
-        public string Heading
-        {
-            get => heading;
-            set => SetProperty(ref heading, value);
-        }
+        [ObservableProperty]
+        string heading = string.Empty;
+        
+        [ObservableProperty]
+        string content = string.Empty;
 
-        string content;
-        public string Content
-        {
-            get => content;
-            set => SetProperty(ref content, value);
-        }
-
+        [ObservableProperty]
         int order = 0;
-        public int Order
-        {
-            get => order;
-            set => SetProperty(ref order, value);
-        }
 
+        [ObservableProperty]
         bool viewed = false;
-        public bool Viewed
-        {
-            get => viewed;
-            set => SetProperty(ref viewed, value);
-        }
+
         #endregion
 
         #region Constructor

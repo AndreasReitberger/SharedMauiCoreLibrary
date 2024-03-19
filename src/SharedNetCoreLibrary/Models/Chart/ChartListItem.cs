@@ -1,10 +1,15 @@
-﻿namespace AndreasReitberger.Shared.Core.Chart
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace AndreasReitberger.Shared.Core.Chart
 {
-    public class ChartListItem
+    public partial class ChartListItem : ObservableObject
     {
         #region Properties
-        public string Name { get; set; }
-        public List<double> Values { get; set; }
+        [ObservableProperty]
+        string name = string.Empty;
+
+        [ObservableProperty]
+        List<double> values = [];
         #endregion
     }
 }

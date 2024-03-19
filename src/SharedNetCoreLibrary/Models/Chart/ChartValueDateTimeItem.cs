@@ -1,11 +1,18 @@
-﻿namespace AndreasReitberger.Shared.Core.Chart
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace AndreasReitberger.Shared.Core.Chart
 {
-    public class ChartValueDateTimeItem
+    public partial class ChartValueDateTimeItem : ObservableObject
     {
         #region Properties
-        public string Name { get; set; }
-        public double Value { get; set; }
-        public DateTime Time { get; set; }
+        [ObservableProperty]
+        string name = string.Empty;
+
+        [ObservableProperty]
+        double value = 0;
+
+        [ObservableProperty]
+        DateTime? time;
         #endregion
     }
 }
