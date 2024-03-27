@@ -1,4 +1,5 @@
 ﻿using AndreasReitberger.Shared.Core.Interfaces;
+using CommunityToolkit.Maui.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AndreasReitberger.Shared.Core
@@ -7,63 +8,14 @@ namespace AndreasReitberger.Shared.Core
     {
         #region Dependency Injection
         [ObservableProperty]
-        IDispatcher dispatcher;
-        /*
-        [ObservableProperty]
-        IServiceProvider provider;
-        */
-        #endregion
-
-        #region Properties
-        /*
-        [ObservableProperty]
-        bool isLoading = false;
+        IDispatcher? dispatcher;
 
         [ObservableProperty]
-        bool isLoadingData = false;
+        IFileSaver? fileSaver;
 
         [ObservableProperty]
-        int isLoadingDataCounter = 0;
-        partial void OnIsLoadingDataCounterChanged(int value)
-        {
-            // Avoid negative values
-            if (value < 0) IsLoadingDataCounter = 0;
-            IsLoadingData = value > 0;
-        }
+        ILauncher? launcher;
 
-        [ObservableProperty]
-        bool isBusy = false;
-
-        [ObservableProperty]
-        int isBusyCounter = 0;
-        partial void OnIsBusyCounterChanged(int value)
-        {
-            // Avoid negative values
-            if (value < 0) IsBusyCounter = 0;
-            IsBusy = value > 0;
-        }
-
-        [ObservableProperty]
-        bool isReady = false;
-
-        [ObservableProperty]
-        bool isStartUp = true;
-
-        [ObservableProperty]
-        bool isStartingUp = false;
-
-        [ObservableProperty]
-        bool isRefreshing = false;
-
-        [ObservableProperty]
-        bool isResuming = false;
-
-        [ObservableProperty]
-        bool isBeta = false;
-
-        [ObservableProperty]
-        bool isPortrait = true;
-        */
         #endregion
 
         #region Ctor
@@ -76,6 +28,13 @@ namespace AndreasReitberger.Shared.Core
         {
             Dispatcher = dispatcher;
             Provider = provider;
+        }
+        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider, IFileSaver? fileSaver, ILauncher? launcher) : base(provider: provider)
+        {
+            Dispatcher = dispatcher;
+            Provider = provider;
+            FileSaver = fileSaver;
+            Launcher = launcher;
         }
         #endregion
 
