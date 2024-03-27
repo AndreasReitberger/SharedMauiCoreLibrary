@@ -10,6 +10,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="..\..\licenses\CommunityToolkit.Mvvm.txt" Link="Licenses\CommunityToolkit.Mvvm.txt" />
+    <Content Include="..\..\licenses\Newtonsoft.Json.txt" Link="Licenses\Newtonsoft.Json.txt" />
+  </ItemGroup>
 
 	<ItemGroup>
 		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
@@ -18,6 +22,10 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Licenses\" />
 	</ItemGroup>
 
 </Project>
