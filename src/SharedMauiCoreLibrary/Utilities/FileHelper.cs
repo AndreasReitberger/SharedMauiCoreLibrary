@@ -43,7 +43,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
         /// <param name="launcher">The <c>Launcher</c> instance</param>
         /// <param name="openFileRequest">The target <c>OpenFileRequest</c></param>
         /// <returns></returns>
-        public static Task<bool> OpenFileAsync(ILauncher launcher, OpenFileRequest openFileRequest) => launcher.OpenAsync(openFileRequest);
+        public static Task<bool> ShowFileAsync(ILauncher launcher, OpenFileRequest openFileRequest) => launcher.OpenAsync(openFileRequest);
 
         /// <summary>
         /// Opens the provided file name and content type
@@ -53,8 +53,8 @@ namespace AndreasReitberger.Shared.Core.Utilities
         /// <param name="filePath">The full file path</param>
         /// <param name="contentType">The contentType</param>
         /// <returns></returns>
-        public static Task<bool> OpenFileAsync(ILauncher launcher, string title, string filePath, string contentType)
-            => OpenFileAsync(launcher, new OpenFileRequest() { Title = title, File = new(filePath, contentType) });
+        public static Task<bool> ShowFileAsync(ILauncher launcher, string title, string filePath, string contentType)
+            => ShowFileAsync(launcher, new OpenFileRequest() { Title = title, File = new(filePath, contentType) });
 
         /// <summary>
         /// Saves and opens the saved file on success. Otherwise it returns false.
@@ -69,7 +69,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
         /// <param name="contentType">The contentType</param>
         /// <param name="ct">A cancellation token</param>
         /// <returns><c>true</c> if the file was saved successfully</returns>
-        public static async Task<bool> SaveAndOpenFileAsync(
+        public static async Task<bool> SaveAndShowFileAsync(
             IFileSaver saver, string file, Stream fileStream,
             ILauncher launcher, string title, string? initialPath = null, string contentType = "text/plain",
             CancellationToken ct = default
@@ -77,9 +77,15 @@ namespace AndreasReitberger.Shared.Core.Utilities
         {
             FileSaverResult result = await SaveFileAsync(saver, file, fileStream, initialPath, ct).ConfigureAwait(false);
             if (result?.IsSuccessful is true)
-                return await OpenFileAsync(launcher, new OpenFileRequest() { Title = title, File = new(result.FilePath, contentType) }).ConfigureAwait(false);
+                return await ShowFileAsync(launcher, new OpenFileRequest() { Title = title, File = new(result.FilePath, contentType) }).ConfigureAwait(false);
             else return false;
         }
+
+        public static Task<FileResult?> OpenFileAsync(IFilePicker picker, string title, FilePickerFileType? types = null) => picker.PickAsync(new PickOptions()
+        {
+            PickerTitle = title,
+            FileTypes  = types,
+        });
         #endregion
     }
 }
