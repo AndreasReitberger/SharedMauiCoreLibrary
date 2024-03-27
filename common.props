@@ -14,6 +14,7 @@
         <Copyright>Andreas Reitberger</Copyright>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <PublishReadyToRun>false</PublishReadyToRun>
+		<Nullable>enable</Nullable>
 
         <!--Source-Linking-->
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
