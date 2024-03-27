@@ -44,6 +44,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Include="..\..\licenses\CommunityToolkit.Maui.txt" Link="Licenses\CommunityToolkit.Maui.txt" />
+	  <Content Include="..\..\licenses\CommunityToolkit.Mvvm.txt" Link="Licenses\CommunityToolkit.Mvvm.txt" />
+	  <Content Include="..\..\licenses\Microsoft.Maui.Controls.Compatibility.txt" Link="Licenses\Microsoft.Maui.Controls.Compatibility.txt" />
+	  <Content Include="..\..\licenses\Microsoft.Maui.Controls.txt" Link="Licenses\Microsoft.Maui.Controls.txt" />
+	  <Content Include="..\..\licenses\Microsoft.SourceLink.GitHub.txt" Link="Licenses\Microsoft.SourceLink.GitHub.txt" />
+	  <Content Include="..\..\licenses\Newtonsoft.Json.txt" Link="Licenses\Newtonsoft.Json.txt" />
+	  <Content Include="..\..\licenses\RestSharp.txt" Link="Licenses\RestSharp.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Include="..\..\README_Licensing.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
@@ -53,5 +63,9 @@
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="RestSharp" Version="110.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Licenses\" />
 	</ItemGroup>
 </Project>
