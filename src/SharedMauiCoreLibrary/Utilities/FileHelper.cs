@@ -70,7 +70,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
         /// <param name="ct">A cancellation token</param>
         /// <returns><c>true</c> if the file was saved successfully</returns>
         public static async Task<bool> SaveAndOpenFileAsync(
-            IFileSaver saver, string file, Stream fileStream, 
+            IFileSaver saver, string file, Stream fileStream,
             ILauncher launcher, string title, string? initialPath = null, string contentType = "text/plain",
             CancellationToken ct = default
             )
