@@ -9,7 +9,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
         /// </summary>
         /// <param name="message">The message which should be logged</param>
         /// <param name="releaseAction">If not DEBUG, instead of writing to the console, the passed action will be invoked.</param>
-        public static void Log(string message, Action releaseAction = null)
+        public static void Log(string message, Action? releaseAction = null)
         {
 #if DEBUG
             Debug.WriteLine($"{DateTime.Now}: {message}");

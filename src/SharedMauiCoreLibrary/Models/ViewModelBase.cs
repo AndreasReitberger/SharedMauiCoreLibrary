@@ -16,6 +16,9 @@ namespace AndreasReitberger.Shared.Core
         [ObservableProperty]
         ILauncher? launcher;
 
+        [ObservableProperty]
+        IFilePicker? filePicker;
+
         #endregion
 
         #region Ctor
@@ -29,12 +32,38 @@ namespace AndreasReitberger.Shared.Core
             Dispatcher = dispatcher;
             Provider = provider;
         }
+        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider, IFileSaver? fileSaver) : base(provider: provider)
+        {
+            Dispatcher = dispatcher;
+            Provider = provider;
+            FileSaver = fileSaver;
+        }
         public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider, IFileSaver? fileSaver, ILauncher? launcher) : base(provider: provider)
         {
             Dispatcher = dispatcher;
             Provider = provider;
             FileSaver = fileSaver;
             Launcher = launcher;
+        }
+        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider, ILauncher? launcher) : base(provider: provider)
+        {
+            Dispatcher = dispatcher;
+            Provider = provider;
+            Launcher = launcher;
+        }
+        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider, IFilePicker? filePicker) : base(provider: provider)
+        {
+            Dispatcher = dispatcher;
+            Provider = provider;
+            FilePicker = filePicker;
+        }
+        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider, IFileSaver? fileSaver, ILauncher? launcher, IFilePicker? filePicker) : base(provider: provider)
+        {
+            Dispatcher = dispatcher;
+            Provider = provider;
+            FileSaver = fileSaver;
+            Launcher = launcher;
+            FilePicker = filePicker;
         }
         #endregion
 

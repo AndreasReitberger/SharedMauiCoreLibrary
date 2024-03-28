@@ -35,12 +35,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="..\..\licenses\CommunityToolkit.Maui.txt" Link="Licenses\CommunityToolkit.Maui.txt" />
-	  <Content Include="..\..\licenses\CommunityToolkit.Mvvm.txt" Link="Licenses\CommunityToolkit.Mvvm.txt" />
-	  <Content Include="..\..\licenses\Microsoft.Maui.Controls.Compatibility.txt" Link="Licenses\Microsoft.Maui.Controls.Compatibility.txt" />
-	  <Content Include="..\..\licenses\Microsoft.Maui.Controls.txt" Link="Licenses\Microsoft.Maui.Controls.txt" />
-	  <Content Include="..\..\licenses\Microsoft.SourceLink.GitHub.txt" Link="Licenses\Microsoft.SourceLink.GitHub.txt" />
-	  <Content Include="..\..\licenses\Newtonsoft.Json.txt" Link="Licenses\Newtonsoft.Json.txt" />
+	  <None Include="..\..\licenses\CommunityToolkit.Maui.txt" Link="Licenses\CommunityToolkit.Maui.txt" />
+	  <None Include="..\..\licenses\CommunityToolkit.Mvvm.txt" Link="Licenses\CommunityToolkit.Mvvm.txt" />
+	  <None Include="..\..\licenses\Microsoft.Maui.Controls.Compatibility.txt" Link="Licenses\Microsoft.Maui.Controls.Compatibility.txt" />
+	  <None Include="..\..\licenses\Microsoft.Maui.Controls.txt" Link="Licenses\Microsoft.Maui.Controls.txt" />
+	  <None Include="..\..\licenses\Microsoft.SourceLink.GitHub.txt" Link="Licenses\Microsoft.SourceLink.GitHub.txt" />
+	  <None Include="..\..\licenses\Newtonsoft.Json.txt" Link="Licenses\Newtonsoft.Json.txt" />
 	</ItemGroup>
 
 	<ItemGroup>

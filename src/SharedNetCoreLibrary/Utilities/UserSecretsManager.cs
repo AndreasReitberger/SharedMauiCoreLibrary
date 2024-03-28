@@ -77,7 +77,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
 
         #region Methods
 
-        public void Initialize(Assembly assembly = null)
+        public void Initialize(Assembly? assembly = null)
         {
             try
             {

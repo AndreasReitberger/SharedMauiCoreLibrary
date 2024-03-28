@@ -39,6 +39,7 @@ namespace AndreasReitberger.Shared.Core.Hosting
         {
             builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
             builder.Services.AddSingleton<ILauncher>(Launcher.Default);
+            builder.Services.AddSingleton<IFilePicker>(FilePicker.Default);
             return builder;
         }
 

@@ -8,6 +8,7 @@ namespace AndreasReitberger.Shared.Core.Interfaces
         IDispatcher? Dispatcher { get; set; }
         IFileSaver? FileSaver { get; set; }
         ILauncher? Launcher { get; set; }
+        IFilePicker? FilePicker { get; set; }
         #endregion
     }
 }
