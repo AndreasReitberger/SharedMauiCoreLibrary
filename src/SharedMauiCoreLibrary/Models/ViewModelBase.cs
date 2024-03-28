@@ -38,6 +38,13 @@ namespace AndreasReitberger.Shared.Core
             Provider = provider;
             FileSaver = fileSaver;
         }
+        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider, IFileSaver? fileSaver, ILauncher? launcher) : base(provider: provider)
+        {
+            Dispatcher = dispatcher;
+            Provider = provider;
+            FileSaver = fileSaver;
+            Launcher = launcher;
+        }
         public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider, ILauncher? launcher) : base(provider: provider)
         {
             Dispatcher = dispatcher;
