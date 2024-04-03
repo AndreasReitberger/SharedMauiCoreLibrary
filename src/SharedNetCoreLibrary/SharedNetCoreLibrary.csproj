@@ -6,9 +6,8 @@
 	  <Title>NET-Core Shared Library</Title>
 	  <Description>A core libray used for our .NET libraries.</Description>
 
-	  <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+	  <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+      <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\licenses\CommunityToolkit.Mvvm.txt" Link="Licenses\CommunityToolkit.Mvvm.txt" />

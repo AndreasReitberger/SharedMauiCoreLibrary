@@ -15,6 +15,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <PublishReadyToRun>false</PublishReadyToRun>
 		<Nullable>enable</Nullable>
+		<LangVersion>12</LangVersion>
 
         <!--Source-Linking-->
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
