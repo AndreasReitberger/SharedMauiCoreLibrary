@@ -1,4 +1,6 @@
-﻿using System.Security.Cryptography;
+﻿using System.Runtime.Versioning;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace AndreasReitberger.Shared.Core.Utilities
 {
@@ -141,6 +143,75 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 plaintext = srDecrypt.ReadToEnd();
             }
             return plaintext;
+        }
+
+        /// <summary>
+        /// This method salts a user password with the provided salt. Make sure to use the same salt for decrypting
+        /// Based on: https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.passwordderivebytes?view=net-8.0
+        /// </summary>
+        /// <param name="password">The user password used for creating the key</param>
+        /// <returns></returns>
+        //[SupportedOSPlatform("Windows")]
+#if NET6_0_OR_GREATER
+        public static byte[] SaltWithPasswordString(string password, byte[]? salt = null, int keySize = 32, int iterations = 1000)
+        {
+            byte[] pwd = Encoding.Unicode.GetBytes(password);
+            salt ??= CreateRandomSalt(7);
+            try
+            {      
+                return Rfc2898DeriveBytes.Pbkdf2(pwd, salt, iterations, HashAlgorithmName.SHA256, keySize);
+            }
+            catch(Exception) { }
+            finally
+            {
+                // Clear the buffers
+                ClearBytes(pwd);
+                ClearBytes(salt);
+            }
+            return [];
+        }
+
+        /// <summary>
+        /// Generates a random salt
+        /// </summary>
+        /// <param name="length">Size of the array</param>
+        /// <returns><c>byte[]</c> with random bytes</returns>
+        public static byte[] CreateRandomSalt(int length) => RandomNumberGenerator.GetBytes(length >= 1 ? length : 1);
+
+        /// <summary>
+        /// Creates a hex string from the provided byte[].
+        /// </summary>
+        /// <param name="salt">The array to be converted</param>
+        /// <returns>hex string</returns>
+        public static string GetHexStringFromSalt(byte[] salt) => BitConverter.ToString(salt).Replace("-", "");
+
+        /// <summary>
+        /// Returns a byte[] from a hex string salt
+        /// Based on: https://github.dev/tfsaggregator/aggregator-cli/blob/95a12bc65be1bca01bd585018b9fefb15d74457e/src/aggregator-shared/SharedSecret.cs#L12#L20
+        /// </summary>
+        /// <param name="saltHex"></param>
+        /// <returns></returns>
+        public static byte[] GetSaltFromHexString(string saltHex) => Enumerable.Range(0, saltHex.Length / 2).Select(x => Convert.ToByte(saltHex.Substring(x * 2, 2), 16)).ToArray();
+#endif
+
+        /// <summary>
+        /// Clears the buffer
+        /// Source: https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.passwordderivebytes?view=net-8.0
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void ClearBytes(byte[] buffer)
+        {
+            // Check arguments.
+            if (buffer == null)
+            {
+                throw new ArgumentException(nameof(buffer));
+            }
+            // Set each byte in the buffer to 0.
+            for (int x = 0; x < buffer.Length; x++)
+            {
+                buffer[x] = 0;
+            }
         }
         #endregion
     }
