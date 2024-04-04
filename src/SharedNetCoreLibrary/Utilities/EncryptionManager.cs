@@ -41,6 +41,8 @@ namespace AndreasReitberger.Shared.Core.Utilities
         /// <returns><c>byte[]</c></returns>
         public static byte[] GetBytesFromBase64Key(string sKey) => Convert.FromBase64String(sKey);
 
+        public static string GetStringFromBase64String(byte[] bytes) => Convert.ToBase64String(bytes);
+
         /// <summary>
         /// Encrypts a string with the passed key and returns a hased (encrypted) string. (#1 + #2)
         /// </summary>

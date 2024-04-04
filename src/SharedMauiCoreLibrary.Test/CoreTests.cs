@@ -17,6 +17,24 @@ public class LicenseTests
     }
 
     [Test]
+    public void GenerateHexStringTest()
+    {
+        try
+        {
+            int saltSize = 32;
+            byte[] salt = EncryptionManager.CreateRandomSalt(saltSize);
+            string hex = EncryptionManager.GetHexStringFromSalt(salt);
+
+            Assert.That(!string.IsNullOrEmpty(hex));
+            Assert.That(hex.Length, Is.EqualTo(saltSize * 2));
+        }
+        catch (Exception ex)
+        {
+            Assert.Fail(ex.Message);
+        }
+    }
+
+    [Test]
     public void EncryptionTests()
     {
         try
@@ -33,8 +51,9 @@ public class LicenseTests
             string decrytpedTextWithKey = EncryptionManager.DecryptStringFromBase64String(encryptedWithKey, base64Key, 256);
             Assert.That(plainText == decrytpedTextWithKey);
 
-            string saltHexString = EncryptionManager.GetHexStringFromSalt(EncryptionManager.CreateRandomSalt(7));
-            Assert.That(saltHexString.Length == 7 * 2);
+            int saltSize = 16;
+            string saltHexString = EncryptionManager.GetHexStringFromSalt(EncryptionManager.CreateRandomSalt(saltSize));
+            Assert.That(saltHexString.Length == saltSize * 2);
             byte[] salt = EncryptionManager.GetSaltFromHexString(saltHexString);
 
             string userpassword = "This is a secret text";
