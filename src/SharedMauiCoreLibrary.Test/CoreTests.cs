@@ -76,4 +76,27 @@ public class LicenseTests
             Assert.Fail(ex.Message);
         }
     }
+
+    [Test]
+    public void UsePasswordDoubleEncryptionTest()
+    {
+        try
+        {
+            string userpassword = "Some secret password";
+            byte[] hashedPassword = EncryptionManager.SaltWithPasswordString(userpassword);
+            string hashedPasswordString = EncryptionManager.GetHexStringFromSalt(hashedPassword);
+
+            string plainText = "This text will be encrypted later";
+            string passphrase = EncryptionManager.GenerateBase64Key();
+
+            string encryptedPassphrase = EncryptionManager.EncryptStringToBase64String(passphrase, hashedPassword);
+
+            string decryptedPassphrase = EncryptionManager.DecryptStringFromBase64String(encryptedPassphrase, hashedPassword);
+            Assert.That(passphrase == decryptedPassphrase);
+        }
+        catch (Exception ex)
+        {
+            Assert.Fail(ex.Message);
+        }
+    }
 }
