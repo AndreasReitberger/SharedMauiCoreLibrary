@@ -75,6 +75,13 @@ namespace AndreasReitberger.Shared.Core
             else
                 IsBusyCounter--;
         });
+        public Task? SetBusyAsync(bool isBusy, IDispatcher? dispatcher) => dispatcher?.DispatchAsync(() =>
+        {
+            if (isBusy)
+                IsBusyCounter++;
+            else
+                IsBusyCounter--;
+        });
         #endregion
 
         #region Dispose

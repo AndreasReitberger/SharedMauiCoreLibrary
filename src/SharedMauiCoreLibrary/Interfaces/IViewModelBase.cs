@@ -13,6 +13,7 @@ namespace AndreasReitberger.Shared.Core.Interfaces
 
         #region Methods
         void SetBusy(bool isBusy, IDispatcher? dispatcher);
+        Task? SetBusyAsync(bool isBusy, IDispatcher? dispatcher);
         #endregion
     }
 }
