@@ -10,5 +10,9 @@ namespace AndreasReitberger.Shared.Core.Interfaces
         ILauncher? Launcher { get; set; }
         IFilePicker? FilePicker { get; set; }
         #endregion
+
+        #region Methods
+        void SetBusy(bool isBusy, IDispatcher? dispatcher);
+        #endregion
     }
 }

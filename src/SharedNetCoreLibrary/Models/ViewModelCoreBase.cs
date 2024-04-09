@@ -70,6 +70,16 @@ namespace AndreasReitberger.Shared.Core
         }
         #endregion
 
+        #region Methods
+        public void SetBusy(bool isBusy)
+        {
+            if (isBusy)
+                IsBusyCounter++;
+            else 
+                IsBusyCounter--;
+        }
+        #endregion
+
         #region Dispose
         /*
         public void Dispose()

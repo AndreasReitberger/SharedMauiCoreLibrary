@@ -67,6 +67,16 @@ namespace AndreasReitberger.Shared.Core
         }
         #endregion
 
+        #region Methods
+        public void SetBusy(bool isBusy, IDispatcher? dispatcher) => dispatcher?.Dispatch(() =>
+        {
+            if (isBusy)
+                IsBusyCounter++;
+            else
+                IsBusyCounter--;
+        });
+        #endregion
+
         #region Dispose
         /*
         public void Dispose()
