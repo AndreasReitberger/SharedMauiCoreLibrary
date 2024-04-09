@@ -18,5 +18,9 @@ namespace AndreasReitberger.Shared.Core.Interfaces
         bool IsPortrait { get; set; }
 
         #endregion
+
+        #region Methods
+        void SetBusy(bool isBusy);
+        #endregion
     }
 }
