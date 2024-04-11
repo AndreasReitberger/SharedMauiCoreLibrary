@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Storage;
+using System.Runtime.Versioning;
 using System.Text;
 
 namespace AndreasReitberger.Shared.Core.Utilities
@@ -7,7 +8,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
     /// A helper class to save and open files
     /// Source
     /// - 1: https://learn.microsoft.com/en-us/dotnet/communitytoolkit/maui/essentials/file-saver?tabs=windows
-    /// - 2: https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/appmodel/launcher?view=net-maui-7.0&tabs=macios#open-another-app-via-a-file
+    /// - 2: https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/appmodel/launcher?view=net-maui-8.0
     /// </summary>
     public static class FileHelper
     {
@@ -30,6 +31,11 @@ namespace AndreasReitberger.Shared.Core.Utilities
         /// <param name="initialPath">The initial folder</param>
         /// <param name="ct">A cancellation token</param>
         /// <returns></returns>
+        [SupportedOSPlatform("Android26.0")]
+        [SupportedOSPlatform("iOS14.0")]
+        [SupportedOSPlatform("MacCatalyst14.0")]
+        //[SupportedOSPlatform("Tizen")]
+        [SupportedOSPlatform("Windows")]
         public static async Task<FileSaverResult> SaveFileAsync(
             IFileSaver? saver, string file, Stream fileStream, string? initialPath = null, CancellationToken ct = default
             )
@@ -75,6 +81,11 @@ namespace AndreasReitberger.Shared.Core.Utilities
         /// <param name="contentType">The contentType</param>
         /// <param name="ct">A cancellation token</param>
         /// <returns><c>true</c> if the file was saved successfully</returns>
+        [SupportedOSPlatform("Android26.0")]
+        [SupportedOSPlatform("iOS14.0")]
+        [SupportedOSPlatform("MacCatalyst14.0")]
+        //[SupportedOSPlatform("Tizen")]
+        [SupportedOSPlatform("Windows")]
         public static async Task<bool> SaveAndShowFileAsync(
             IFileSaver? saver, string file, Stream fileStream,
             ILauncher? launcher, string title, string? initialPath = null, string contentType = "text/plain",

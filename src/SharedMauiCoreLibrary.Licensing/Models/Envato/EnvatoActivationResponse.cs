@@ -20,7 +20,7 @@ namespace AndreasReitberger.Shared.Core.Licensing.Envato
         #region Properties
         [ObservableProperty]
         [JsonProperty("activated")]
-        bool activated;
+        bool activated = false;
 
         [ObservableProperty]
         [JsonProperty("instance")]
@@ -28,7 +28,7 @@ namespace AndreasReitberger.Shared.Core.Licensing.Envato
 
         [ObservableProperty]
         [JsonProperty("message")]
-        string message;
+        string message = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("timestamp")]
@@ -36,15 +36,15 @@ namespace AndreasReitberger.Shared.Core.Licensing.Envato
 
         [ObservableProperty]
         [JsonProperty("sig")]
-        string sig;
+        string sig = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("code")]
-        string errorCode;
+        string errorCode = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("error")]
-        string errorMessage;
+        string errorMessage = string.Empty;
         #endregion
     }
 }

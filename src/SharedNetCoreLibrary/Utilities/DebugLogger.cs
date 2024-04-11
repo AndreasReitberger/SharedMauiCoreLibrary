@@ -18,13 +18,13 @@ namespace AndreasReitberger.Shared.Core.Utilities
 #endif
         }
 
-        public static Exception GetLastInnerException(Exception exception)
+        public static Exception? GetLastInnerException(Exception? exception)
         {
-            Stack<Exception> exceptions = new();
+            Stack<Exception?> exceptions = new();
             exceptions.Push(exception);
             while (exceptions.Count > 0)
             {
-                Exception innerException = exceptions.Pop()?.InnerException;
+                Exception? innerException = exceptions.Pop()?.InnerException;
                 if (innerException != null)
                 {
                     exceptions.Push(innerException);

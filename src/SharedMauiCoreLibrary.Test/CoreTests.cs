@@ -93,6 +93,11 @@ public class LicenseTests
 
             string decryptedPassphrase = EncryptionManager.DecryptStringFromBase64String(encryptedPassphrase, hashedPassword);
             Assert.That(passphrase == decryptedPassphrase);
+
+            var t = EncryptionManager.EncryptStringToBase64String(plainText, decryptedPassphrase);
+            var t2 = EncryptionManager.DecryptStringFromBase64String(t, decryptedPassphrase);
+
+            Assert.That(plainText == t2);
         }
         catch (Exception ex)
         {

@@ -6,7 +6,7 @@ namespace AndreasReitberger.Shared.Core.Chart
     {
         #region Properties
         [ObservableProperty]
-        string name;
+        string name = string.Empty;
 
         [ObservableProperty]
         double value;

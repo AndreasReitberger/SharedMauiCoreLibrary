@@ -9,7 +9,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
     public partial class UserSecretsManager : ObservableObject
     {
         #region Instance
-        static UserSecretsManager _instance = null;
+        static UserSecretsManager? _instance = null;
         static readonly object Lock = new();
         public static UserSecretsManager Settings
         {
@@ -21,7 +21,6 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 }
                 return _instance;
             }
-
             set
             {
                 if (_instance == value) return;
@@ -30,23 +29,22 @@ namespace AndreasReitberger.Shared.Core.Utilities
                     _instance = value;
                 }
             }
-
         }
         #endregion
 
         #region Variables
-        JObject _secrets;
+        JObject? _secrets;
         #endregion
 
         #region Properties
         [ObservableProperty]
-        string appNamespace;
+        string appNamespace = string.Empty;
 
         [ObservableProperty]
         string userSecretsFileName = "secrets.json";
 
         [ObservableProperty]
-        Assembly currentAssembly;
+        Assembly? currentAssembly;
         #endregion
 
         #region Ctor
@@ -56,23 +54,6 @@ namespace AndreasReitberger.Shared.Core.Utilities
             AppNamespace = appNamespace;
             UserSecretsFileName = userSecretsFileName;
         }
-        /*
-        private UserSecretsManager()
-        {
-            try
-            {
-                Assembly assembly = IntrospectionExtensions.GetTypeInfo(typeof(UserSecretsManager)).Assembly;
-                Stream stream = assembly.GetManifestResourceStream($"{Namespace}.{UserSecretsFileName}");
-                using StreamReader reader = new(stream);
-                string json = reader.ReadToEnd();
-                _secrets = JObject.Parse(json);
-            }
-            catch (Exception ex)
-            {
-                EventManager.Instance.LogError(ex);
-            }
-        }
-        */
         #endregion
 
         #region Methods
@@ -81,12 +62,14 @@ namespace AndreasReitberger.Shared.Core.Utilities
         {
             try
             {
-                //CurrentAssembly ??= IntrospectionExtensions.GetTypeInfo(typeof(UserSecretsManager)).Assembly;
                 CurrentAssembly ??= GetAssembly(typeof(UserSecretsManager));
-                Stream stream = CurrentAssembly.GetManifestResourceStream($"{AppNamespace}.{UserSecretsFileName}");
-                using StreamReader reader = new(stream);
-                string json = reader.ReadToEnd();
-                _secrets = JObject.Parse(json);
+                Stream? stream = CurrentAssembly?.GetManifestResourceStream($"{AppNamespace}.{UserSecretsFileName}");
+                if (stream is not null)
+                {
+                    using StreamReader reader = new(stream);
+                    string json = reader.ReadToEnd();
+                    _secrets = JObject.Parse(json);
+                }
             }
             catch (Exception ex)
             {
@@ -94,8 +77,9 @@ namespace AndreasReitberger.Shared.Core.Utilities
             }
         }
 
-        public T ToObject<T>()
+        public T? ToObject<T>()
         {
+            if (_secrets is null) return default;
             return _secrets.ToObject<T>();
         }
         #endregion

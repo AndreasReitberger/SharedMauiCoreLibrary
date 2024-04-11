@@ -1,5 +1,4 @@
 ﻿using Foundation;
-using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using Microsoft.Maui.Platform;
 using UIKit;
 using Color = Microsoft.Maui.Graphics.Color;

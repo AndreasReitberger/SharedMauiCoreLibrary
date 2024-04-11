@@ -9,7 +9,7 @@ namespace AndreasReitberger.Shared.Core
         string name = string.Empty;
 
         [ObservableProperty]
-        Color chipColor;
+        Color? chipColor;
         #endregion
     }
 }

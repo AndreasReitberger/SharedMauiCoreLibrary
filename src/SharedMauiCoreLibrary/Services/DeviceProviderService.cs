@@ -4,7 +4,7 @@
 #if ANDROID || IOS || MACCATALYST || WINDOWS
     public partial class DeviceProviderService
     {
-        public partial string GetDeviceId();
+        public partial string? GetDeviceId();
     }
 #endif
 }

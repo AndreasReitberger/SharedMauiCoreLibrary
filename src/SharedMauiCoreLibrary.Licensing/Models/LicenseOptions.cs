@@ -7,13 +7,13 @@ namespace AndreasReitberger.Shared.Core.Licensing.Models
     {
         #region Properties
         [ObservableProperty]
-        string productName;
+        string productName = string.Empty;
 
         [ObservableProperty]
-        string productIdentifier;
+        string productIdentifier = string.Empty;
 
         [ObservableProperty]
-        string licenseCheckPattern;
+        string licenseCheckPattern = string.Empty;
 
         [ObservableProperty]
         bool verifyLicenseFormat;
