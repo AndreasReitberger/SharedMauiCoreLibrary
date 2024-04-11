@@ -18,31 +18,31 @@ namespace AndreasReitberger.Shared.Core.Licensing.Envato
         #region Properties
         [ObservableProperty]
         [JsonProperty("id")]
-        string id;
+        string id = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("name")]
-        string itemName;
+        string itemName = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("number_of_sales")]
-        string sales;
+        string sales = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("author_username")]
-        string author;
+        string author = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("author_url")]
-        string authorUrl;
+        string authorUrl = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("url")]
-        string url;
+        string url = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("updatedAt")]
-        string updatedAt;
+        string updatedAt = string.Empty;
         #endregion
     }
 }

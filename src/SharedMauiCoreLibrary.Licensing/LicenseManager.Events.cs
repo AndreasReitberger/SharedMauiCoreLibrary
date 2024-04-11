@@ -7,7 +7,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
     public partial class LicenseManager : ObservableObject, ILicenseManager
     {
         #region Events
-        public event EventHandler Error;
+        public event EventHandler? Error;
         protected virtual void OnError()
         {
             Error?.Invoke(this, EventArgs.Empty);
@@ -21,7 +21,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             Error?.Invoke(this, e);
         }
 
-        public event EventHandler LicenseChanged;
+        public event EventHandler? LicenseChanged;
         protected virtual void OnLicenseChanged(LicenseChangedEventArgs e)
         {
             LicenseChanged?.Invoke(this, e);

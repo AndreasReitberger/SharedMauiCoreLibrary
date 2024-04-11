@@ -17,7 +17,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
         DateTimeOffset timeStamp;
 
         [ObservableProperty]
-        string message;
+        string message = string.Empty;
 
         #endregion
     }
