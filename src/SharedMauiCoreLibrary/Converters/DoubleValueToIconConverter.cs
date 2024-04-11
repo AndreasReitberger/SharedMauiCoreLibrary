@@ -7,7 +7,7 @@ namespace AndreasReitberger.Shared.Core.Converters
         public string OnZero { get; set; } = string.Empty;
         public string OnPositive { get; set; } = string.Empty;
         public string OnNegative { get; set; } = string.Empty;
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is not double doubleValue || targetType != typeof(string)) return null;
             return doubleValue switch
@@ -17,12 +17,12 @@ namespace AndreasReitberger.Shared.Core.Converters
                 _ => OnZero,
             };
         }
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }
 
-        public object ProvideValue(IServiceProvider serviceProvider)
+        public object? ProvideValue(IServiceProvider serviceProvider)
         {
             return this;
         }

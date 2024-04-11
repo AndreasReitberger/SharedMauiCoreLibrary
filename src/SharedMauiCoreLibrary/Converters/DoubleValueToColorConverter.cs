@@ -19,7 +19,7 @@ namespace AndreasReitberger.Shared.Core.Converters
         public Color OnZero { get; set; } = Colors.Gray;
         public Color OnPositive { get; set; } = Colors.Green;
         public Color OnNegative { get; set; } = Colors.Red;
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is not double doubleValue || targetType != typeof(Color)) return null;
             return doubleValue switch
@@ -29,12 +29,12 @@ namespace AndreasReitberger.Shared.Core.Converters
                 _ => OnZero,
             };
         }
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }
 
-        public object ProvideValue(IServiceProvider serviceProvider)
+        public object? ProvideValue(IServiceProvider serviceProvider)
         {
             return this;
         }

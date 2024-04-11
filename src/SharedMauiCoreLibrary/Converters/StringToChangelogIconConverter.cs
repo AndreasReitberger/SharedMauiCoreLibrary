@@ -11,9 +11,9 @@ namespace AndreasReitberger.Shared.Core.Converters
         public const string Autorenew = "\U000f006a";
         public const string PlaylistPlus = "\U000f0412";
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            _ = Enum.TryParse(value.ToString(), out ChangelogType type);
+            _ = Enum.TryParse(value?.ToString(), out ChangelogType type);
             string glyp = type switch
             {
                 ChangelogType.New => PlaylistPlus,
@@ -25,7 +25,7 @@ namespace AndreasReitberger.Shared.Core.Converters
             return glyp;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             return null;
         }
