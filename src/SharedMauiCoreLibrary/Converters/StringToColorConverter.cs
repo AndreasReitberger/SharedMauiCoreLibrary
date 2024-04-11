@@ -4,7 +4,7 @@ namespace AndreasReitberger.Shared.Core.Converters
 {
     public class StringToColorConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             Color color = Colors.Black;
             if (value is not string str || string.IsNullOrEmpty(str))
@@ -23,7 +23,7 @@ namespace AndreasReitberger.Shared.Core.Converters
             return color;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             return null;
         }

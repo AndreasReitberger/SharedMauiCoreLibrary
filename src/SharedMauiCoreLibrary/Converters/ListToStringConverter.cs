@@ -5,7 +5,7 @@ namespace AndreasReitberger.Shared.Core.Converters
     public sealed class ListToStringConverter : IValueConverter
     {
         public string Separator { get; set; } = Environment.NewLine;
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is List<string> list)
             {
@@ -14,7 +14,7 @@ namespace AndreasReitberger.Shared.Core.Converters
             else return "";
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is string str)
             {
