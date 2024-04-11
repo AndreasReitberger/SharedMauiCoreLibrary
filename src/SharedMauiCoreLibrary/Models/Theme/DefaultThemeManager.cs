@@ -51,7 +51,7 @@ namespace AndreasReitberger.Shared.Core.Models.Theme
             new ThemeColorInfo() { ThemeName = Colors.Gold.ToHex(), PrimaryColor = Colors.Gold },
         ];
 
-        public ThemeColorInfo ActiveTheme => AvailableColors?.FirstOrDefault(themeInfo => themeInfo.IsAppDefault);
+        public ThemeColorInfo? ActiveTheme => AvailableColors?.FirstOrDefault(themeInfo => themeInfo.IsAppDefault);
         #endregion
     }
 }

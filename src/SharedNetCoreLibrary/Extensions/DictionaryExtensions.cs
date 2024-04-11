@@ -2,7 +2,7 @@
 {
     public static class DictionaryExtensions
     {
-        public static List<T> ToList<T>(this Dictionary<T, List<T>> source)
+        public static List<T> ToList<T>(this Dictionary<T, List<T>> source) where T : notnull
         {
             List<T> list = [];
             if (source == null) return list;

@@ -9,9 +9,10 @@ namespace AndreasReitberger.Shared.Core.Services
         // Source: https://github.com/xamarin/xamarin-forms-samples/blob/master/XamFormsImageResize/XamFormsImageResize/ImageResizer.cs
         public partial byte[] ResizeImage(byte[] imageData, float width, float height = -1)
         {
-            UIImage originalImage = ImageFromByteArray(imageData);
-            UIImageOrientation orientation = originalImage.Orientation;
+            UIImage? originalImage = ImageFromByteArray(imageData);
+            if (originalImage is null) return [];
 
+            UIImageOrientation orientation = originalImage.Orientation;
             bool landscape = originalImage.Size.Width >= originalImage.Size.Height;
             float ratio = Convert.ToSingle(originalImage.Size.Width / originalImage.Size.Height);
 
@@ -38,19 +39,21 @@ namespace AndreasReitberger.Shared.Core.Services
 
             // draw the image
             context.DrawImage(imageRect, originalImage.CGImage);
-            UIImage resizedImage = UIImage.FromImage(context.ToImage(), 0, orientation);
-
-            // save the image as a jpeg
-            return resizedImage.AsJPEG().ToArray();
+            if (context?.ToImage() is CGImage gimage)
+            {
+                UIImage? resizedImage = UIImage.FromImage(gimage, 0, orientation);
+                // save the image as a jpeg
+                return resizedImage?.AsJPEG()?.ToArray() ?? [];
+            }
+            return [];
         }
 
-        UIImage ImageFromByteArray(byte[] data)
+        UIImage? ImageFromByteArray(byte[] data)
         {
-            if (data == null)
+            if (data is null)
             {
                 return null;
             }
-
             UIImage image;
             try
             {

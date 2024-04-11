@@ -7,14 +7,14 @@ namespace AndreasReitberger.Shared.Core.Interfaces
     {
         #region Properties
         public List<LocalizationInfo> Languages { get; set; }
-        public LocalizationInfo CurrentLanguage { get; set; }
-        public CultureInfo CurrentCulture { get; set; }
+        public LocalizationInfo? CurrentLanguage { get; set; }
+        public CultureInfo? CurrentCulture { get; set; }
         #endregion
 
         #region Methods
         Uri GetImageUri(string cultureCode);
         void InitialLanguage(string cultureCode);
-        LocalizationInfo GetLocalizationInfoBasedOnCode(string cultureCode);
+        LocalizationInfo? GetLocalizationInfoBasedOnCode(string cultureCode);
         void SetLanguages(List<LocalizationInfo> languages);
         void Change(LocalizationInfo info);
         void Change(LocalizationInfo info, Action<LocalizationInfo> action);
@@ -24,7 +24,7 @@ namespace AndreasReitberger.Shared.Core.Interfaces
 
         #region Events
         //event EventHandler Error;
-        event EventHandler LanguageChanged;
+        event EventHandler? LanguageChanged;
         #endregion
     }
 }

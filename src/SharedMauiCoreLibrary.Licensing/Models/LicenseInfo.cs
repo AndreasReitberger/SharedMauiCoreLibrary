@@ -11,28 +11,28 @@ namespace AndreasReitberger.Shared.Core.Licensing
         Guid id;
 
         [ObservableProperty]
-        string domain;
+        string domain = string.Empty;
 
         [ObservableProperty]
-        string license;
+        string license = string.Empty;
 
         [ObservableProperty]
-        string owner;
+        string owner = string.Empty;
 
         [ObservableProperty]
-        string productCode;
+        string productCode = string.Empty;
 
         [ObservableProperty]
-        bool isValid;
+        bool isValid = false;
 
         [ObservableProperty]
-        bool isActive;
+        bool isActive= false;
 
         [ObservableProperty]
         DateTimeOffset lastCheck;
 
         [ObservableProperty]
-        ILicenseOptions options;
+        ILicenseOptions? options;
         #endregion
 
         #region Ctor

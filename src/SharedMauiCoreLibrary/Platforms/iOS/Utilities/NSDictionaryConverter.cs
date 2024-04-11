@@ -5,10 +5,10 @@ namespace AndreasReitberger.Shared.Core.Platforms.iOS.Utilities
 {
     public static class NSDictionaryConverter
     {
-        public static Dictionary<string, object> ToDictionaryFromNSObject(NSDictionary<NSString, NSObject> dictionary)
+        public static Dictionary<string, object> ToDictionaryFromNSObject(NSDictionary<NSString, NSObject>? dictionary)
         {
             Dictionary<string, object> dict = new();
-            if (dictionary.Values.Length > 0)
+            if (dictionary?.Values?.Length > 0)
             {
                 NSObject first = dictionary.Values[0];
                 if (first is NSArray arrary || first is NSDictionary tempDict)
@@ -27,7 +27,7 @@ namespace AndreasReitberger.Shared.Core.Platforms.iOS.Utilities
 
         public static Dictionary<string, Dictionary<string, object>> ToDictionaryFromNSDictionary(NSDictionary<NSString, NSObject> dictionary)
         {
-            Dictionary<string, Dictionary<string, object>> dict = new();
+            Dictionary<string, Dictionary<string, object>> dict = [];
             if (dictionary.Values.Length > 0)
             {
                 NSObject first = dictionary.Values[0];
@@ -48,7 +48,7 @@ namespace AndreasReitberger.Shared.Core.Platforms.iOS.Utilities
 
         public static Dictionary<string, Dictionary<string, object>[]> ToDictionaryFromNSArray(NSDictionary<NSString, NSObject> dictionary)
         {
-            Dictionary<string, Dictionary<string, object>[]> dict = new();
+            Dictionary<string, Dictionary<string, object>[]> dict = [];
             if (dictionary.Values.Length > 0)
             {
                 NSObject first = dictionary.Values[0];
@@ -66,7 +66,7 @@ namespace AndreasReitberger.Shared.Core.Platforms.iOS.Utilities
                     string strKey = key.ToString();
                     if (pair.Value is NSArray array)
                     {
-                        List<Dictionary<string, object>> List = new();
+                        List<Dictionary<string, object>> List = [];
                         for (nuint i = 0; i < array.Count; i++)
                         {
                             NSDictionary<NSString, NSObject> single = array.GetItem<NSDictionary<NSString, NSObject>>(i);

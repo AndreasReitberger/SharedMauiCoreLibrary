@@ -5,10 +5,10 @@ namespace AndreasReitberger.Shared.Core.Services
 {
     public partial class DeviceProviderService
     {
-        public partial string GetDeviceId()
+        public partial string? GetDeviceId()
         {
-            SystemIdentificationInfo id = SystemIdentification.GetSystemIdForPublisher();
-            return CryptographicBuffer.EncodeToHexString(id.Id);
+            SystemIdentificationInfo? id = SystemIdentification.GetSystemIdForPublisher();
+            return CryptographicBuffer.EncodeToHexString(id?.Id);
         }
     }
 }

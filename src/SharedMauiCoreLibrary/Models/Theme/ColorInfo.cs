@@ -15,11 +15,11 @@ namespace AndreasReitberger.Shared.Core.Theme
         /// The color for this info.
         /// </summary>
         [ObservableProperty]
-        Color color;
-        partial void OnColorChanged(Color value)
+        Color? color;
+        partial void OnColorChanged(Color? value)
         {
             if (string.IsNullOrEmpty(Name))
-                Name = value?.ToArgbHex();
+                Name = value?.ToArgbHex() ?? string.Empty;
         }
 
         #endregion

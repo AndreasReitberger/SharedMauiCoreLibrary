@@ -20,14 +20,14 @@ namespace AndreasReitberger.Shared.Core.Theme
         /// based on this color and the set `Factor`.
         /// </summary>
         [ObservableProperty]
-        Color primaryColor;
-        partial void OnPrimaryColorChanged(Color value) => UpdatePrimaryColorDependencies(value);
+        Color? primaryColor;
+        partial void OnPrimaryColorChanged(Color? value) => UpdatePrimaryColorDependencies(value);
 
         /// <summary>
         /// A secondary color as addition to the Primary Color. 
         /// </summary>
         [ObservableProperty]
-        Color secondaryColor;
+        Color? secondaryColor;
 
         /// <summary>
         /// This factor will be used to ligthen / darken the primary color. This value should be between 0.1f and 1f
@@ -39,14 +39,10 @@ namespace AndreasReitberger.Shared.Core.Theme
         // https://github.com/CommunityToolkit/dotnet/issues/555
         // Not yet supported
         [ObservableProperty]
-        Color primaryLigtherColor;
-        //public partial Color PrimaryDarkerColor { get; private set; }
+        Color? primaryLigtherColor;
 
         [ObservableProperty]
-        Color primaryDarkerColor;
-        //public partial Color PrimaryLigtherColor { get; private set; };
-        //public Color PrimaryDarkerColor { get; private set; }
-        //public Color PrimaryLigtherColor { get; private set; }
+        Color? primaryDarkerColor;
         #endregion
 
         #region Ctor
@@ -61,12 +57,13 @@ namespace AndreasReitberger.Shared.Core.Theme
 
         #region Methods
 
-        void UpdatePrimaryColorDependencies(Color primaryColor)
+        void UpdatePrimaryColorDependencies(Color? primaryColor)
         {
-            //PrimaryLigtherColor = ColorExtensions.Lighten(primaryColor, Factor);
-            //PrimaryDarkerColor = ColorExtensions.Darken(primaryColor, Factor);
-            PrimaryLigtherColor = ColorExtensions.Tint(primaryColor, Factor);
-            PrimaryDarkerColor = ColorExtensions.Shade(primaryColor, Factor);
+            if (primaryColor is not null)
+            {
+                PrimaryLigtherColor = ColorExtensions.Tint(primaryColor, Factor);
+                PrimaryDarkerColor = ColorExtensions.Shade(primaryColor, Factor);
+            }
         }
 
         #endregion

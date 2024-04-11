@@ -13,7 +13,7 @@ namespace AndreasReitberger.Shared.Core.Services
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
                 var androidColor = color.AddLuminosity(-0.1f).ToAndroid();
-                Microsoft.Maui.ApplicationModel.Platform.CurrentActivity?.Window.SetStatusBarColor(androidColor);
+                Microsoft.Maui.ApplicationModel.Platform.CurrentActivity?.Window?.SetStatusBarColor(androidColor);
             }
             else
             {

@@ -8,10 +8,11 @@ namespace AndreasReitberger.Shared.Core.Services
         public partial byte[] ResizeImage(byte[] imageData, float width, float height = -1)
         {
             // Load the bitmap
-            Bitmap originalImage = BitmapFactory.DecodeByteArray(imageData, 0, imageData.Length);
+            Bitmap? originalImage = BitmapFactory.DecodeByteArray(imageData, 0, imageData.Length);
+            if (originalImage is null) return [];
 
-            bool landscape = originalImage.Width >= originalImage.Height;
-            float ratio = Convert.ToSingle((float)originalImage.Width / (float)originalImage.Height);
+            bool landscape = originalImage?.Width >= originalImage?.Height;
+            float ratio = Convert.ToSingle(originalImage.Width / originalImage.Height);
 
             if (height <= -1)
             {
@@ -31,7 +32,7 @@ namespace AndreasReitberger.Shared.Core.Services
             Bitmap resizedImage = Bitmap.CreateScaledBitmap(originalImage, (int)width, (int)height, false);
 
             using MemoryStream ms = new();
-            resizedImage.Compress(Bitmap.CompressFormat.Jpeg, 100, ms);
+            resizedImage.Compress(format: Bitmap.CompressFormat.Jpeg, 100, ms);
             return ms.ToArray();
         }
     }

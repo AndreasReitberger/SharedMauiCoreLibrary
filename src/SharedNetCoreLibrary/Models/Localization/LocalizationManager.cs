@@ -54,7 +54,7 @@ namespace AndreasReitberger.Shared.Core.Localization
 
         #region Events
 
-        public event EventHandler LanguageChanged;
+        public event EventHandler? LanguageChanged;
         protected virtual void OnLanguageChanged(LanguageChangedEventArgs e)
         {
             LanguageChanged?.Invoke(this, e);
@@ -82,7 +82,7 @@ namespace AndreasReitberger.Shared.Core.Localization
 
         public void SetLanguages(List<LocalizationInfo> languages) => Languages = languages ?? [];
 
-        public LocalizationInfo GetLocalizationInfoBasedOnCode(string cultureCode) => Languages.FirstOrDefault(x => x.Code == cultureCode) ?? null;
+        public LocalizationInfo? GetLocalizationInfoBasedOnCode(string cultureCode) => Languages?.FirstOrDefault(x => x.Code == cultureCode) ?? null;
 
         public Uri GetImageUri(string cultureCode)
         {

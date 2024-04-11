@@ -5,7 +5,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
     public partial class JsonConvertHelper
     {
         #region Converts
-        public static T ToObject<T>(string jsonString, T? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerSettings? settings = null)
+        public static T? ToObject<T>(string jsonString, T? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerSettings? settings = null)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 return defaultValue;
             }
         }
-        public static string ToSettingsString<T>(T settingsObject, string? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerSettings? settings = null)
+        public static string? ToSettingsString<T>(T settingsObject, string? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerSettings? settings = null)
         {
             try
             {
