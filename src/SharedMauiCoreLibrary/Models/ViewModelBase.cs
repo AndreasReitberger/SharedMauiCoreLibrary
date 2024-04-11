@@ -68,20 +68,51 @@ namespace AndreasReitberger.Shared.Core
         #endregion
 
         #region Methods
-        public void SetBusy(bool isBusy, IDispatcher? dispatcher) => dispatcher?.Dispatch(() =>
+        public void SetBusy(bool isBusy, IDispatcher? dispatcher)
         {
-            if (isBusy)
-                IsBusyCounter++;
+            // Only dispatch if needed
+            if (dispatcher is not null && dispatcher?.IsDispatchRequired is true)
+            {
+                dispatcher.Dispatch(() =>
+                {
+                    if (isBusy)
+                        IsBusyCounter++;
+                    else
+                        IsBusyCounter--;
+                });
+            }
+            // Update on the MainThread
             else
-                IsBusyCounter--;
-        });
-        public Task? SetBusyAsync(bool isBusy, IDispatcher? dispatcher) => dispatcher?.DispatchAsync(() =>
+            {
+                if (isBusy)
+                    IsBusyCounter++;
+                else
+                    IsBusyCounter--;
+            }
+        }
+
+        public async Task SetBusyAsync(bool isBusy, IDispatcher? dispatcher)
         {
-            if (isBusy)
-                IsBusyCounter++;
+            // Only dispatch if needed
+            if (dispatcher is not null && dispatcher?.IsDispatchRequired is true)
+            {
+                await dispatcher.DispatchAsync(() =>
+                {
+                    if (isBusy)
+                        IsBusyCounter++;
+                    else
+                        IsBusyCounter--;
+                });
+            }
+            // Update on the MainThread
             else
-                IsBusyCounter--;
-        });
+            {
+                if (isBusy)
+                    IsBusyCounter++;
+                else
+                    IsBusyCounter--;
+            }
+        }
         #endregion
 
         #region Dispose
