@@ -7,7 +7,7 @@ namespace AndreasReitberger.Shared.Core.Services
     public partial class ImageResizerService
     {
         // Source: https://github.com/xamarin/xamarin-forms-samples/blob/master/XamFormsImageResize/XamFormsImageResize/ImageResizer.cs
-        public partial byte[] ResizeImage(byte[] imageData, float width, float height = -1)
+        public partial byte[] ResizeImage(byte[] imageData, float width, float height)
         {
             UIImage? originalImage = ImageFromByteArray(imageData);
             if (originalImage is null) return [];

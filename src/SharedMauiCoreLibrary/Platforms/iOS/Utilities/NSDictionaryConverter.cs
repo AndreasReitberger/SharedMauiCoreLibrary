@@ -7,7 +7,7 @@ namespace AndreasReitberger.Shared.Core.Platforms.iOS.Utilities
     {
         public static Dictionary<string, object> ToDictionaryFromNSObject(NSDictionary<NSString, NSObject>? dictionary)
         {
-            Dictionary<string, object> dict = new();
+            Dictionary<string, object> dict = [];
             if (dictionary?.Values?.Length > 0)
             {
                 NSObject first = dictionary.Values[0];
@@ -16,12 +16,12 @@ namespace AndreasReitberger.Shared.Core.Platforms.iOS.Utilities
                     throw new Exception($"Value type of passed NSDictionary is {first.GetType()}." +
                         $" Use for this type '{(first.GetType() == typeof(NSArray) ? "ToDictionaryFromNSArray" : "ToDictionaryFromNSDictionary")}'!");
                 }
-            }
-            string[] keys = dictionary.Keys.Select(k => k.ToString()).ToArray();
-            NSObject[] values = dictionary.Values.Select(v => v).ToArray();
+                string[] keys = dictionary.Keys.Select(k => k.ToString()).ToArray();
+                NSObject[] values = dictionary.Values.Select(v => v).ToArray();
 
-            dict = keys.Zip(values, (k, v) => new { Key = k, Value = v })
-                                    .ToDictionary(x => x.Key, x => x.Value as object);
+                dict = keys.Zip(values, (k, v) => new { Key = k, Value = v })
+                                        .ToDictionary(x => x.Key, x => x.Value as object);
+            }
             return dict;
         }
 

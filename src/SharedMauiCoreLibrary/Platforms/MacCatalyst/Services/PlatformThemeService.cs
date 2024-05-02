@@ -26,7 +26,7 @@ namespace AndreasReitberger.Shared.Core.Services
 
                 UIWindow window = UIApplication.SharedApplication.Delegate.GetWindow();
                 statusBar = window.ViewWithTag(tag);
-
+                
                 if (statusBar == null || statusBar.Frame != UIApplication.SharedApplication.StatusBarFrame)
                 {
                     statusBar = statusBar ?? new(UIApplication.SharedApplication.StatusBarFrame);
@@ -38,14 +38,17 @@ namespace AndreasReitberger.Shared.Core.Services
             }
             else
             {
-                statusBar = UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) as UIView;
+                if (UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) is UIView view)
+                {
+                    statusBar = view;
+                    if (statusBar != null)
+                    {
+                        statusBar.BackgroundColor = color.ToPlatform();
+                        //statusBar.BackgroundColor = Color.FromArgb("#2B0B98").ToUIColor();
+                    }
+                }
             }
 
-            if (statusBar != null)
-            {
-                statusBar.BackgroundColor = color.ToPlatform();
-                //statusBar.BackgroundColor = Color.FromArgb("#2B0B98").ToUIColor();
-            }
         }
     }
 }
