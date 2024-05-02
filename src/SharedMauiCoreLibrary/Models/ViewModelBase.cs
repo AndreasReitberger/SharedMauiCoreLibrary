@@ -23,41 +23,41 @@ namespace AndreasReitberger.Shared.Core
 
         #region Ctor
         public ViewModelBase() : base() { }
-        public ViewModelBase(IDispatcher dispatcher) : base()
+        public ViewModelBase(IDispatcher? dispatcher) : base()
         {
             Dispatcher = dispatcher;
         }
-        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider) : base(provider: provider)
+        public ViewModelBase(IDispatcher? dispatcher, IServiceProvider? provider) : base(provider: provider)
         {
             Dispatcher = dispatcher;
             Provider = provider;
         }
-        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider, IFileSaver? fileSaver) : base(provider: provider)
+        public ViewModelBase(IDispatcher? dispatcher, IServiceProvider? provider, IFileSaver? fileSaver) : base(provider: provider)
         {
             Dispatcher = dispatcher;
             Provider = provider;
             FileSaver = fileSaver;
         }
-        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider, IFileSaver? fileSaver, ILauncher? launcher) : base(provider: provider)
+        public ViewModelBase(IDispatcher? dispatcher, IServiceProvider? provider, IFileSaver? fileSaver, ILauncher? launcher) : base(provider: provider)
         {
             Dispatcher = dispatcher;
             Provider = provider;
             FileSaver = fileSaver;
             Launcher = launcher;
         }
-        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider, ILauncher? launcher) : base(provider: provider)
+        public ViewModelBase(IDispatcher? dispatcher, IServiceProvider? provider, ILauncher? launcher) : base(provider: provider)
         {
             Dispatcher = dispatcher;
             Provider = provider;
             Launcher = launcher;
         }
-        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider, IFilePicker? filePicker) : base(provider: provider)
+        public ViewModelBase(IDispatcher? dispatcher, IServiceProvider? provider, IFilePicker? filePicker) : base(provider: provider)
         {
             Dispatcher = dispatcher;
             Provider = provider;
             FilePicker = filePicker;
         }
-        public ViewModelBase(IDispatcher dispatcher, IServiceProvider provider, IFileSaver? fileSaver, ILauncher? launcher, IFilePicker? filePicker) : base(provider: provider)
+        public ViewModelBase(IDispatcher? dispatcher, IServiceProvider? provider, IFileSaver? fileSaver, ILauncher? launcher, IFilePicker? filePicker) : base(provider: provider)
         {
             Dispatcher = dispatcher;
             Provider = provider;

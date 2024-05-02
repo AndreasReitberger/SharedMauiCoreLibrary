@@ -5,10 +5,10 @@ namespace AndreasReitberger.Shared.Core.Platforms.MacCatalyst.Utilities
 {
     public static class NSDictionaryConverter
     {
-        public static Dictionary<string, object> ToDictionaryFromNSObject(NSDictionary<NSString, NSObject> dictionary)
+        public static Dictionary<string, object> ToDictionaryFromNSObject(NSDictionary<NSString, NSObject>? dictionary)
         {
-            Dictionary<string, object> dict = new();
-            if (dictionary.Values.Length > 0)
+            Dictionary<string, object> dict = [];
+            if (dictionary?.Values.Length > 0)
             {
                 NSObject first = dictionary.Values[0];
                 if (first is NSArray arrary || first is NSDictionary tempDict)
@@ -16,18 +16,17 @@ namespace AndreasReitberger.Shared.Core.Platforms.MacCatalyst.Utilities
                     throw new Exception($"Value type of passed NSDictionary is {first.GetType()}." +
                         $" Use for this type '{(first.GetType() == typeof(NSArray) ? "ToDictionaryFromNSArray" : "ToDictionaryFromNSDictionary")}'!");
                 }
-            }
             string[] keys = dictionary.Keys.Select(k => k.ToString()).ToArray();
             NSObject[] values = dictionary.Values.Select(v => v).ToArray();
-
             dict = keys.Zip(values, (k, v) => new { Key = k, Value = v })
                                     .ToDictionary(x => x.Key, x => x.Value as object);
+            }
             return dict;
         }
 
         public static Dictionary<string, Dictionary<string, object>> ToDictionaryFromNSDictionary(NSDictionary<NSString, NSObject> dictionary)
         {
-            Dictionary<string, Dictionary<string, object>> dict = new();
+            Dictionary<string, Dictionary<string, object>> dict = [];
             if (dictionary.Values.Length > 0)
             {
                 NSObject first = dictionary.Values[0];
@@ -48,7 +47,7 @@ namespace AndreasReitberger.Shared.Core.Platforms.MacCatalyst.Utilities
 
         public static Dictionary<string, Dictionary<string, object>[]> ToDictionaryFromNSArray(NSDictionary<NSString, NSObject> dictionary)
         {
-            Dictionary<string, Dictionary<string, object>[]> dict = new();
+            Dictionary<string, Dictionary<string, object>[]> dict = [];
             if (dictionary.Values.Length > 0)
             {
                 NSObject first = dictionary.Values[0];
@@ -66,7 +65,7 @@ namespace AndreasReitberger.Shared.Core.Platforms.MacCatalyst.Utilities
                     string strKey = key.ToString();
                     if (pair.Value is NSArray array)
                     {
-                        List<Dictionary<string, object>> List = new();
+                        List<Dictionary<string, object>> List = [];
                         for (nuint i = 0; i < array.Count; i++)
                         {
                             NSDictionary<NSString, NSObject> single = array.GetItem<NSDictionary<NSString, NSObject>>(i);

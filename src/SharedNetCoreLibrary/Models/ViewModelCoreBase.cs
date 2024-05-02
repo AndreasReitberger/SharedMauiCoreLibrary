@@ -64,7 +64,7 @@ namespace AndreasReitberger.Shared.Core
 
         #region Ctor
         public ViewModelCoreBase() { }
-        public ViewModelCoreBase(IServiceProvider provider)
+        public ViewModelCoreBase(IServiceProvider? provider)
         {
             Provider = provider;
         }
