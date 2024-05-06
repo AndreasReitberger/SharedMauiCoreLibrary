@@ -24,7 +24,7 @@ namespace AndreasReitberger.Shared.Core.Services
                 {
                     if (window.WindowScene?.StatusBarManager?.StatusBarFrame is CGRect frame)
                     {
-                        statusBar = statusBar ?? new(frame);
+                        statusBar ??= new(frame);
                         statusBar.Frame = frame;
                         statusBar.Tag = tag;
                         window.AddSubview(statusBar);
