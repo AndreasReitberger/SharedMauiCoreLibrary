@@ -1,6 +1,5 @@
 ﻿using AndreasReitberger.Shared.Core.Utilities;
 using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace AndreasReitberger.Shared.Core.Converters
 {
@@ -12,7 +11,8 @@ namespace AndreasReitberger.Shared.Core.Converters
             if (value is not string html) return string.Empty;
             if (!string.IsNullOrEmpty(html))
             {
-                string decoded = Regex.Replace(html, RegexHelper.HtmlTags, string.Empty);
+                //string decoded = Regex.Replace(html, RegexHelper.HtmlTags, string.Empty);
+                string decoded = RegexHelper.HtmlTagsGeneratedRegex().Replace(html, string.Empty);
                 return decoded;
             }
             else return string.Empty;
