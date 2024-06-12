@@ -10,9 +10,9 @@ namespace SharedMauiCoreLibrary.Test;
 public class Tests
 {
     string licenseUri = "andreas-reitberger.de";
-    LicenseManager manager;
-    LicenseInfo info;
-    SecretAppSetting appSecrets;
+    LicenseManager? manager;
+    LicenseInfo? info;
+    SecretAppSetting? appSecrets;
 
     [SetUp]
     public void Setup()
@@ -22,6 +22,8 @@ public class Tests
         manager = new LicenseManager.LicenseManagerConnectionBuilder()
             .WithLicenseServer(serverAddress: licenseUri, port: null, https: true)
             .Build();
+        if (appSecrets == null) 
+            throw new ArgumentNullException(nameof(appSecrets));
         info = new LicenseInfo.LicenseInfoBuilder()
             .WithProductIdentifier(appSecrets.ProductCode)
             .WithLicense(appSecrets.License)
@@ -40,6 +42,8 @@ public class Tests
     {
         try
         {
+            if (manager is null)
+                throw new ArgumentNullException(nameof(manager));
             ILicenseQueryResult result = await manager.CheckLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
             Assert.That(result?.Success == true);
 
@@ -63,6 +67,8 @@ public class Tests
     {
         try
         {
+            if (appSecrets is null)
+                throw new ArgumentNullException(nameof(appSecrets));
             manager = new LicenseManager.LicenseManagerConnectionBuilder()
             .WithLicenseServer(serverAddress: "api.envato.com/v3/market/author/sale", port: null, https: true)
             .WithAccessToken(appSecrets.AccessToken)
