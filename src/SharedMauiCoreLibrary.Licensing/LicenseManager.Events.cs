@@ -12,7 +12,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
         {
             Error?.Invoke(this, EventArgs.Empty);
         }
-        protected virtual void OnError(ErrorEventArgs e)
+        protected virtual void OnError(EventArgs e)
         {
             Error?.Invoke(this, e);
         }
