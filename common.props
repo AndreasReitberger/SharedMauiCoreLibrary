@@ -1,8 +1,8 @@
 
 <Project>
     <PropertyGroup>
-        <Version>1.1.9</Version>
-        <!--<PackageIcon>logo_128.png</PackageIcon>-->
+        <Version>1.1.10</Version>
+        <PackageIcon>ar_128.png</PackageIcon>
         <NeutralLanguage>en</NeutralLanguage>
         <PackageProjectUrl>https://github.com/AndreasReitberger/SharedMauiCoreLibrary</PackageProjectUrl>
         <RepositoryUrl>https://github.com/AndreasReitberger/SharedMauiCoreLibrary</RepositoryUrl>
@@ -23,14 +23,13 @@
         <IncludeSymbols>true</IncludeSymbols>
     </PropertyGroup>
 
-<!--
     <ItemGroup>
-      <None Include="..\..\art\logo_128.png">
+      <None Include="..\..\art\ar_128.png">
         <Pack>True</Pack>
         <PackagePath></PackagePath>
       </None>
    </ItemGroup>
--->
+
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
   </ItemGroup>
