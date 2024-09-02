@@ -58,11 +58,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.80" />
-	  <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.80" />
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.82" />
+	  <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.82" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.0" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	  <PackageReference Include="RestSharp" Version="111.4.1" />
+	  <PackageReference Include="RestSharp" Version="112.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
