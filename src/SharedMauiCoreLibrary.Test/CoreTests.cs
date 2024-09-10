@@ -67,12 +67,13 @@ public class LicenseTests
 
             // Recreate hash from user password
             salt = EncryptionManager.GetSaltFromHexString(saltHexString);
-            hashedPassword = EncryptionManager.SaltWithPasswordString(userpassword, salt, 32); 
+            hashedPassword = EncryptionManager.SaltWithPasswordString(userpassword, salt, 32);
             decrytpedText = EncryptionManager.DecryptStringFromBase64String(encryptedText, hashedPassword, 256);
             Assert.That(plainText == decrytpedText);
         }
-        catch (Exception ex) { 
-        
+        catch (Exception ex)
+        {
+
             Assert.Fail(ex.Message);
         }
     }

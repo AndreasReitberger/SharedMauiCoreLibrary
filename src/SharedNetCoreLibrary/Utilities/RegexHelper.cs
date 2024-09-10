@@ -129,7 +129,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
         public const string Fqdn = @"(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{1,63}(?<!-)\.)+[a-zA-Z]{2,63}$)";
 
         const string IPv4AddressValues = @"(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])";
-        
+
         // Match IPv4-Address like 192.168.178.1
         public const string IPv4AddressRegex = "^" + IPv4AddressValues + "$";
 

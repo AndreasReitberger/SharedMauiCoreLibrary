@@ -75,7 +75,7 @@ namespace AndreasReitberger.Shared.Core
         {
             if (isBusy)
                 IsBusyCounter++;
-            else 
+            else
                 IsBusyCounter--;
         }
         #endregion
