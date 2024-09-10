@@ -17,17 +17,17 @@ namespace AndreasReitberger.Shared.Core.Contacts
         DateTimeOffset? timeAdded;
 
         [ObservableProperty]
-        Dictionary<string, string> phoneNumbers =[];
+        Dictionary<string, string> phoneNumbers = [];
 
         [ObservableProperty]
-        Dictionary<string, string> emailAddresses =[];
+        Dictionary<string, string> emailAddresses = [];
 
         public string Name => string.IsNullOrEmpty(FirstName) ? $"{LastName}" : $"{LastName}, {FirstName}";
         #endregion
 
         #region Ctor
         public Contact() { }
-        
+
         #endregion
     }
 }

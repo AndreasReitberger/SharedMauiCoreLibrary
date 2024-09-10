@@ -6,6 +6,6 @@ namespace AndreasReitberger.Shared.Core.Services
     {
         public partial string? GetDeviceId()
             => UIDevice.CurrentDevice?.IdentifierForVendor?.ToString();
-        
+
     }
 }

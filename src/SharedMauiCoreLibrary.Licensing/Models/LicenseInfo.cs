@@ -26,7 +26,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
         bool isValid = false;
 
         [ObservableProperty]
-        bool isActive= false;
+        bool isActive = false;
 
         [ObservableProperty]
         DateTimeOffset lastCheck;

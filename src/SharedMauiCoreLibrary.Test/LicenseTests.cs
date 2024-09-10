@@ -22,7 +22,7 @@ public class Tests
         manager = new LicenseManager.LicenseManagerConnectionBuilder()
             .WithLicenseServer(serverAddress: licenseUri, port: null, https: true)
             .Build();
-        if (appSecrets == null) 
+        if (appSecrets == null)
             throw new ArgumentNullException(nameof(appSecrets));
         info = new LicenseInfo.LicenseInfoBuilder()
             .WithProductIdentifier(appSecrets.ProductCode)
