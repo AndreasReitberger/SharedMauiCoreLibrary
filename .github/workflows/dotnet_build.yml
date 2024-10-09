@@ -48,7 +48,7 @@ jobs:
         name: nupkg
         path: ./src/*/nuget/*.nupkg
 
-  iosBuild:
+  macBuild:
     runs-on: macos-15
     steps:
     - uses: actions/checkout@v4
@@ -66,7 +66,9 @@ jobs:
       run: |
         dotnet nuget locals all --clear
         dotnet workload install maui --source https://api.nuget.org/v3/index.json
-        dotnet workload install android ios maccatalyst tvos macos maui wasm-tools maui-maccatalyst --source https://api.nuget.org/v3/index.json
+        dotnet workload install android ios maccatalyst tvos macos maui wasm-tools maui-maccatalyst --source https://api.nuget.org/v3/index.json    
+    - name: Install Android tools
+      run: ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platforms;android-34" "build-tools;34.0.0" "platform-tools"
 #    - name: Install the Apple certificate and provisioning profile
 # # Ref: https://docs.github.com/en/actions/use-cases-and-examples/deploying/installing-an-apple-certificate-on-macos-runners-for-xcode-development
 #      env:
