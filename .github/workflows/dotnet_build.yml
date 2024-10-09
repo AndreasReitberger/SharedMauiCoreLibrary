@@ -35,11 +35,11 @@ jobs:
         & dotnet workload install android ios maccatalyst tvos macos maui wasm-tools maui-maccatalyst --source https://api.nuget.org/v3/index.json
     - name: Build
       # For nugets
-      # run: dotnet build ./src/MauiAppBasement/MauiAppBasement.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+      # run: dotnet build ./src/MauiAppBasement/MauiAppBasement.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
       run: |
-        dotnet build ./src/SharedNetCoreLibrary/SharedNetCoreLibrary.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
-        dotnet build ./src/SharedMauiCoreLibrary/SharedMauiCoreLibrary.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
-        dotnet build ./src/SharedMauiCoreLibrary.Licensing/SharedMauiCoreLibrary.Licensing.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+        dotnet build ./src/SharedNetCoreLibrary/SharedNetCoreLibrary.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+        dotnet build ./src/SharedMauiCoreLibrary/SharedMauiCoreLibrary.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+        dotnet build ./src/SharedMauiCoreLibrary.Licensing/SharedMauiCoreLibrary.Licensing.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
 #    - name: Build (Sample)
 #      run: dotnet build ./src/MauiAppBasement.Syncfusion/MauiAppBasement.Syncfusion.csproj /t:restore,build -c Release -f net8.0-windows10.0.19041.0 /p:RuntimeIdentifierOverride=win10-x64
     - name: Upload packages
@@ -99,9 +99,9 @@ jobs:
 #        cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
     - name: Build
       run: |
-        dotnet build ./src/SharedNetCoreLibrary/SharedNetCoreLibrary.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
-        dotnet build ./src/SharedMauiCoreLibrary/SharedMauiCoreLibrary.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
-        dotnet build ./src/SharedMauiCoreLibrary.Licensing/SharedMauiCoreLibrary.Licensing.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+        dotnet build ./src/SharedNetCoreLibrary/SharedNetCoreLibrary.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+        dotnet build ./src/SharedMauiCoreLibrary/SharedMauiCoreLibrary.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+        dotnet build ./src/SharedMauiCoreLibrary.Licensing/SharedMauiCoreLibrary.Licensing.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
 
   androidBuild:
     runs-on: ubuntu-latest
@@ -120,7 +120,7 @@ jobs:
       run: ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools"
     - name: Build      
       run: |
-        dotnet build ./src/SharedNetCoreLibrary/SharedNetCoreLibrary.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
-        dotnet build ./src/SharedMauiCoreLibrary/SharedMauiCoreLibrary.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
-        dotnet build ./src/SharedMauiCoreLibrary.Licensing/SharedMauiCoreLibrary.Licensing.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+        dotnet build ./src/SharedNetCoreLibrary/SharedNetCoreLibrary.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+        dotnet build ./src/SharedMauiCoreLibrary/SharedMauiCoreLibrary.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+        dotnet build ./src/SharedMauiCoreLibrary.Licensing/SharedMauiCoreLibrary.Licensing.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
 
