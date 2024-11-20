@@ -14,7 +14,11 @@ namespace AndreasReitberger.Shared.Core.Licensing
     public partial class LicenseManager : ObservableObject, ILicenseManager
     {
         #region Variables
-        RestClient client;
+        [ObservableProperty]
+        HttpClient? httpClient;
+
+        [ObservableProperty]
+        RestClient? restClient;
         #endregion
 
         #region Properties
@@ -48,18 +52,36 @@ namespace AndreasReitberger.Shared.Core.Licensing
         public void Initialize(Uri licenseServer = null, int? port = null)
         {
             if (licenseServer != null) LicenseServer = licenseServer;
+
+
+            RestClientOptions options = null;
+            HttpClient = new();
             if (port != null)
             {
                 Port = port;
-                client = new RestClient($"{LicenseServer}:{Port}");
+                options = new()
+                {
+                    BaseUrl = new Uri($"{LicenseServer}:{Port}"),
+                    Expect100Continue = true,
+                };
+                RestClient = new RestClient(httpClient: HttpClient, options: options);
+                //client = new RestClient(httpClient: HttpClient, $"{LicenseServer}:{Port}",);
             }
             else
-                client = new(LicenseServer);
+            {
+                options = new()
+                {
+                    BaseUrl = LicenseServer,
+                    Expect100Continue = true,
+                };
+                RestClient = new RestClient(httpClient: HttpClient, options: options);
+                //client = new(LicenseServer);
+            }
         }
 
         public async Task<ILicenseQueryResult> ActivateLicenseAsync(ILicenseInfo license, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null)
         {
-            if (client == null) Initialize();
+            if (RestClient == null) Initialize();
             LicenseQueryResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
@@ -119,7 +141,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
 
         public async Task<ILicenseQueryResult> CheckLicenseAsync(ILicenseInfo license, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null)
         {
-            if (client == null) Initialize();
+            if (RestClient == null) Initialize();
             LicenseQueryResult result = new() { Success = false, Valid = false, TimeStamp = DateTimeOffset.Now };
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
@@ -200,7 +222,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
 
         public async Task<ILicenseQueryResult> DeactivateLicenseAsync(ILicenseInfo license, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null)
         {
-            if (client == null) Initialize();
+            if (RestClient == null) Initialize();
             LicenseQueryResult result = new() { Success = false, Valid = false, TimeStamp = DateTimeOffset.Now };
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
@@ -264,7 +286,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
 
         public async Task<ILicenseQueryResult> DeleteLicenseAsync(ILicenseInfo license, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null)
         {
-            if (client == null) Initialize();
+            if (RestClient == null) Initialize();
             LicenseQueryResult result = new() { Success = false, Valid = false, TimeStamp = DateTimeOffset.Now };
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
@@ -328,7 +350,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
 
         public async Task<IApplicationVersionResult> GetLatestApplicationVersionAsync(ILicenseInfo license, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null)
         {
-            if (client == null) Initialize();
+            if (RestClient == null) Initialize();
             ApplicationVersionResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
             if (license == null) return result;
             switch (target)
@@ -407,11 +429,13 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 }
             }
 
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
-            Uri fullUri = client.BuildUri(request);
-            RestResponse respone = await client.ExecuteAsync(request, cts.Token).ConfigureAwait(false);
+            // Obsolete, replaced by RestClientOptions
+            //ServicePointManager.Expect100Continue = true;
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+#if DEBUG
+            Uri fullUri = RestClient.BuildUri(request);
+#endif
+            RestResponse respone = await RestClient.ExecuteAsync(request, cts.Token).ConfigureAwait(false);
             if (respone.StatusCode == HttpStatusCode.OK && respone.ResponseStatus == ResponseStatus.Completed)
             {
                 result = respone?.Content;
@@ -504,8 +528,8 @@ namespace AndreasReitberger.Shared.Core.Licensing
         }
         #endregion
 
-        #endregion
+#endregion
 
-        #endregion
+#endregion
     }
 }
