@@ -6,7 +6,7 @@
 	  <Title>NET-Core Shared Library</Title>
 	  <Description>A core libray used for our .NET libraries.</Description>
 
-	  <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+	  <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
       <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
