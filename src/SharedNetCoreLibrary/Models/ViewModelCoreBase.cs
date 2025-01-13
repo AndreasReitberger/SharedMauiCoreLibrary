@@ -1,5 +1,6 @@
 ﻿using AndreasReitberger.Shared.Core.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace AndreasReitberger.Shared.Core
 {
@@ -12,6 +13,10 @@ namespace AndreasReitberger.Shared.Core
         #endregion
 
         #region Properties
+
+        bool _isNavigatedTo;
+        bool _dataLoaded;
+
         [ObservableProperty]
         bool isLoading = false;
 
@@ -78,6 +83,14 @@ namespace AndreasReitberger.Shared.Core
             else
                 IsBusyCounter--;
         }
+        #endregion
+
+        #region Commands
+        [RelayCommand]
+        void NavigatedTo() => _isNavigatedTo = true;
+
+        [RelayCommand]
+        void NavigatedFrom() => _isNavigatedTo = false;
         #endregion
 
         #region Dispose

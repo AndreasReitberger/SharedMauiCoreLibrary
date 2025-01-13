@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging.Messages;
 
-namespace AppBasement.Models.Messages
+namespace AndreasReitberger.Shared.Core.Messaging
 {
     public partial class StateChangedMessage : ValueChangedMessage<string>
     {
