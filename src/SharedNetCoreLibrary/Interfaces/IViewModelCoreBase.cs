@@ -19,6 +19,11 @@ namespace AndreasReitberger.Shared.Core.Interfaces
 
         #endregion
 
+        #region Commands
+        //public IRelayCommand NavigatedToCommand();
+        //public IRelayCommand NavigatedFromCommand();
+        #endregion
+
         #region Methods
         void SetBusy(bool isBusy);
         #endregion
