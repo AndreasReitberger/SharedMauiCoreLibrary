@@ -2,11 +2,8 @@
 
 namespace AndreasReitberger.Shared.Core.Messaging
 {
-    public partial class StateChangedMessage : ValueChangedMessage<string>
+    public partial class StateChangedMessage(string state) : ValueChangedMessage<string>(state)
     {
-        public StateChangedMessage(string state) : base(state)
-        {
 
-        }
     }
 }

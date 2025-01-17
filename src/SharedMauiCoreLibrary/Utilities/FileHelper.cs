@@ -14,10 +14,10 @@ namespace AndreasReitberger.Shared.Core.Utilities
     {
         #region Properties
         // https://wiki.selfhtml.org/wiki/MIME-Type/%C3%9Cbersicht
-        public static string ContentType_Plain = "text/plain";
-        public static string ContentType_JSON = "application/json";
-        public static string ContentType_PDF = "application/pdf";
-        public static string ContentType_Excel = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        public const string ContentType_Plain = "text/plain";
+        public const string ContentType_JSON = "application/json";
+        public const string ContentType_PDF = "application/pdf";
+        public const string ContentType_Excel = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
         #endregion
 
@@ -34,7 +34,6 @@ namespace AndreasReitberger.Shared.Core.Utilities
         [SupportedOSPlatform("Android26.0")]
         [SupportedOSPlatform("iOS14.0")]
         [SupportedOSPlatform("MacCatalyst14.0")]
-        //[SupportedOSPlatform("Tizen")]
         [SupportedOSPlatform("Windows")]
         public static async Task<FileSaverResult> SaveFileAsync(
             IFileSaver? saver, string file, Stream fileStream, string? initialPath = null, CancellationToken ct = default

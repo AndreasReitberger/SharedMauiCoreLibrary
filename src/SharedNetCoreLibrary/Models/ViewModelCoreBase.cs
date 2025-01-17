@@ -14,8 +14,11 @@ namespace AndreasReitberger.Shared.Core
 
         #region Properties
 
-        bool _isNavigatedTo;
-        bool _dataLoaded;
+        [ObservableProperty]
+        bool isNavigatedTo;
+
+        [ObservableProperty]
+        bool dataLoaded;
 
         [ObservableProperty]
         bool isLoading = false;
@@ -87,10 +90,10 @@ namespace AndreasReitberger.Shared.Core
 
         #region Commands
         [RelayCommand]
-        void NavigatedTo() => _isNavigatedTo = true;
+        void NavigatedTo() => IsNavigatedTo = true;
 
         [RelayCommand]
-        void NavigatedFrom() => _isNavigatedTo = false;
+        void NavigatedFrom() => IsNavigatedTo = false;
         #endregion
 
         #region Dispose
