@@ -54,7 +54,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             if (licenseServer != null) LicenseServer = licenseServer;
 
 
-            RestClientOptions options = null;
+            RestClientOptions options;
             HttpClient = new();
             if (port != null)
             {
@@ -86,7 +86,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
-                bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
+                bool licenseFormatValid = LicenseManager.VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
                 result.Message = "License format is invalid";
                 return result;
             }
@@ -146,7 +146,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
-                bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
+                bool licenseFormatValid = LicenseManager.VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
                 result.Message = "License format is invalid";
                 return result;
             }
@@ -227,7 +227,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
-                bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
+                bool licenseFormatValid = LicenseManager.VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
                 result.Message = "License format is invalid";
                 return result;
             }
@@ -291,7 +291,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
-                bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
+                bool licenseFormatValid = LicenseManager.VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
                 result.Message = "License format is invalid";
                 return result;
             }
@@ -388,7 +388,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             return result;
         }
 
-        public bool VerifyLicenseFormat(ILicenseInfo license, string checkPattern)
+        public static bool VerifyLicenseFormat(ILicenseInfo license, string checkPattern)
         {
             if (string.IsNullOrEmpty(license?.License)) return false;
             Regex check = new(checkPattern);

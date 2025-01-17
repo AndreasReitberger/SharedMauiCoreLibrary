@@ -1,6 +1,5 @@
 ﻿using AndreasReitberger.Shared.Core.Interfaces;
 using CommunityToolkit.Maui.Storage;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AndreasReitberger.Shared.Core
 {
