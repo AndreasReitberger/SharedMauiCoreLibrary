@@ -7,16 +7,16 @@ namespace AndreasReitberger.Shared.Core
     {
         #region Dependency Injection
         [ObservableProperty]
-        IDispatcher? dispatcher;
+        public partial IDispatcher? Dispatcher { get; set; }
 
         [ObservableProperty]
-        IFileSaver? fileSaver;
+        public partial IFileSaver? FileSaver { get; set; }
 
         [ObservableProperty]
-        ILauncher? launcher;
+        public partial ILauncher? Launcher { get; set; }
 
         [ObservableProperty]
-        IFilePicker? filePicker;
+        public partial IFilePicker? FilePicker { get;set; }
 
         #endregion
 
