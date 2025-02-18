@@ -6,22 +6,22 @@ namespace AndreasReitberger.Shared.Core.Documentation
     {
         #region Properties
         [ObservableProperty]
-        string library = string.Empty;
+        public partial string Library { get; set; } = string.Empty;
 
         [ObservableProperty]
-        string libraryUrl = string.Empty;
+        public partial string LibraryUrl { get; set; } = string.Empty;
 
         [ObservableProperty]
-        string description = string.Empty;
+        public partial string Description { get; set; } = string.Empty;
 
         [ObservableProperty]
-        bool stateChanged = false;
+        public partial bool StateChanged { get; set; } = false;
 
         [ObservableProperty]
-        string license = string.Empty;
+        public partial string License { get; set; } = string.Empty;
 
         [ObservableProperty]
-        string licenseUrl = string.Empty;
+        public partial string LicenseUrl { get; set; } = string.Empty;
         #endregion
 
         #region Constructor

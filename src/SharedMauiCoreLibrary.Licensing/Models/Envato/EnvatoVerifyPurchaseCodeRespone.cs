@@ -18,31 +18,31 @@ namespace AndreasReitberger.Shared.Core.Licensing.Envato
         #region Properties
         [ObservableProperty]
         [JsonProperty("amount")]
-        string amount = string.Empty;
+        public partial string Amount { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("sold_At")]
-        string soldAt = string.Empty;
+        public partial string SoldAt { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("license")]
-        string license = string.Empty;
+        public partial string License { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("support_amount")]
-        string supportAmount = string.Empty;
+        public partial string SupportAmount { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("supported_until")]
-        string supportedUntil = string.Empty;
+        public partial string SupportedUntil { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("item")]
-        EnvatoItem? item;
+        public partial EnvatoItem? Item { get; set; }
 
         [ObservableProperty]
         [JsonProperty("code")]
-        string purchaseCode = string.Empty;
+        public partial string PurchaseCode { get; set; } = string.Empty;
         #endregion
     }
 }

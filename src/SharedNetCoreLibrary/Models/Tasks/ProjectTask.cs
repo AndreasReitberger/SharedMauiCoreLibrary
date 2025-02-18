@@ -6,19 +6,19 @@ namespace AndreasReitberger.Shared.Core.Tasks
     {
         #region Properties
         [ObservableProperty]
-        Guid id;
+        public partial Guid Id { get; set; }
 
         [ObservableProperty]
-        string title = string.Empty;
+        public partial string Title { get; set; } = string.Empty;
 
         [ObservableProperty]
-        DateTimeOffset dueDate;
+        public partial DateTimeOffset DueDate { get; set; }
 
         [ObservableProperty]
-        bool isCompleted = false;
+        public partial bool IsCompleted { get; set; } = false;
 
         [ObservableProperty]
-        Guid projectId;
+        public partial Guid ProjectId { get; set; }
         #endregion
     }
 }

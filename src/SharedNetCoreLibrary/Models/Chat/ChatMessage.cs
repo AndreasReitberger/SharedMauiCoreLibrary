@@ -8,16 +8,16 @@ namespace AndreasReitberger.Shared.Core.Chat
         #region Properties
 
         [ObservableProperty]
-        Contact? user;
+        public partial Contact? User { get; set; }
 
         [ObservableProperty]
-        string message = string.Empty;
+        public partial string Message { get; set; } = string.Empty;
 
         [ObservableProperty]
-        DateTimeOffset? sent;
+        public partial DateTimeOffset? Sent { get; set; }
 
         [ObservableProperty]
-        DateTimeOffset? read;
+        public partial DateTimeOffset? Read { get; set; }
 
         #endregion
 

@@ -8,31 +8,31 @@ namespace AndreasReitberger.Shared.Core.Licensing
 
         #region Properties
         [ObservableProperty]
-        Guid id;
+        public partial Guid Id { get; set; }
 
         [ObservableProperty]
-        string domain = string.Empty;
+        public partial string Domain { get; set; } = string.Empty;
 
         [ObservableProperty]
-        string license = string.Empty;
+        public partial string License { get; set; } = string.Empty;
 
         [ObservableProperty]
-        string owner = string.Empty;
+        public partial string Owner { get; set; } = string.Empty;
 
         [ObservableProperty]
-        string productCode = string.Empty;
+        public partial string ProductCode { get; set; } = string.Empty;
 
         [ObservableProperty]
-        bool isValid = false;
+        public partial bool IsValid { get; set; } = false;
 
         [ObservableProperty]
-        bool isActive = false;
+        public partial bool IsActive { get; set; } = false;
 
         [ObservableProperty]
-        DateTimeOffset lastCheck;
+        public partial DateTimeOffset LastCheck { get; set; }
 
         [ObservableProperty]
-        ILicenseOptions? options;
+        public partial ILicenseOptions? Options { get; set; }
         #endregion
 
         #region Ctor

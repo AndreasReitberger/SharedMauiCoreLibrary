@@ -6,10 +6,10 @@ namespace AndreasReitberger.Shared.Core.Chart
     {
         #region Properties
         [ObservableProperty]
-        string name = string.Empty;
+        public partial string Name { get; set; } = string.Empty;
 
         [ObservableProperty]
-        double value;
+        public partial double Value { get; set; }
         #endregion
 
         #region Constructor

@@ -6,25 +6,25 @@ namespace AndreasReitberger.Shared.Core.Localization
     {
         #region Properties
         [ObservableProperty]
-        string name = string.Empty;
+        public partial string Name { get; set; } = string.Empty;
 
         [ObservableProperty]
-        string nativeName = string.Empty;
+        public partial string NativeName { get; set; } = string.Empty;
 
         [ObservableProperty]
-        Uri? flagUri;
+        public partial Uri? FlagUri { get; set; }
 
         [ObservableProperty]
-        string translator = string.Empty;
+        public partial string Translator { get; set; } = string.Empty;
 
         [ObservableProperty]
-        string code = string.Empty;
+        public partial string Code { get; set; } = string.Empty;
 
         [ObservableProperty]
-        double percentTranslated = 0;
+        public partial double PercentTranslated { get; set; } = 0;
 
         [ObservableProperty]
-        bool isOfficial = false;
+        public partial bool IsOfficial { get; set; } = false;
         #endregion
 
         #region Constructors

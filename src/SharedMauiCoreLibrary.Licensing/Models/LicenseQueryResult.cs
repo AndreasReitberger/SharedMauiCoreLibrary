@@ -8,16 +8,16 @@ namespace AndreasReitberger.Shared.Core.Licensing
         #region Properties
 
         [ObservableProperty]
-        bool success = false;
+        public partial bool Success { get; set; } = false;
 
         [ObservableProperty]
-        bool valid = false;
+        public partial bool Valid { get; set; } = false;
 
         [ObservableProperty]
-        DateTimeOffset timeStamp;
+        public partial DateTimeOffset TimeStamp { get; set; }
 
         [ObservableProperty]
-        string message = string.Empty;
+        public partial string Message { get; set; } = string.Empty;
 
         #endregion
     }

@@ -7,20 +7,20 @@ namespace AndreasReitberger.Shared.Core.Contacts
         #region Properties
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(Name))]
-        string firstName = string.Empty;
+        public partial string FirstName { get; set; } = string.Empty;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(Name))]
-        string lastName = string.Empty;
+        public partial string LastName { get; set; } = string.Empty;
 
         [ObservableProperty]
-        DateTimeOffset? timeAdded;
+        public partial DateTimeOffset? TimeAdded { get; set; }
 
         [ObservableProperty]
-        Dictionary<string, string> phoneNumbers = [];
+        public partial Dictionary<string, string> PhoneNumbers { get; set; } = [];
 
         [ObservableProperty]
-        Dictionary<string, string> emailAddresses = [];
+        public partial Dictionary<string, string> EmailAddresses { get; set; } = [];
 
         public string Name => string.IsNullOrEmpty(FirstName) ? $"{LastName}" : $"{LastName}, {FirstName}";
         #endregion

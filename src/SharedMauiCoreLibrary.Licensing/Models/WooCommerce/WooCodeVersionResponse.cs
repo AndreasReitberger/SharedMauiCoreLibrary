@@ -14,15 +14,15 @@ namespace AndreasReitberger.Shared.Core.Licensing.WooCommerce
         #region Properties
         [ObservableProperty]
         [JsonProperty("status")]
-        string status = string.Empty;
+        public partial string Status { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("status_code")]
-        string errorCode = string.Empty;
+        public partial string ErrorCode { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("message")]
-        WooCodeVersionMessage? versionMessage;
+        public partial WooCodeVersionMessage? VersionMessage { get; set; }
         #endregion
     }
 }

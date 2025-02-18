@@ -39,13 +39,16 @@ namespace AndreasReitberger.Shared.Core.Localization
 
         #region Properties
         [ObservableProperty]
-        string baseFlagImageUri = string.Empty;
+        public partial string BaseFlagImageUri { get; set; } = string.Empty;
+
         [ObservableProperty]
-        List<LocalizationInfo> languages = [];
+        public partial List<LocalizationInfo> Languages { get; set; } = [];
+
         [ObservableProperty]
-        LocalizationInfo currentLanguage = new();
+        public partial LocalizationInfo? CurrentLanguage { get; set; } = new();
+
         [ObservableProperty]
-        CultureInfo? currentCulture;
+        public partial CultureInfo? CurrentCulture { get; set; }
         #endregion
 
         #region Constructor

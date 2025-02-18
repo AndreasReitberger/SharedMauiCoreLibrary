@@ -7,16 +7,16 @@ namespace AndreasReitberger.Shared.Core.Licensing.Models
     {
         #region Properties
         [ObservableProperty]
-        string productName = string.Empty;
+        public partial string ProductName { get; set; } = string.Empty;
 
         [ObservableProperty]
-        string productIdentifier = string.Empty;
+        public partial string ProductIdentifier { get; set; } = string.Empty;
 
         [ObservableProperty]
-        string licenseCheckPattern = string.Empty;
+        public partial string LicenseCheckPattern { get; set; } = string.Empty;
 
         [ObservableProperty]
-        bool verifyLicenseFormat;
+        public partial bool VerifyLicenseFormat { get; set; }
         #endregion
 
         #region Ctor

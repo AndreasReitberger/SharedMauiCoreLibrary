@@ -6,7 +6,7 @@ namespace AndreasReitberger.Shared.Core.Documentation
     {
         #region Propertiers
         [ObservableProperty]
-        string feature = string.Empty;
+        public partial string Feature { get; set; } = string.Empty;
         #endregion
     }
 }

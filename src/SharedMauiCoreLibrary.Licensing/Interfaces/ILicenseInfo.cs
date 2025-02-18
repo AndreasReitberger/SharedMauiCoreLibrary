@@ -2,7 +2,6 @@
 {
     public interface ILicenseInfo
     {
-
         #region Properties
         Guid Id { get; set; }
         string License { get; set; }
@@ -12,7 +11,7 @@
         DateTimeOffset LastCheck { get; set; }
         bool IsValid { get; set; }
         bool IsActive { get; set; }
-        ILicenseOptions Options { get; set; }
+        ILicenseOptions? Options { get; set; }
         #endregion
     }
 }

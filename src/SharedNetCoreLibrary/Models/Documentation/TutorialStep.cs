@@ -6,19 +6,19 @@ namespace AndreasReitberger.Shared.Core.Documentation
     {
         #region Properties
         [ObservableProperty]
-        Uri? image;
+        public partial Uri? Image { get; set; }
 
         [ObservableProperty]
-        string heading = string.Empty;
+        public partial string Heading { get; set; } = string.Empty;
 
         [ObservableProperty]
-        string content = string.Empty;
+        public partial string Content { get; set; } = string.Empty;
 
         [ObservableProperty]
-        int order = 0;
+        public partial int Order { get; set; } = 0;
 
         [ObservableProperty]
-        bool viewed = false;
+        public partial bool Viewed { get; set; } = false;
 
         #endregion
 

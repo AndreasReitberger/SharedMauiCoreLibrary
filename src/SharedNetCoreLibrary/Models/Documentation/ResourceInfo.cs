@@ -6,13 +6,13 @@ namespace AndreasReitberger.Shared.Core.Documentation
     {
         #region Properties
         [ObservableProperty]
-        string resource = string.Empty;
+        public partial string Resource { get; set; } = string.Empty;
 
         [ObservableProperty]
-        string resourceUrl = string.Empty;
+        public partial string ResourceUrl { get; set; } = string.Empty;
 
         [ObservableProperty]
-        string description = string.Empty;
+        public partial string Description { get; set; } = string.Empty;
         #endregion
 
         #region Constructor

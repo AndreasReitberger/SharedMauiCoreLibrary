@@ -22,43 +22,43 @@ namespace AndreasReitberger.Shared.Core.Licensing.WooCommerce
 
         [ObservableProperty]
         [JsonProperty("name")]
-        string name = string.Empty;
+        public partial string Name { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("version")]
-        string version = string.Empty;
+        public partial string Version { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("last_updated")]
-        string lastUpdated = string.Empty;
+        public partial string LastUpdated { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("upgrade_notice")]
-        string upgradeNotice = string.Empty;
+        public partial string UpgradeNotice { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("author")]
-        string author = string.Empty;
+        public partial string Author { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("tested")]
-        string tested = string.Empty;
+        public partial string Tested { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("requires")]
-        string requires = string.Empty;
+        public partial string Requires { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("homepage")]
-        string homepage = string.Empty;
+        public partial string Homepage { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("sections")]
-        Dictionary<string, string> sections = [];
+        public partial Dictionary<string, string> Sections { get; set; } = [];
 
         [ObservableProperty]
         [JsonProperty("banners")]
-        WooCodeVersionBanners? banners;
+        public partial WooCodeVersionBanners? Banners { get; set; }
 
         #endregion
 

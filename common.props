@@ -26,6 +26,9 @@
 		<!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged 
 		<WindowsPackageType>None</WindowsPackageType>
 		-->
+		<!-- https://learn.microsoft.com/de-de/dotnet/maui/fundamentals/data-binding/compiled-bindings?view=net-maui-9.0 -->
+		<MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
+		<WarningsAsErrors>MVVMTK0045</WarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>
