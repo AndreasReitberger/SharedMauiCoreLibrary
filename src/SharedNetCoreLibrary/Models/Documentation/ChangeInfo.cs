@@ -7,12 +7,13 @@ namespace AndreasReitberger.Shared.Core.Documentation
     {
         #region Properties
         [ObservableProperty]
-        ChangelogType type = ChangelogType.New;
+        public partial ChangelogType Type { get; set; } = ChangelogType.New;
 
         [ObservableProperty]
-        string changelog = string.Empty;
+        public partial string Changelog { get; set; } = string.Empty;
+
         [ObservableProperty]
-        string glyphIcon = string.Empty;
+        public partial string GlyphIcon { get; set; } = string.Empty;
         #endregion
 
         #region Constructor

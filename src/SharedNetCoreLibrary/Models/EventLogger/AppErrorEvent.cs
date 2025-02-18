@@ -7,10 +7,10 @@ namespace AndreasReitberger.Shared.Core.EventLogger
     {
         #region Properties
         [ObservableProperty]
-        Exception? exception;
+        public partial Exception? Exception { get; set; }
 
         [ObservableProperty]
-        int type = 0;
+        public partial int Type { get; set; } = 0;
         #endregion
 
         #region Constructor

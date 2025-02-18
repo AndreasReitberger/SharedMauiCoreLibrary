@@ -1,5 +1,4 @@
 ﻿using AndreasReitberger.Shared.Core.Theme;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AndreasReitberger.Shared.Core.Models.Theme
 {
@@ -32,7 +31,7 @@ namespace AndreasReitberger.Shared.Core.Models.Theme
 
         #region Properties
         [ObservableProperty]
-        List<ThemeColorInfo> availableColors =
+        public partial List<ThemeColorInfo> AvailableColors { get; set; } =
         [
             new ThemeColorInfo() { ThemeName = ".NET MAUI", PrimaryColor = Color.FromArgb("#512BD4"), IsAppDefault = true },
             new ThemeColorInfo() { ThemeName = Colors.Gray.ToHex(), PrimaryColor = Colors.Gray },

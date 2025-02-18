@@ -8,11 +8,11 @@ namespace AndreasReitberger.Shared.Core.Licensing.WooCommerce
         #region Properties
         [ObservableProperty]
         [JsonProperty("low")]
-        string lowQualityBanner = string.Empty;
+        public partial string LowQualityBanner { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("high")]
-        string highQualityBanner = string.Empty;
+        public partial string HighQualityBanner { get; set; } = string.Empty;
         #endregion
     }
 }

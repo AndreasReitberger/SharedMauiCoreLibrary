@@ -7,10 +7,10 @@ namespace AndreasReitberger.Shared.Core.Documentation
     {
         #region Properties
         [ObservableProperty]
-        string version = string.Empty;
+        public partial string Version { get; set; } = string.Empty;
 
         [ObservableProperty]
-        ObservableCollection<ChangeInfo> changes = [];
+        public partial ObservableCollection<ChangeInfo> Changes { get; set; } = [];
         #endregion
 
         #region Constructor

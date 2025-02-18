@@ -7,15 +7,16 @@ namespace AndreasReitberger.Shared.Core.EventLogger
     {
         #region Properties
         [ObservableProperty]
-        string message = string.Empty;
-        [ObservableProperty]
-        string sourceName = string.Empty;
+        public partial string Message { get; set; } = string.Empty;
 
         [ObservableProperty]
-        ErrorLevel level = ErrorLevel.Info;
+        public partial string SourceName { get; set; } = string.Empty;
 
         [ObservableProperty]
-        EventArgs? args;
+        public partial ErrorLevel Level { get; set; } = ErrorLevel.Info;
+
+        [ObservableProperty]
+        public partial EventArgs? Args { get; set; }
         #endregion
     }
 }

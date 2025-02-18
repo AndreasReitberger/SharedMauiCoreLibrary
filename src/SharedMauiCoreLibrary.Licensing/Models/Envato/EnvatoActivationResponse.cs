@@ -20,31 +20,31 @@ namespace AndreasReitberger.Shared.Core.Licensing.Envato
         #region Properties
         [ObservableProperty]
         [JsonProperty("activated")]
-        bool activated = false;
+        public partial bool Activated { get; set; } = false;
 
         [ObservableProperty]
         [JsonProperty("instance")]
-        int instance;
+        public partial int Instance { get; set; }
 
         [ObservableProperty]
         [JsonProperty("message")]
-        string message = string.Empty;
+        public partial string Message { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("timestamp")]
-        int timestamp;
+        public partial int Timestamp { get; set; }
 
         [ObservableProperty]
         [JsonProperty("sig")]
-        string sig = string.Empty;
+        public partial string Sig { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("code")]
-        string errorCode = string.Empty;
+        public partial string ErrorCode { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("error")]
-        string errorMessage = string.Empty;
+        public partial string ErrorMessage { get; set; } = string.Empty;
         #endregion
     }
 }

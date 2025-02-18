@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace AndreasReitberger.Shared.Core.Theme
+﻿namespace AndreasReitberger.Shared.Core.Theme
 {
     public partial class ColorInfo : ObservableObject
     {
@@ -9,13 +7,13 @@ namespace AndreasReitberger.Shared.Core.Theme
         /// A matching name for the color information.
         /// </summary>
         [ObservableProperty]
-        string name = string.Empty;
+        public partial string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// The color for this info.
         /// </summary>
         [ObservableProperty]
-        Color? color;
+        public partial Color? Color { get; set; }
         partial void OnColorChanged(Color? value)
         {
             if (string.IsNullOrEmpty(Name))

@@ -16,15 +16,15 @@ namespace AndreasReitberger.Shared.Core.Licensing.WooCommerce
 
         [ObservableProperty]
         [JsonProperty("status")]
-        string status = string.Empty;
+        public partial string Status { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("status_code")]
-        string errorCode = string.Empty;
+        public partial string ErrorCode { get; set; } = string.Empty;
 
         [ObservableProperty]
         [JsonProperty("message")]
-        string errorMessage = string.Empty;
+        public partial string ErrorMessage { get; set; } = string.Empty;
         #endregion
     }
 }

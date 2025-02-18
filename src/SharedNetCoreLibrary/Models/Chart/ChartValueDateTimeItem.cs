@@ -6,13 +6,13 @@ namespace AndreasReitberger.Shared.Core.Chart
     {
         #region Properties
         [ObservableProperty]
-        string name = string.Empty;
+        public partial string Name { get; set; } = string.Empty;
 
         [ObservableProperty]
-        double value = 0;
+        public partial double Value { get; set; } = 0;
 
         [ObservableProperty]
-        DateTime? time;
+        public partial DateTime? Time { get; set; }
         #endregion
     }
 }

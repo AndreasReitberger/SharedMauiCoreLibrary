@@ -13,28 +13,25 @@ namespace AndreasReitberger.Shared.Core.Licensing
 {
     public partial class LicenseManager : ObservableObject, ILicenseManager
     {
-        #region Variables
-        [ObservableProperty]
-        HttpClient? httpClient;
-
-        [ObservableProperty]
-        RestClient? restClient;
-        #endregion
-
         #region Properties
+        [ObservableProperty]
+        public partial HttpClient? HttpClient { get; set; }
 
         [ObservableProperty]
-        Uri licenseServer;
+        public partial RestClient? RestClient { get; set; }
 
         [ObservableProperty]
-        int? port = null;
+        public partial Uri? LicenseServer { get; set; }
+
+        [ObservableProperty]
+        public partial int? Port { get; set; } = null;
 
 #nullable enable
         [ObservableProperty]
-        string? accessToken;
+        public partial string? AccessToken { get; set; }
 
         [ObservableProperty]
-        ILicenseInfo? currentLicense;
+        public partial ILicenseInfo? CurrentLicense { get; set; }
 #nullable disable
         #endregion
 

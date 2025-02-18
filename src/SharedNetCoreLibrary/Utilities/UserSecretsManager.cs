@@ -38,13 +38,13 @@ namespace AndreasReitberger.Shared.Core.Utilities
 
         #region Properties
         [ObservableProperty]
-        string appNamespace = string.Empty;
+        public partial string AppNamespace { get; set; } = string.Empty;
 
         [ObservableProperty]
-        string userSecretsFileName = "secrets.json";
+        public partial string UserSecretsFileName { get; set; } = "secrets.json";
 
         [ObservableProperty]
-        Assembly? currentAssembly;
+        public partial Assembly? CurrentAssembly { get; set; }
         #endregion
 
         #region Ctor

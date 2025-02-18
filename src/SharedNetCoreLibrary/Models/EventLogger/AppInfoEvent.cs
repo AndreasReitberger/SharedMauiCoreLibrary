@@ -4,10 +4,6 @@ namespace AndreasReitberger.Shared.Core.EventLogger
 {
     public partial class AppInfoEvent : AppEvent
     {
-        #region Properties
-
-        #endregion
-
         #region Constructor
         public AppInfoEvent()
         {

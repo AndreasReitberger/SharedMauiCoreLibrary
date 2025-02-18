@@ -2,14 +2,14 @@
 {
     public struct WooSoftwareLicenseAction
     {
-        public static string Activate = "activate";
-        public static string Deactivate = "deactivate";
-        public static string StatusCheck = "status-check";
-        public static string PluginUpdate = "plugin_update";
-        public static string PluginInformation = "plugin_information";
-        public static string ThemeUpdate = "theme_update";
-        public static string CodeVersion = "code_version";
-        public static string DeleteKey = "key_delete";
+        public const string Activate = "activate";
+        public const string Deactivate = "deactivate";
+        public const string StatusCheck = "status-check";
+        public const string PluginUpdate = "plugin_update";
+        public const string PluginInformation = "plugin_information";
+        public const string ThemeUpdate = "theme_update";
+        public const string CodeVersion = "code_version";
+        public const string DeleteKey = "key_delete";
 
         public WooSoftwareLicenseAction()
         {
