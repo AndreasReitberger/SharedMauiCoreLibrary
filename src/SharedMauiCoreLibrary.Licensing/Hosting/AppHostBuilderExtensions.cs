@@ -1,5 +1,4 @@
 ﻿using AndreasReitberger.Shared.Core.Licensing.Interfaces;
-using Microsoft.Maui.Controls.Compatibility.Hosting;
 
 namespace AndreasReitberger.Shared.Core.Licensing.Hosting
 {
@@ -12,7 +11,6 @@ namespace AndreasReitberger.Shared.Core.Licensing.Hosting
                 .WithAccessToken(accessToken)
                 .Build();
             builder.Services.AddSingleton<ILicenseManager>(manager);
-            //builder.UseMauiCompatibility();
             return builder;
         }
     }
