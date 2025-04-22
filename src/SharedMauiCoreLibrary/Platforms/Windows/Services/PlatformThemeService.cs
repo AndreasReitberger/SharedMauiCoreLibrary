@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Platform;
-using Microsoft.UI;
+﻿using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using WinRT.Interop;
 using Color = Microsoft.Maui.Graphics.Color;
@@ -9,7 +8,7 @@ namespace AndreasReitberger.Shared.Core.Services
     public partial class PlatformThemeService
     {
         //AppWindow m_AppWindow;
-        public partial void SetStatusBarColor(Color color)
+        public static partial void SetStatusBarColor(Color color)
         {
             // https://learn.microsoft.com/en-us/windows/apps/develop/title-bar?tabs=wasdk
             if (AppWindowTitleBar.IsCustomizationSupported())

@@ -8,7 +8,7 @@ namespace AndreasReitberger.Shared.Core.Services
     public partial class PlatformThemeService
     {
         // Source: https://stackoverflow.com/a/39164921/10083577
-        public partial void SetStatusBarColor(Color color)
+        public static partial void SetStatusBarColor(Color color)
         {
             if (OperatingSystem.IsIOSVersionAtLeast(13))
             {
