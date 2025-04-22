@@ -16,8 +16,8 @@ namespace AndreasReitberger.Shared.Core.Platforms.iOS.Utilities
                     throw new Exception($"Value type of passed NSDictionary is {first.GetType()}." +
                         $" Use for this type '{(first.GetType() == typeof(NSArray) ? "ToDictionaryFromNSArray" : "ToDictionaryFromNSDictionary")}'!");
                 }
-                string[] keys = dictionary.Keys.Select(k => k.ToString()).ToArray();
-                NSObject[] values = dictionary.Values.Select(v => v).ToArray();
+                string[] keys = [.. dictionary.Keys.Select(k => k.ToString())];
+                NSObject[] values = [.. dictionary.Values.Select(v => v)];
 
                 dict = keys.Zip(values, (k, v) => new { Key = k, Value = v })
                                         .ToDictionary(x => x.Key, x => x.Value as object);
@@ -37,14 +37,12 @@ namespace AndreasReitberger.Shared.Core.Platforms.iOS.Utilities
                         $" Use for this type '{"ToDictionaryFromNSArray"}'!");
                 }
             }
-            string[] keys = dictionary.Keys.Select(k => k.ToString()).ToArray();
-            Dictionary<string, object>[] values = dictionary.Values.Select(v => ToDictionaryFromNSObject(v as NSDictionary<NSString, NSObject>)).ToArray();
+            string[] keys = [.. dictionary.Keys.Select(k => k.ToString())];
+            Dictionary<string, object>[] values = [.. dictionary.Values.Select(v => ToDictionaryFromNSObject(v as NSDictionary<NSString, NSObject>))];
             dict = keys.Zip(values, (k, v) => new { Key = k, Value = v })
                                     .ToDictionary(x => x.Key, x => x.Value);
             return dict;
         }
-
-
 
         public static Dictionary<string, Dictionary<string, object>[]> ToDictionaryFromNSArray(NSDictionary<NSString, NSObject> dictionary)
         {
@@ -52,7 +50,7 @@ namespace AndreasReitberger.Shared.Core.Platforms.iOS.Utilities
             if (dictionary.Values.Length > 0)
             {
                 NSObject first = dictionary.Values[0];
-                if (first is NSDictionary tempDict)
+                if (first is NSDictionary)
                 {
                     throw new Exception($"Value type of passed NSDictionary is {first.GetType()}." +
                         $" Use for this type '{"ToDictionaryFromNSDictionary"}'!");
@@ -73,7 +71,7 @@ namespace AndreasReitberger.Shared.Core.Platforms.iOS.Utilities
                             if (single != null)
                                 List.Add(ToDictionaryFromNSObject(single));
                         }
-                        dict.Add(strKey, List.ToArray());
+                        dict.Add(strKey, [.. List]);
                     }
                 }
             }
@@ -81,26 +79,18 @@ namespace AndreasReitberger.Shared.Core.Platforms.iOS.Utilities
         }
 
         public static NSDictionary<NSString, NSObject> ToNSDictionary(Dictionary<string, object> dictionary)
-        {
-            return NSDictionary<NSString, NSObject>.FromObjectsAndKeys(dictionary.Values.ToArray()
-                                                          , dictionary.Keys.ToArray());
-        }
-
+            => NSDictionary<NSString, NSObject>.FromObjectsAndKeys([.. dictionary.Values], [.. dictionary.Keys]);
+        
         public static NSDictionary<NSString, NSObject> ToNSDictionary(
             Dictionary<string, Dictionary<string, object>[]> dictionary)
-        {
-            return NSDictionary<NSString, NSObject>.FromObjectsAndKeys(
-                dictionary.Values.Select(dicts =>
-                NSArray.FromObjects(dicts.Select(dict => ToNSDictionary(dict)).ToArray())).ToArray()
-                    , dictionary.Keys.ToArray());
-        }
-
+            => NSDictionary<NSString, NSObject>.FromObjectsAndKeys(
+                    [.. dictionary.Values.Select(dicts =>
+                    NSArray.FromObjects([.. dicts.Select(dict => ToNSDictionary(dict))]))]
+                        , dictionary.Keys.ToArray());
+        
         public static NSDictionary<NSString, NSObject> ToNSDictionary(
             Dictionary<string, Dictionary<string, object>> dictionary)
-        {
-            return NSDictionary<NSString, NSObject>.FromObjectsAndKeys(dictionary.Values.ToArray()
-                                                          , dictionary.Keys.ToArray());
-        }
+            => NSDictionary<NSString, NSObject>.FromObjectsAndKeys([.. dictionary.Values], [.. dictionary.Keys]);
     }
 }
 #endif

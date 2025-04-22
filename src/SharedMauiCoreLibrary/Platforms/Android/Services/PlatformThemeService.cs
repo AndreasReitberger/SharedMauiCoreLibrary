@@ -9,7 +9,7 @@ namespace AndreasReitberger.Shared.Core.Services
     {
         // Source: https://stackoverflow.com/a/39164921/10083577
         [UnsupportedOSPlatform("Android35.0")]
-        public partial void SetStatusBarColor(Color color)
+        public static partial void SetStatusBarColor(Color color)
         {
             Android.Graphics.Color androidColor = color.AddLuminosity(-0.1f).ToPlatform();
             // The SetStatusBarcolor is new since API 21

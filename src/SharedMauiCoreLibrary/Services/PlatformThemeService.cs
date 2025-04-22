@@ -5,7 +5,7 @@
     public partial class PlatformThemeService
     {
         // Based on: https://stackoverflow.com/a/39164921/10083577
-        public partial void SetStatusBarColor(Color color);
+        public static partial void SetStatusBarColor(Color color);
     }
 #endif
 }

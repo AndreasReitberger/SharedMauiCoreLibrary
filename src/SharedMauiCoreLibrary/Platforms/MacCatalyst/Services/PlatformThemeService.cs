@@ -9,13 +9,13 @@ namespace AndreasReitberger.Shared.Core.Services
     public partial class PlatformThemeService
     {
         // Source: https://stackoverflow.com/a/39164921/10083577
-        public partial void SetStatusBarColor(Color color)
+        public static partial void SetStatusBarColor(Color color)
         {
             // Source: https://blog.verslu.is/maui/change-maui-ios-status-bar-color/
-            UIView statusBar;
+            UIView? statusBar;
             if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
             {
-                int tag = 4567890;
+                nint tag = 4567890;
 
                 UIWindow window = UIApplication.SharedApplication.Delegate.GetWindow();
                 statusBar = window.ViewWithTag(tag);
