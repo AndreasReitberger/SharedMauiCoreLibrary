@@ -16,7 +16,6 @@ namespace AndreasReitberger.Shared.Core.Services
             if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
             {
                 nint tag = 4567890;
-
                 UIWindow window = UIApplication.SharedApplication.Delegate.GetWindow();
                 statusBar = window.ViewWithTag(tag);
                 //if (statusBar == null || statusBar.Frame != UIApplication.SharedApplication.StatusBarFrame)
@@ -36,11 +35,7 @@ namespace AndreasReitberger.Shared.Core.Services
                 if (UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) is UIView view)
                 {
                     statusBar = view;
-                    if (statusBar != null)
-                    {
-                        statusBar.BackgroundColor = color.ToPlatform();
-                        //statusBar.BackgroundColor = Color.FromArgb("#2B0B98").ToUIColor();
-                    }
+                    statusBar?.BackgroundColor = color.ToPlatform();
                 }
             }
 

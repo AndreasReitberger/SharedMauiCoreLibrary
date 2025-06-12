@@ -6,7 +6,7 @@ namespace AndreasReitberger.Shared.Core.Models.Theme
     {
         #region Instance
         static DefaultThemeManager? _instance = null;
-        static readonly object Lock = new();
+        static readonly Lock Lock = new();
         public static DefaultThemeManager? Instance
         {
             get
