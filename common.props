@@ -16,7 +16,7 @@
         <PublishReadyToRun>false</PublishReadyToRun>
 		<Nullable>enable</Nullable>
 		<LangVersion>preview</LangVersion>
-		<WindowsSdkPackageVersion>10.0.19041.41</WindowsSdkPackageVersion>
+		<!--<WindowsSdkPackageVersion>10.0.19041.41</WindowsSdkPackageVersion>-->
         <!--Source-Linking-->
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
