@@ -16,7 +16,7 @@
         public Task GoBackAsync(IDispatcher dispatcher, bool flyoutIsPresented = false, int delay = -1, bool animate = true, bool confirm = false);
         public Task GoBackAsync(IDispatcher dispatcher, Dictionary<string, object>? parameters = null, bool flyoutIsPresented = false, int delay = -1, bool animate = true, bool confirm = false);
         bool IsCurrentPathRoot();
-        void RegisterRoutes();
+        //void RegisterRoutes();
         #endregion
     }
 }
