@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\common.props" />
+  <PropertyGroup>
+	  <PackageTags>Utilites, Core, Library, Helper, C#, dotnet</PackageTags>
+	  <RootNamespace>AndreasReitberger.Shared.Firebase</RootNamespace>
+	  <Title>NET-Core Shared Library</Title>
+	  <Description>A core libray used for our .NET libraries.</Description>
+
+	  <TargetFrameworks>netstandard2.1;net8.0;net9.0</TargetFrameworks>
+      <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="FirebaseAuthentication.net" Version="4.1.0" />
+	  <PackageReference Include="FirebaseDatabase.net" Version="5.0.0" />	  	  
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Utilities\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\SharedNetCoreLibrary\SharedNetCoreLibrary.csproj" />
+	</ItemGroup>
+
+</Project>
