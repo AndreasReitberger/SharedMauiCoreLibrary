@@ -64,13 +64,13 @@ namespace AndreasReitberger.Shared.Firebase
 
         #region Ctor
 
-        public FirebaseHandler(string domain, string authenticationKey, string uri, string api, string secret, FirebaseAuthConfig config) : base()
+        public FirebaseHandler(string domain, string uri, string api, string secret, FirebaseAuthConfig config) : base()
         {
             Config = config;
             apiKey = api;
-            authKey = authenticationKey;
             baseUri = uri;
             appSecret = secret;
+            authDomain = domain;
             UseDefaultConfig();
             Instance = this;
         }

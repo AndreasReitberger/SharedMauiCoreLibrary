@@ -1,8 +1,10 @@
 ﻿using AndreasReitberger.Shared.Core.Utilities;
 using AndreasReitberger.Shared.Firebase.Interfaces;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Firebase.Database;
 using Firebase.Database.Query;
 using Newtonsoft.Json.Linq;
+using System.Collections.Concurrent;
 
 namespace AndreasReitberger.Shared.Firebase
 {
@@ -11,7 +13,6 @@ namespace AndreasReitberger.Shared.Firebase
         #region Variables
         readonly string apiKey = string.Empty;
         readonly string authDomain = string.Empty;
-        readonly string authKey = string.Empty;
         readonly string baseUri = string.Empty;
 
         protected FirebaseClient? client;
@@ -34,26 +35,32 @@ namespace AndreasReitberger.Shared.Firebase
         }
         #endregion
 
-        #region Constructor
-        public FirebaseHandler(string authenticationKey) : base()
-        {
-            authKey = authenticationKey;
+        #region Properties
+        [ObservableProperty]
+        public partial ConcurrentDictionary<Type, IDisposable> Subscriptions { get; set; } = [];
+        #endregion
 
-            UseDefaultConfig();
-            Instance = this;
-        }
-        public FirebaseHandler(string authenticationKey, string uri) : base()
+        #region Constructor
+
+        public FirebaseHandler(string uri) : base()
         {
-            authKey = authenticationKey;
             baseUri = uri;
 
             UseDefaultConfig();
             Instance = this;
         }
-        public FirebaseHandler(string domain, string authenticationKey, string uri, string api) : base()
+
+        public FirebaseHandler(string domain, string uri) : base()
+        {
+            baseUri = uri;
+            authDomain = domain;
+
+            UseDefaultConfig();
+            Instance = this;
+        }
+        public FirebaseHandler(string domain, string uri, string api) : base()
         {
             apiKey = api;
-            authKey = authenticationKey;
             baseUri = uri;      
             authDomain = domain;
 
@@ -91,6 +98,7 @@ namespace AndreasReitberger.Shared.Firebase
                             Unsubscribe<T>();
                         }
                     });
+                Subscriptions.TryAdd(typeof(T), observable);
             }
             catch (Exception exc)
             {
@@ -98,17 +106,15 @@ namespace AndreasReitberger.Shared.Firebase
             }
         }
 
-        public void Unsubscribe<T>(string child = "settings")
+        public void Unsubscribe<T>()
         {
             try
             {
                 if (client is null || CurrentUser is null) return;
-                IDisposable observable = client
-                    .Child("users")
-                    .Child(CurrentUser.User.Uid)
-                    .Child(child)
-                    .AsObservable<T>()
-                    .Subscribe();
+                if (Subscriptions.TryRemove(typeof(T), out IDisposable? observable))
+                {
+                    observable.Dispose();
+                }
             }
             catch (Exception exc)
             {
