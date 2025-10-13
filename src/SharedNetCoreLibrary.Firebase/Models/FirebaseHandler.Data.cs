@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Firebase.Database.Query;
 using System.Collections;
 using System.Collections.Concurrent;
-using System.Linq.Expressions;
 
 namespace AndreasReitberger.Shared.Firebase
 {

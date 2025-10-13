@@ -1,9 +1,9 @@
 ﻿using AndreasReitberger.Shared.Firebase.Events;
-using CommunityToolkit.Mvvm.ComponentModel;
+using AndreasReitberger.Shared.Firebase.Interfaces;
 
 namespace AndreasReitberger.Shared.Firebase
 {
-    public partial class FirebaseHandler : ObservableObject
+    public partial class FirebaseHandler : IFirebaseHandler
     {
         #region Events
         public event EventHandler? ErrorEvent;
