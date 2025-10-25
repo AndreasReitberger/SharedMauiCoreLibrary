@@ -10,7 +10,6 @@ namespace AndreasReitberger.Shared.Core.Hosting
         public static MauiAppBuilder ConfigureCoreLibrary(this MauiAppBuilder builder)
         {
             builder.UseMauiCommunityToolkit();
-            builder.ConfigureFileServices();
             return builder;
         }
 
@@ -35,6 +34,7 @@ namespace AndreasReitberger.Shared.Core.Hosting
             return builder;
         }
 
+        [Obsolete("Will be removed in future versions. Use the `Default` instances of the `CommunityToolkit`.")]
         public static MauiAppBuilder ConfigureFileServices(this MauiAppBuilder builder)
         {
             builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
