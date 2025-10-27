@@ -41,6 +41,9 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         public string CurrentRoute => GetCurrentRoute();
 
         [ObservableProperty]
+        public partial IDispatcher? Dispatcher { get; set; }
+
+        [ObservableProperty]
         public partial string PreviousRoute { get; set; } = string.Empty;
 
         [ObservableProperty]
@@ -71,20 +74,19 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         {
             RootPage = rootPage;
         }
+
+        public ShellNavigator(IDispatcher dispatcher) : this()
+        {
+            Dispatcher = dispatcher;
+        }
+
+        public ShellNavigator(string rootPage, IDispatcher dispatcher) : this(rootPage)
+        {
+            Dispatcher = dispatcher;
+        }
         #endregion
 
         #region Methods
-        /// <summary>
-        /// Performs a navigation to the provided target, but handles it as root (navigation stack cleared).
-        /// </summary>
-        /// <param name="dispatcher">The current dispatcher to execute thread safe</param>
-        /// <param name="target">The name of the target route</param>
-        /// <param name="flyoutIsPresented">Whether the flyout is kept open</param>
-        /// <param name="delay">A delay in ms for the navigation</param>
-        /// <param name="animate">Whether to animate the navigation</param>
-        /// <returns><c>Task</c></returns>
-        public Task<bool> GoToRootAsync(IDispatcher dispatcher, string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true)
-            => GoToAsync(dispatcher, target: $"///{target}", parameters, flyoutIsPresented, delay, animate);
 
         /// <summary>
         /// Performs a navigation to the provided target, but handles it as root (navigation stack cleared).
@@ -100,16 +102,14 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         /// <summary>
         /// Performs a navigation to the provided target.
         /// </summary>
-        /// <param name="dispatcher">The current dispatcher to execute thread safe</param>
         /// <param name="target">The name of the target route</param>
         /// <param name="parameters">Query parameters passed to the navigated route</param>
         /// <param name="flyoutIsPresented">Whether the flyout is kept open</param>
         /// <param name="delay">A delay in ms for the navigation</param>
         /// <param name="animate">Whether to animate the navigation</param>
         /// <returns><c>Task</c></returns>
-        public async Task<bool> GoToAsync(IDispatcher dispatcher, string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true)
+        public async Task<bool> GoToAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true)
         {
-            ArgumentNullException.ThrowIfNull(dispatcher, nameof(dispatcher));
             try
             {
                 if (flyoutIsPresented is not null && Shell.Current.FlyoutBehavior == FlyoutBehavior.Flyout)
@@ -138,8 +138,15 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
                         return false;
                     }
                 }
-
-                bool succeeded = dispatcher.IsDispatchRequired ? await dispatcher.DispatchAsync(navigationAction) : await navigationAction();
+                bool succeeded = false;
+                if (Dispatcher is not null)
+                {
+                    succeeded = Dispatcher.IsDispatchRequired ? await Dispatcher.DispatchAsync(navigationAction) : await navigationAction();
+                }
+                else
+                {
+                    succeeded = await navigationAction();
+                }
                 return succeeded;
             }
             catch (Exception exc)
@@ -150,76 +157,6 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
             }
         }
         
-        /// <summary>
-        /// Performs a navigation to the provided target.
-        /// </summary>
-        /// <param name="target">The name of the target route</param>
-        /// <param name="parameters">Query parameters passed to the navigated route</param>
-        /// <param name="flyoutIsPresented">Whether the flyout is kept open</param>
-        /// <param name="delay">A delay in ms for the navigation</param>
-        /// <param name="animate">Whether to animate the navigation</param>
-        /// <returns><c>Task</c></returns>
-        public async Task<bool> GoToAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true)
-        {
-            try
-            {
-                if (flyoutIsPresented is not null && Shell.Current.FlyoutBehavior == FlyoutBehavior.Flyout)
-                {
-                    Shell.Current.FlyoutIsPresented = flyoutIsPresented is true;
-                }
-                if (delay != -1)
-                {
-                    await Task.Delay(delay);
-                }
-                try
-                {
-                    PreviousRoute = GetCurrentRoute();
-                    if (parameters == null)
-                        await Shell.Current.GoToAsync(state: target, animate: animate);
-                    else
-                        await Shell.Current.GoToAsync(state: target, parameters: parameters, animate: animate);
-                    return true;
-                }
-                catch (Exception exc)
-                {
-                    OnNavigationError(new() { Exception = exc });
-                    return false;
-                }
-            }
-            catch (Exception exc)
-            {
-                // Log error
-                OnNavigationError(new() { Exception = exc });
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Navigates back one route from the current navigation stack.
-        /// </summary>
-        /// <param name="dispatcher">The current dispatcher to execute thread safe</param>
-        /// <param name="parameters">Query parameters passed to the navigated route</param>
-        /// <param name="flyoutIsPresented">Whether the flyout is kept open</param>
-        /// <param name="delay">A delay in ms for the navigation</param>
-        /// <param name="animate">Whether to animate the navigation</param>
-        /// <param name="confirm">Whether to confirm the navigation</param>
-        /// <param name="confirmFunction">Function which is executed to get the confirmation</param>
-        /// <returns><c>Task</c></returns>
-        public async Task<bool> GoBackAsync(IDispatcher dispatcher, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true, bool confirm = false, Func<Task<bool>>? confirmFunction = null)
-        {
-            ArgumentNullException.ThrowIfNull(dispatcher, nameof(dispatcher));
-            bool executeGoBack = true;
-            if (confirm && confirmFunction is not null)
-            {
-                executeGoBack = dispatcher.IsDispatchRequired ? await dispatcher.DispatchAsync(confirmFunction) : await confirmFunction();
-            }
-            if (executeGoBack)
-            {
-                return await GoToAsync(dispatcher, "..", parameters, flyoutIsPresented, delay, animate);
-            }
-            return false;
-        }
-
         /// <summary>
         /// Navigates back one route from the current navigation stack.
         /// </summary>
