@@ -14,6 +14,7 @@ namespace AndreasReitberger.Shared.Core
         public partial IFileSaver? FileSaver { get; set; }
 
         [ObservableProperty]
+        [Obsolete("Will be removed later. Use the `Launcher.Default` from the `Maui.ApplicationModel` instead.")]
         public partial ILauncher? Launcher { get; set; }
 
         [ObservableProperty]
