@@ -1,4 +1,6 @@
-﻿namespace AndreasReitberger.Shared.Core.Interfaces
+﻿using AndreasReitberger.Shared.Core.Events;
+
+namespace AndreasReitberger.Shared.Core.Interfaces
 {
     public interface IShellNavigator
     {
@@ -11,12 +13,19 @@
 
         #region Methods
 
-        public Task<bool> GoToAsync(IDispatcher dispatcher, string target, bool flyoutIsPresented = false, int delay = -1, bool animate = true);
-        public Task<bool> GoToAsync(IDispatcher dispatcher, string target, Dictionary<string, object>? parameters = null, bool flyoutIsPresented = false, int delay = -1, bool animate = true);
-        public Task GoBackAsync(IDispatcher dispatcher, bool flyoutIsPresented = false, int delay = -1, bool animate = true, bool confirm = false);
-        public Task GoBackAsync(IDispatcher dispatcher, Dictionary<string, object>? parameters = null, bool flyoutIsPresented = false, int delay = -1, bool animate = true, bool confirm = false);
+        public Task<bool> GoToAsync(IDispatcher dispatcher, string target, Dictionary<string, object>? parameters, bool flyoutIsPresented, int delay, bool animate);
+        public Task<bool> GoToAsync(string target, Dictionary<string, object>? parameters, bool flyoutIsPresented, int delay, bool animate);
+        public Task<bool> GoToRootAsync(IDispatcher dispatcher, string target, Dictionary<string, object>? parameters, bool flyoutIsPresented, int delay, bool animate);
+        public Task<bool> GoToRootAsync(string target, Dictionary<string, object>? parameters, bool flyoutIsPresented, int delay, bool animate);
+        public Task<bool> GoBackAsync(IDispatcher dispatcher, Dictionary<string, object>? parameters, bool flyoutIsPresented, int delay, bool animate, bool confirm, Func<Task<bool>>? confirmFunction);
+        public Task<bool> GoBackAsync(Dictionary<string, object>? parameters, bool flyoutIsPresented, int delay, bool animate, bool confirm, Func<Task<bool>>? confirmFunction);
         bool IsCurrentPathRoot();
-        //void RegisterRoutes();
+        #endregion
+
+        #region Events
+        public event EventHandler? Error;
+        public event EventHandler<NavigationDoneEventArgs>? NavigationError;
+        public event EventHandler<NavigationDoneEventArgs>? NavigationDone;
         #endregion
     }
 }
