@@ -5,9 +5,9 @@ namespace AndreasReitberger.Shared.Core.Interfaces
     public interface IShellNavigator
     {
         #region Properties
+        public string CurrentRoute { get; }
+        public string PreviousRoute { get; set; }
         public IDispatcher? Dispatcher { get; set; }
-        public string CurrentRoute { get; set; }
-        public string PreviousRoute { get; set;  }
         public string RootPage { get; set; }
         public List<string> AvailableEntryPages { get; set; }
         #endregion
