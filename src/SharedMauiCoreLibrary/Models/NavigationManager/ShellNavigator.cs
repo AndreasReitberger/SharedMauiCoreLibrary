@@ -57,6 +57,7 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         #region Constructor
         public ShellNavigator()
         {
+            Dispatcher = DispatcherProvider.Current.GetForCurrentThread();
             Shell.Current.Navigated += (a, b) =>
             {
                 string msg = $"Navigation: From '{b.Previous?.Location}' to '{b.Current?.Location}'. Source = '{b.Source}'";
