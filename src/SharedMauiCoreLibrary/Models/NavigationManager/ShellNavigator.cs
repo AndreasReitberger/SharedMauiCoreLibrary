@@ -83,7 +83,7 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         /// <param name="delay">A delay in ms for the navigation</param>
         /// <param name="animate">Whether to animate the navigation</param>
         /// <returns><c>Task</c></returns>
-        public Task<bool> GoToRootAsync(IDispatcher dispatcher, string target, Dictionary<string, object>? parameters = null, bool flyoutIsPresented = false, int delay = -1, bool animate = true)
+        public Task<bool> GoToRootAsync(IDispatcher dispatcher, string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true)
             => GoToAsync(dispatcher, target: $"///{target}", parameters, flyoutIsPresented, delay, animate);
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         /// <param name="delay">A delay in ms for the navigation</param>
         /// <param name="animate">Whether to animate the navigation</param>
         /// <returns><c>Task</c></returns>
-        public Task<bool> GoToRootAsync(string target, Dictionary<string, object>? parameters = null, bool flyoutIsPresented = false, int delay = -1, bool animate = true)
+        public Task<bool> GoToRootAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true)
             => GoToAsync(target: $"///{target}", parameters, flyoutIsPresented, delay, animate);
 
         /// <summary>
@@ -107,14 +107,14 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         /// <param name="delay">A delay in ms for the navigation</param>
         /// <param name="animate">Whether to animate the navigation</param>
         /// <returns><c>Task</c></returns>
-        public async Task<bool> GoToAsync(IDispatcher dispatcher, string target, Dictionary<string, object>? parameters = null, bool flyoutIsPresented = false, int delay = -1, bool animate = true)
+        public async Task<bool> GoToAsync(IDispatcher dispatcher, string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true)
         {
             ArgumentNullException.ThrowIfNull(dispatcher, nameof(dispatcher));
             try
             {
-                if (Shell.Current.FlyoutBehavior == FlyoutBehavior.Flyout)
+                if (flyoutIsPresented is not null && Shell.Current.FlyoutBehavior == FlyoutBehavior.Flyout)
                 {
-                    Shell.Current.FlyoutIsPresented = flyoutIsPresented;
+                    Shell.Current.FlyoutIsPresented = flyoutIsPresented is true;
                 }
                 if (delay != -1)
                 {
@@ -159,13 +159,13 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         /// <param name="delay">A delay in ms for the navigation</param>
         /// <param name="animate">Whether to animate the navigation</param>
         /// <returns><c>Task</c></returns>
-        public async Task<bool> GoToAsync(string target, Dictionary<string, object>? parameters = null, bool flyoutIsPresented = false, int delay = -1, bool animate = true)
+        public async Task<bool> GoToAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true)
         {
             try
             {
-                if (Shell.Current.FlyoutBehavior == FlyoutBehavior.Flyout)
+                if (flyoutIsPresented is not null && Shell.Current.FlyoutBehavior == FlyoutBehavior.Flyout)
                 {
-                    Shell.Current.FlyoutIsPresented = flyoutIsPresented;
+                    Shell.Current.FlyoutIsPresented = flyoutIsPresented is true;
                 }
                 if (delay != -1)
                 {
@@ -205,7 +205,7 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         /// <param name="confirm">Whether to confirm the navigation</param>
         /// <param name="confirmFunction">Function which is executed to get the confirmation</param>
         /// <returns><c>Task</c></returns>
-        public async Task<bool> GoBackAsync(IDispatcher dispatcher, Dictionary<string, object>? parameters, bool flyoutIsPresented = false, int delay = -1, bool animate = true, bool confirm = false, Func<Task<bool>>? confirmFunction = null)
+        public async Task<bool> GoBackAsync(IDispatcher dispatcher, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true, bool confirm = false, Func<Task<bool>>? confirmFunction = null)
         {
             ArgumentNullException.ThrowIfNull(dispatcher, nameof(dispatcher));
             bool executeGoBack = true;
@@ -230,7 +230,7 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         /// <param name="confirm">Whether to confirm the navigation</param>
         /// <param name="confirmFunction">Function which is executed to get the confirmation</param>
         /// <returns><c>Task</c></returns>
-        public async Task<bool> GoBackAsync(Dictionary<string, object>? parameters, bool flyoutIsPresented = false, int delay = -1, bool animate = true, bool confirm = false, Func<Task<bool>>? confirmFunction = null)
+        public async Task<bool> GoBackAsync(Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true, bool confirm = false, Func<Task<bool>>? confirmFunction = null)
         {
             bool executeGoBack = true;
             if (confirm && confirmFunction is not null)

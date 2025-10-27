@@ -13,12 +13,12 @@ namespace AndreasReitberger.Shared.Core.Interfaces
 
         #region Methods
 
-        public Task<bool> GoToAsync(IDispatcher dispatcher, string target, Dictionary<string, object>? parameters, bool flyoutIsPresented, int delay, bool animate);
-        public Task<bool> GoToAsync(string target, Dictionary<string, object>? parameters, bool flyoutIsPresented, int delay, bool animate);
-        public Task<bool> GoToRootAsync(IDispatcher dispatcher, string target, Dictionary<string, object>? parameters, bool flyoutIsPresented, int delay, bool animate);
-        public Task<bool> GoToRootAsync(string target, Dictionary<string, object>? parameters, bool flyoutIsPresented, int delay, bool animate);
-        public Task<bool> GoBackAsync(IDispatcher dispatcher, Dictionary<string, object>? parameters, bool flyoutIsPresented, int delay, bool animate, bool confirm, Func<Task<bool>>? confirmFunction);
-        public Task<bool> GoBackAsync(Dictionary<string, object>? parameters, bool flyoutIsPresented, int delay, bool animate, bool confirm, Func<Task<bool>>? confirmFunction);
+        public Task<bool> GoToAsync(IDispatcher dispatcher, string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false);
+        public Task<bool> GoToAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false);
+        public Task<bool> GoToRootAsync(IDispatcher dispatcher, string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false);
+        public Task<bool> GoToRootAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false);
+        public Task<bool> GoBackAsync(IDispatcher dispatcher, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false, bool confirm = false, Func<Task<bool>>? confirmFunction = null);
+        public Task<bool> GoBackAsync(Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false, bool confirm = false, Func<Task<bool>>? confirmFunction = null);
         bool IsCurrentPathRoot();
         #endregion
 
