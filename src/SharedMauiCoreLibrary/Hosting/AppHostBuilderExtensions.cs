@@ -33,15 +33,5 @@ namespace AndreasReitberger.Shared.Core.Hosting
             builder.Services.AddSingleton<ILocalizationManager>(manager);
             return builder;
         }
-
-        [Obsolete("Will be removed in future versions. Use the `Default` instances of the `CommunityToolkit`.")]
-        public static MauiAppBuilder ConfigureFileServices(this MauiAppBuilder builder)
-        {
-            builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
-            builder.Services.AddSingleton<ILauncher>(Launcher.Default);
-            builder.Services.AddSingleton<IFilePicker>(FilePicker.Default);
-            return builder;
-        }
-
     }
 }

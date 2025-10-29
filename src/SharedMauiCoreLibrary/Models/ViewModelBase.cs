@@ -9,18 +9,6 @@ namespace AndreasReitberger.Shared.Core
         [ObservableProperty]
         public partial IDispatcher? Dispatcher { get; set; }
 
-        [ObservableProperty]
-        [Obsolete("Will be removed later. Use the `FileSaver.Default` from the `CommunityToolkit` instead.")]
-        public partial IFileSaver? FileSaver { get; set; }
-
-        [ObservableProperty]
-        [Obsolete("Will be removed later. Use the `Launcher.Default` from the `Maui.ApplicationModel` instead.")]
-        public partial ILauncher? Launcher { get; set; }
-
-        [ObservableProperty]
-        [Obsolete("Will be removed later. Use the `FilePicker.Default` from the `CommunityToolkit` instead.")]
-        public partial IFilePicker? FilePicker { get;set; }
-
         #endregion
 
         #region Ctor
@@ -37,43 +25,7 @@ namespace AndreasReitberger.Shared.Core
             Dispatcher = dispatcher;
             Provider = provider;
         }
-        [Obsolete("Will be removed later. Use the `FileSaver.Default` from the `CommunityToolkit` instead.")]
-        public ViewModelBase(IDispatcher? dispatcher, IServiceProvider? provider, IFileSaver? fileSaver) : base(provider: provider)
-        {
-            Dispatcher = dispatcher;
-            Provider = provider;
-            FileSaver = fileSaver;
-        }
-        [Obsolete("Will be removed later. Use the `FileSaver.Default` from the `CommunityToolkit` instead.")]
-        public ViewModelBase(IDispatcher? dispatcher, IServiceProvider? provider, IFileSaver? fileSaver, ILauncher? launcher) : base(provider: provider)
-        {
-            Dispatcher = dispatcher;
-            Provider = provider;
-            FileSaver = fileSaver;
-            Launcher = launcher;
-        }
-        public ViewModelBase(IDispatcher? dispatcher, IServiceProvider? provider, ILauncher? launcher) : base(provider: provider)
-        {
-            Dispatcher = dispatcher;
-            Provider = provider;
-            Launcher = launcher;
-        }
-        [Obsolete("Will be removed later. Use the `FilePicker.Default` from the `CommunityToolkit` instead.")]
-        public ViewModelBase(IDispatcher? dispatcher, IServiceProvider? provider, IFilePicker? filePicker) : base(provider: provider)
-        {
-            Dispatcher = dispatcher;
-            Provider = provider;
-            FilePicker = filePicker;
-        }
-        [Obsolete("Will be removed later. Use the `FilePicker.Default` and `FileSaver.Default` from the `CommunityToolkit` instead.")]
-        public ViewModelBase(IDispatcher? dispatcher, IServiceProvider? provider, IFileSaver? fileSaver, ILauncher? launcher, IFilePicker? filePicker) : base(provider: provider)
-        {
-            Dispatcher = dispatcher;
-            Provider = provider;
-            FileSaver = fileSaver;
-            Launcher = launcher;
-            FilePicker = filePicker;
-        }
+        
         #endregion
 
         #region Methods

@@ -96,6 +96,7 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         /// <param name="flyoutIsPresented">Whether the flyout is kept open</param>
         /// <param name="delay">A delay in ms for the navigation</param>
         /// <param name="animate">Whether to animate the navigation</param>
+        /// <param name="rootPrefix">The prefix for the root indication, default "///"</param>
         /// <returns><c>Task</c></returns>
         public Task<bool> GoToRootAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true, string rootPrefix = "///")
             => GoToAsync(target: $"{rootPrefix}{target}", parameters, flyoutIsPresented, delay, animate);
