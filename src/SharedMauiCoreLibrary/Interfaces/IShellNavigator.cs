@@ -15,7 +15,7 @@ namespace AndreasReitberger.Shared.Core.Interfaces
         #region Methods
 
         public Task<bool> GoToAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false);
-        public Task<bool> GoToRootAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false);
+        public Task<bool> GoToRootAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false, string rootPrefix = "///");
         public Task<bool> GoBackAsync(Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false, bool confirm = false, Func<Task<bool>>? confirmFunction = null);
         bool IsCurrentPathRoot();
         #endregion
