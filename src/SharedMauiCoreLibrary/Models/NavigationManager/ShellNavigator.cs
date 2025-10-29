@@ -97,8 +97,8 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         /// <param name="delay">A delay in ms for the navigation</param>
         /// <param name="animate">Whether to animate the navigation</param>
         /// <returns><c>Task</c></returns>
-        public Task<bool> GoToRootAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true)
-            => GoToAsync(target: $"///{target}", parameters, flyoutIsPresented, delay, animate);
+        public Task<bool> GoToRootAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true, string rootPrefix = "///")
+            => GoToAsync(target: $"{rootPrefix}{target}", parameters, flyoutIsPresented, delay, animate);
 
         /// <summary>
         /// Performs a navigation to the provided target.
