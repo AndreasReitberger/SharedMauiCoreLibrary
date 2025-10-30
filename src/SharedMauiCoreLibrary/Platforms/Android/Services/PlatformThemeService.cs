@@ -8,7 +8,8 @@ namespace AndreasReitberger.Shared.Core.Services
     public partial class PlatformThemeService
     {
         // Source: https://stackoverflow.com/a/39164921/10083577
-        [UnsupportedOSPlatform("Android35.0")]
+        [UnsupportedOSPlatform("Android22.0")]
+        [SupportedOSPlatform("Android21.0")]
         public static partial void SetStatusBarColor(Color color)
         {
             Android.Graphics.Color androidColor = color.AddLuminosity(-0.1f).ToPlatform();

@@ -2,6 +2,7 @@
 {
     // Somehow has trouble with .NET 6
 #if ANDROID || IOS || MACCATALYST || WINDOWS
+    [Obsolete("Use the CommunityToolkit Behavior instead: https://learn.microsoft.com/en-us/dotnet/communitytoolkit/maui/behaviors/statusbar-behavior?tabs=ios")]
     public partial class PlatformThemeService
     {
         // Based on: https://stackoverflow.com/a/39164921/10083577

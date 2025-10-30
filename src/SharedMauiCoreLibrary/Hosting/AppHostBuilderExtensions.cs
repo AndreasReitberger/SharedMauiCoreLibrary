@@ -1,10 +1,14 @@
 ﻿using AndreasReitberger.Shared.Core.Interfaces;
 using AndreasReitberger.Shared.Core.Localization;
 using CommunityToolkit.Maui;
-using CommunityToolkit.Maui.Storage;
+using System.Runtime.Versioning;
 
 namespace AndreasReitberger.Shared.Core.Hosting
 {
+    [SupportedOSPlatform(SPlatforms.AndroidVersion)]
+    [SupportedOSPlatform(SPlatforms.IOSVersion)]
+    [SupportedOSPlatform(SPlatforms.MACCatalystVersion)]
+    [SupportedOSPlatform(SPlatforms.WindowsVersion)]
     public static class AppHostBuilderExtensions
     {
         public static MauiAppBuilder ConfigureCoreLibrary(this MauiAppBuilder builder)

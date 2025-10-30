@@ -4,7 +4,7 @@ global using CommunityToolkit.Mvvm.ComponentModel;
 namespace AndreasReitberger.Shared.Core;
 public static class SPlatforms
 {
-    public const string AndroidVersion = "Android21.0";
+    public const string AndroidVersion = "Android26.0";
     public const string IOSVersion = "iOS15.0";
     public const string MACCatalystVersion = "MacCatalyst15.0";
     public const string MACOSVersion = "MacOS15.0";

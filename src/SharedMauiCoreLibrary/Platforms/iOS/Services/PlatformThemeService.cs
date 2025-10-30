@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using Microsoft.Maui.Platform;
+using System.Runtime.Versioning;
 using UIKit;
 using Color = Microsoft.Maui.Graphics.Color;
 
@@ -8,6 +9,8 @@ namespace AndreasReitberger.Shared.Core.Services
     public partial class PlatformThemeService
     {
         // Source: https://stackoverflow.com/a/39164921/10083577
+        [SupportedOSPlatform(SPlatforms.IOSVersion)]
+        [SupportedOSPlatform(SPlatforms.MACCatalystVersion)]
         public static partial void SetStatusBarColor(Color color)
         {
             if (OperatingSystem.IsIOSVersionAtLeast(13))
