@@ -425,10 +425,6 @@ namespace AndreasReitberger.Shared.Core.Licensing
                     request.AddQueryParameter(pair.Key, pair.Value);
                 }
             }
-
-            // Obsolete, replaced by RestClientOptions
-            //ServicePointManager.Expect100Continue = true;
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 #if DEBUG
             Uri fullUri = RestClient.BuildUri(request);
 #endif
