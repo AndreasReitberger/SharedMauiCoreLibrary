@@ -1,5 +1,6 @@
 ﻿using CoreGraphics;
 using System.Drawing;
+using System.Runtime.Versioning;
 using UIKit;
 
 namespace AndreasReitberger.Shared.Core.Services
@@ -7,6 +8,8 @@ namespace AndreasReitberger.Shared.Core.Services
     public partial class ImageResizerService
     {
         // Source: https://github.com/xamarin/xamarin-forms-samples/blob/master/XamFormsImageResize/XamFormsImageResize/ImageResizer.cs
+        [SupportedOSPlatform(SPlatforms.IOSVersion)]
+        [SupportedOSPlatform(SPlatforms.MACCatalystVersion)]
         public partial byte[] ResizeImage(byte[] imageData, float width, float height)
         {
             UIImage? originalImage = ImageFromByteArray(imageData);
