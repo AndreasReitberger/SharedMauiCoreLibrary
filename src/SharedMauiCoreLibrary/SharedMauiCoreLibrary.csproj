@@ -32,7 +32,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.120" />
-	  <PackageReference Include="CommunityToolkit.Maui" Version="12.2.0" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="12.3.0" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 	</ItemGroup>
