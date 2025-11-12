@@ -1,0 +1,7 @@
+
+<Project>
+	<PropertyGroup>
+		<!-- Here you can choose if you want to build as executable or as package -->
+		<DefineConstants>$(DefineConstants);NET10</DefineConstants>
+	</PropertyGroup>
+</Project>
