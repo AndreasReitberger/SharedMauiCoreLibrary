@@ -1,8 +1,6 @@
 
 <Project>
-	<Import Project="conditions.props" />
-    <PropertyGroup>
-		
+    <PropertyGroup>	
 		<TargetFrameworks>net10.0;net10.0-android</TargetFrameworks>
 		<!-- Needed for GitHub action, iOS and MacOS is not workig on Linux -->
 		<TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
@@ -21,6 +19,5 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
-
     </PropertyGroup>
 </Project>
