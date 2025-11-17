@@ -31,11 +31,19 @@
 		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
+	<!-- Used for net9-->
+	<ItemGroup Condition="'$(DefineConstants.Contains(NET9))'">
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.120" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="12.3.0" />
+	</ItemGroup>
+
+	<!-- Used for net10-->
+	<ItemGroup Condition="'$(DefineConstants.Contains(NET10))'">
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.10" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="13.0.0" />
+	</ItemGroup>
+
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.120" Condition="'$(DefineConstants.Contains(NET9))'" />
-	  <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.10" Condition="'$(DefineConstants.Contains(NET10))'" />
-		
-	  <PackageReference Include="CommunityToolkit.Maui" Version="12.3.0" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 	</ItemGroup>
