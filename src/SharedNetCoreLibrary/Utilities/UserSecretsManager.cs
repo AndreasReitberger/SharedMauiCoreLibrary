@@ -1,5 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+#if NEWTONSOFT
 using Newtonsoft.Json.Linq;
+#else
+using System.Text.Json;
+#endif
 using System.Reflection;
 
 namespace AndreasReitberger.Shared.Core.Utilities
@@ -33,7 +37,11 @@ namespace AndreasReitberger.Shared.Core.Utilities
         #endregion
 
         #region Variables
+#if NEWTONSOFT
         JObject? _secrets;
+#else
+        JsonDocument? _secrets;
+#endif
         #endregion
 
         #region Properties
@@ -68,7 +76,11 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 {
                     using StreamReader reader = new(stream);
                     string json = reader.ReadToEnd();
+#if NEWTONSOFT
                     _secrets = JObject.Parse(json);
+#else
+                    _secrets = JsonDocument.Parse(json);
+#endif
                 }
             }
             catch (Exception ex)
@@ -80,9 +92,13 @@ namespace AndreasReitberger.Shared.Core.Utilities
         public T? ToObject<T>()
         {
             if (_secrets is null) return default;
+#if NEWTONSOFT
             return _secrets.ToObject<T>();
+#else
+            return JsonSerializer.Deserialize<T>(_secrets.RootElement.GetRawText()); ;
+#endif
         }
-        #endregion
+#endregion
 
         #region Static
 #nullable enable
@@ -102,12 +118,26 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 try
                 {
                     var path = name.Split(':');
-
+#if NEWTONSOFT
                     JToken node = _secrets[path[0]];
                     for (int index = 1; index < path.Length; index++)
                     {
                         node = node[path[index]];
                     }
+#else
+                    JsonElement node = _secrets.RootElement;
+                    foreach (var segment in path)
+                    {
+                        if (node.TryGetProperty(segment, out var child))
+                        {
+                            node = child;
+                        }
+                        else
+                        {
+                            return string.Empty;
+                        }
+                    }
+#endif
                     return node.ToString();
                 }
                 catch (Exception ex)
@@ -117,7 +147,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 }
             }
         }
-        #endregion
+#endregion
 
         #region Events
 

@@ -1,7 +1,7 @@
-﻿#if WINDOWS && false
-using Microsoft.Extensions.Configuration;
-#else
+﻿#if NEWTONSOFT
 using Newtonsoft.Json;
+#else
+using System.Text.Json;
 #endif
 
 namespace AndreasReitberger.Shared.Core.Utilities
@@ -13,7 +13,11 @@ namespace AndreasReitberger.Shared.Core.Utilities
         {
             // Needs the Directory.Build.targets in order to work (copies the secret.json as EmbeddedResource to the app)
             string settings = UserSecretsManager.Settings[sectionName].ToString();
+#if NEWTONSOFT
             return JsonConvert.DeserializeObject<T>(settings);
+#else
+            return JsonSerializer.Deserialize<T>(settings);
+#endif
         }
     }
 }

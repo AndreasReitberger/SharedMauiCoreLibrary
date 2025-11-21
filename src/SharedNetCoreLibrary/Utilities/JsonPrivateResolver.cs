@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿#if NEWTONSOFT
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Reflection;
 
@@ -19,3 +20,4 @@ namespace AndreasReitberger.Shared.Core.Utilities
         }
     }
 }
+#endif
