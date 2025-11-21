@@ -7,6 +7,7 @@
 	  <Description>A core libray used for our .NET libraries.</Description>
 
 	  <TargetFrameworks>netstandard2.1;net8.0;net9.0</TargetFrameworks>
+	  <TargetFrameworks Condition="'$(DefineConstants.Contains(NET10))'">$(TargetFrameworks);net10.0</TargetFrameworks>
       <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 

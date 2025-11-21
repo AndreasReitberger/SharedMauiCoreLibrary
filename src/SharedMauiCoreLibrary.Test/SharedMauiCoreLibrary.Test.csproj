@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="..\..\conditions.props" />
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+	  <TargetFramework Condition="'$(DefineConstants.Contains(NET9))'">net9.0</TargetFramework>
+	  <TargetFramework Condition="'$(DefineConstants.Contains(NET10))'">net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
