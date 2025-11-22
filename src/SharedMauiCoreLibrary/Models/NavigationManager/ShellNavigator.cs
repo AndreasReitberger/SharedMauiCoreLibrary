@@ -34,7 +34,7 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
                 }
             }
         }
-#endregion
+        #endregion
 
         #region Properties
 
@@ -158,7 +158,7 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
                 return false;
             }
         }
-        
+
         /// <summary>
         /// Navigates back one route from the current navigation stack.
         /// </summary>

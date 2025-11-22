@@ -7,7 +7,7 @@ using System.Collections.Concurrent;
 namespace AndreasReitberger.Shared.Firebase
 {
     public partial class FirebaseHandler : ObservableObject
-    {        
+    {
         #region Settings Sync
         public async Task<T?> GetDataAsync<T>(string child)
         {

@@ -15,7 +15,7 @@ namespace AndreasReitberger.Shared.Firebase.Extensions
                 .Child(user.User.Uid)
                 .Child(child)
                 .PutAsync(settings);
-         
+
         public static async Task<Dictionary<string, Tuple<object, Type>>> GetAppSettingsAsync(this UserCredential user, FirebaseClient client, string child = "settings")
         {
             Dictionary<string, Tuple<object, Type>> result = [];
@@ -25,7 +25,7 @@ namespace AndreasReitberger.Shared.Firebase.Extensions
                 .Child(child)
                 ;
             string listJson = await t.OnceAsJsonAsync();
-            result = JsonConvertHelper.ToObject<Dictionary<string, Tuple<object, Type>>>(listJson) ?? [];        
+            result = JsonConvertHelper.ToObject<Dictionary<string, Tuple<object, Type>>>(listJson) ?? [];
             return result;
         }
         #endregion
