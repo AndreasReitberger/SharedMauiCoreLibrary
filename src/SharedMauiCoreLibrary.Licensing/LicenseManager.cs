@@ -521,8 +521,8 @@ namespace AndreasReitberger.Shared.Core.Licensing
         }
         #endregion
 
-#endregion
+        #endregion
 
-#endregion
+        #endregion
     }
 }

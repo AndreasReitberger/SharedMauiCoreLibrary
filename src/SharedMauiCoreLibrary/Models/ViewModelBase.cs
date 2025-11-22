@@ -12,8 +12,9 @@ namespace AndreasReitberger.Shared.Core
         #endregion
 
         #region Ctor
-        public ViewModelBase() : base() { 
-        
+        public ViewModelBase() : base()
+        {
+
             Dispatcher = DispatcherProvider.Current.GetForCurrentThread();
         }
         public ViewModelBase(IDispatcher? dispatcher) : base()
@@ -25,7 +26,7 @@ namespace AndreasReitberger.Shared.Core
             Dispatcher = dispatcher;
             Provider = provider;
         }
-        
+
         #endregion
 
         #region Methods

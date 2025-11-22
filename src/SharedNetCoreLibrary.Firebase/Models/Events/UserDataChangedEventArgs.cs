@@ -14,7 +14,7 @@ namespace AndreasReitberger.Shared.Firebase.Events
 
         #region Overrides
         public override string ToString() => JsonConvert.SerializeObject(this, Formatting.Indented);
-        
+
         #endregion
     }
 }
