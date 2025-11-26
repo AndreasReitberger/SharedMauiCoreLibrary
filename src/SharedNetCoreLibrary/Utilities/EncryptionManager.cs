@@ -93,6 +93,9 @@ namespace AndreasReitberger.Shared.Core.Utilities
             return Convert.ToBase64String(returnValue);
         }
 
+        public static string EncryptStreamToBase64String(MemoryStream stream, byte[] key, int keySize = 256)
+            => EncryptStringToBase64String(GetStringFromBase64String(stream.ToArray()), key, keySize);
+
         /// <summary>
         /// Decrypts a string with the passed key and returns a plain text string. (#1 + #2)
         /// </summary>
@@ -146,6 +149,8 @@ namespace AndreasReitberger.Shared.Core.Utilities
             }
             return plaintext;
         }
+        public static string DecryptStreamFromBase64String(MemoryStream stream, byte[] key, int keySize = 256)
+            => DecryptStringFromBase64String(GetStringFromBase64String(stream.ToArray()), key, keySize);
 
         /// <summary>
         /// This method salts a user password with the provided salt. Make sure to use the same salt for decrypting
