@@ -19,7 +19,7 @@ namespace AndreasReitberger.Shared.Core.Licensing.Interfaces
         Task<ILicenseQueryResult?> ActivateLicenseAsync(ILicenseInfo license, LicenseServerTarget target, Func<string>? OnSuccess = null, Func<string>? OnError = null);
         Task<ILicenseQueryResult?> DeactivateLicenseAsync(ILicenseInfo license, LicenseServerTarget target, Func<string>? OnSuccess = null, Func<string>? OnError = null);
         Task<IApplicationVersionResult?> GetLatestApplicationVersionAsync(ILicenseInfo license, LicenseServerTarget target, Func<string>? OnSuccess = null, Func<string>? OnError = null);
-        Task<IApplicationVersionResult?> GetLatestApplicationVersionAsync(string domain, string productCode, LicenseServerTarget target, Func<string>? OnSuccess = null, Func<string>? OnError = null);
+        Task<IApplicationVersionResult?> GetLatestApplicationVersionAsync(string productCode, LicenseServerTarget target, Func<string>? OnSuccess = null, Func<string>? OnError = null);
         #endregion
 
         #region Events

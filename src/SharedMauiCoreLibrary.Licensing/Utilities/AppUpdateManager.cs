@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AndreasReitberger.Shared.Core.Licensing.Utilities
 {
-    public abstract partial class AppUpdateManager : UpdateManager, IAppUpdateManager
+    public partial class AppUpdateManager : UpdateManager, IAppUpdateManager
     {
         #region Properties
 
@@ -13,12 +13,6 @@ namespace AndreasReitberger.Shared.Core.Licensing.Utilities
 
         [ObservableProperty]
         public partial ILicenseManager? LicenseManager { get; set; }
-
-        [ObservableProperty]
-        public partial string ProductCode { get; set; } = string.Empty;
-
-        [ObservableProperty]
-        public partial string Domain { get; set; } = string.Empty;
 
         #endregion
 
@@ -36,18 +30,30 @@ namespace AndreasReitberger.Shared.Core.Licensing.Utilities
         #endregion
 
         #region Methods
-        public async Task<bool> CheckForUpdateAsync()
+        public override async Task<bool> CheckForUpdateAsync(string productCode, string? domain = null)
         {
+            domain ??= string.Empty;
+            bool updateAvailable = false;
             if (LicenseManager is null)
             {
                 OnClientIncompatibleWithNewVersion();
-                return false;
+                return updateAvailable;
             }
+            else if (IsCheckingForUpdates)
+            {
+                return updateAvailable;
+            }
+            IsCheckingForUpdates = true;
             if (DeviceInfo.Platform == DevicePlatform.WinUI)
             {
-                IApplicationVersionResult? res = await LicenseManager?.GetLatestApplicationVersionAsync(domain: Domain, productCode: ProductCode, target: Enums.LicenseServerTarget.WooCommerce, null, null);
+                IApplicationVersionResult? res = await LicenseManager.GetLatestApplicationVersionAsync(productCode: productCode, target: Enums.LicenseServerTarget.WooCommerce, null, null);
+                OnUpdateAvailable(new()
+                {
+                    LatestVersion = new(res?.Version ?? "0.0.0"),
+                });
             }
-            return true;
+            IsCheckingForUpdates = false;
+            return updateAvailable;
         }
         #endregion
     }

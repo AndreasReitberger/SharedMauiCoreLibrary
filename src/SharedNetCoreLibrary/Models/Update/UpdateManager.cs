@@ -12,7 +12,7 @@ namespace AndreasReitberger.Shared.Core.Update
         #endregion
 
         #region Methods
-        public abstract Task<bool> CheckForUpdate();
+        public abstract Task<bool> CheckForUpdateAsync(string productCode, string? domain = null);
         #endregion
     }
 }

@@ -383,15 +383,15 @@ namespace AndreasReitberger.Shared.Core.Licensing
             return result;
         }
 
-        public async Task<IApplicationVersionResult> GetLatestApplicationVersionAsync(string domain, string productCode, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null)
+        public async Task<IApplicationVersionResult> GetLatestApplicationVersionAsync(string productCode, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null)
         {
             if (RestClient == null) Initialize();
             ApplicationVersionResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
-            if (string.IsNullOrEmpty(domain) || string.IsNullOrEmpty(productCode)) return result;
+            if (string.IsNullOrEmpty(productCode)) return result;
             switch (target)
             {
                 case LicenseServerTarget.WooCommerce:
-                    WooCodeVersionResponse[] wooResult = await QueryLatestApplicationVersionFromWooCommerceAsync(WooSoftwareLicenseAction.CodeVersion, productCode, domain).ConfigureAwait(false);
+                    WooCodeVersionResponse[] wooResult = await QueryLatestApplicationVersionFromWooCommerceAsync(WooSoftwareLicenseAction.CodeVersion, productCode).ConfigureAwait(false);
                     if (wooResult?.All(result => result.Status == "success" && (result.ErrorCode == "s403")) == true)
                     {
                         result = new()
@@ -530,7 +530,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 return null;
             }
         }
-        async Task<WooCodeVersionResponse[]> QueryLatestApplicationVersionFromWooCommerceAsync(string action, string productCode, string domain, string? licenseKey = null)
+        async Task<WooCodeVersionResponse[]> QueryLatestApplicationVersionFromWooCommerceAsync(string action, string productCode)
         {
             try
             {
@@ -538,14 +538,8 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 Dictionary<string, string> parameters = new()
                 {
                     { "woo_sl_action", action },
-                    { "product_unique_id", productCode },
-                    { "licence_key", licenseKey ?? string.Empty }
-                };
-                if (action != WooSoftwareLicenseAction.DeleteKey)
-                {
-                    parameters.Add("domain", domain);
-                }
-                
+                    { "product_unique_id", productCode }
+                };         
                 string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
                 WooCodeVersionResponse[] result = JsonConvert.DeserializeObject<WooCodeVersionResponse[]>(jsonResult);
                 return result;

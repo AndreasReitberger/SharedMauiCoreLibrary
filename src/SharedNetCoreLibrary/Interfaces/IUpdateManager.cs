@@ -9,7 +9,7 @@ namespace AndreasReitberger.Shared.Core.Interfaces
         #endregion
 
         #region Methods
-        public Task<bool> CheckForUpdate();
+        public Task<bool> CheckForUpdateAsync(string productCode, string? domain = null);
         #endregion
 
         #region Events
