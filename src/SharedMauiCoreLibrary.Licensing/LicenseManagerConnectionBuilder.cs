@@ -1,7 +1,4 @@
-﻿using System;
-using AndreasReitberger.Shared.Core.Licensing.Models;
-
-namespace AndreasReitberger.Shared.Core.Licensing
+﻿namespace AndreasReitberger.Shared.Core.Licensing
 {
     public partial class LicenseManager
     {
