@@ -1,5 +1,6 @@
 ﻿using AndreasReitberger.Shared.Core.Events;
 using AndreasReitberger.Shared.Core.Interfaces;
+using System.Diagnostics;
 
 namespace AndreasReitberger.Shared.Core.NavigationManager
 {
@@ -58,7 +59,7 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         public ShellNavigator()
         {
             Dispatcher = DispatcherProvider.Current.GetForCurrentThread();
-            Shell.Current.Navigated += (a, b) =>
+            Shell.Current?.Navigated += (a, b) =>
             {
                 string msg = $"Navigation: From '{b.Previous?.Location}' to '{b.Current?.Location}'. Source = '{b.Source}'";
                 OnNavigationDone(new NavigationDoneEventArgs()
@@ -221,7 +222,36 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
                 return string.Empty;
             }
         }
+        public void SubscribeNavigated()
+        {
+            if (Shell.Current is not null)
+            {
+                UnsubscribeNavigated();
+                Shell.Current.Navigated += OnNavigated;
+            }
+        }
+        public void UnsubscribeNavigated()
+        {
+            if (Shell.Current is not null)
+            {
+                Shell.Current.Navigated -= OnNavigated;
+            }
+        }
 
+        private void OnNavigated(object? sender, ShellNavigatedEventArgs e)
+        {
+#if DEBUG
+            string msg = $"Navigation: From '{e.Previous?.Location}' to '{e.Current?.Location}'. Source = '{e.Source}'";
+            Debug.WriteLine(msg);
+#endif
+            OnNavigationDone(new NavigationDoneEventArgs()
+            {
+                Arguments = e,
+                NavigatedFrom = e.Previous?.Location,
+                NavigatedTo = e.Current?.Location,
+                Source = e.Source,
+            });
+        }
         #endregion
 
     }
