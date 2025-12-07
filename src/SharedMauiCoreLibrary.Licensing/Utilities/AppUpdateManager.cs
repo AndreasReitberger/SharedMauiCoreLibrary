@@ -46,7 +46,9 @@ namespace AndreasReitberger.Shared.Core.Licensing.Utilities
             IsCheckingForUpdates = true;
             if (DeviceInfo.Platform == DevicePlatform.WinUI)
             {
-                IApplicationVersionResult? res = await LicenseManager.GetLatestApplicationVersionAsync(productCode: productCode, target: Enums.LicenseServerTarget.WooCommerce, null, null);
+                IApplicationVersionResult? res = await LicenseManager
+                    .GetLatestApplicationVersionAsync(productCode: productCode, target: Enums.LicenseServerTarget.WooCommerce, null, null)
+                    .ConfigureAwait(false);
                 OnUpdateAvailable(new()
                 {
                     LatestVersion = new(res?.Version ?? "0.0.0"),
