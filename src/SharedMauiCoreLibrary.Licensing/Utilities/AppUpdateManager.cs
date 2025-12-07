@@ -44,7 +44,7 @@ namespace AndreasReitberger.Shared.Core.Licensing.Utilities
                 return updateAvailable;
             }
             IsCheckingForUpdates = true;
-            if (DeviceInfo.Platform == DevicePlatform.WinUI)
+            if (DeviceInfo.Platform == DevicePlatform.WinUI || DeviceInfo.Platform == DevicePlatform.MacCatalyst)
             {
                 IApplicationVersionResult? res = await LicenseManager
                     .GetLatestApplicationVersionAsync(productCode: productCode, target: Enums.LicenseServerTarget.WooCommerce, null, null)
@@ -53,6 +53,11 @@ namespace AndreasReitberger.Shared.Core.Licensing.Utilities
                 {
                     LatestVersion = new(res?.Version ?? "0.0.0"),
                 });
+            }
+            else
+            {
+                OnClientIncompatibleWithNewVersion();
+                return updateAvailable;
             }
             IsCheckingForUpdates = false;
             return updateAvailable;

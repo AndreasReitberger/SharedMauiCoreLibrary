@@ -36,6 +36,7 @@ namespace AndreasReitberger.Shared.Firebase
         #endregion
 
         #region Properties
+
         [ObservableProperty]
         public partial ConcurrentDictionary<Type, IDisposable> Subscriptions { get; set; } = [];
         #endregion
