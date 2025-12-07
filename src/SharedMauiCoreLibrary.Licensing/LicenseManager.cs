@@ -354,11 +354,13 @@ namespace AndreasReitberger.Shared.Core.Licensing
                     WooCodeVersionResponse[] wooResult = await QueryLatestApplicationVersionFromWooCommerceAsync(WooSoftwareLicenseAction.CodeVersion, license).ConfigureAwait(false);
                     if (wooResult?.All(result => result.Status == "success" && (result.ErrorCode == "s403")) == true)
                     {
+                        WooCodeVersionResponse res = wooResult.First();
                         result = new()
                         {
                             Success = true,
-                            //Message = string.Join("|", wooResult?.Select(result => result.VersionMessage)),
+                            Message = res.VersionMessage.UpgradeNotice,
                             TimeStamp = DateTimeOffset.Now,
+                            Version = res.VersionMessage.Version
                         };
                     }
                     else
@@ -394,11 +396,13 @@ namespace AndreasReitberger.Shared.Core.Licensing
                     WooCodeVersionResponse[] wooResult = await QueryLatestApplicationVersionFromWooCommerceAsync(WooSoftwareLicenseAction.CodeVersion, productCode).ConfigureAwait(false);
                     if (wooResult?.All(result => result.Status == "success" && (result.ErrorCode == "s403")) == true)
                     {
+                        WooCodeVersionResponse res = wooResult.First();
                         result = new()
                         {
                             Success = true,
-                            //Message = string.Join("|", wooResult?.Select(result => result.VersionMessage)),
+                            Message = res.VersionMessage.UpgradeNotice,
                             TimeStamp = DateTimeOffset.Now,
+                            Version = res.VersionMessage.Version
                         };
                     }
                     else
@@ -408,6 +412,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                             Success = false,
                             //Message = string.Join("|", wooResult?.Select(result => result.VersionMessage)),
                             TimeStamp = DateTimeOffset.Now,
+                            Version = "0.0.0",
                         };
                     }
                     break;
