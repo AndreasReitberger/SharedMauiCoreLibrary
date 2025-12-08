@@ -123,7 +123,6 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
                 {
                     await Task.Delay(delay);
                 }
-
                 async Task<bool> navigationAction()
                 {
                     try
@@ -184,6 +183,92 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
             return false;
         }
 
+        public async Task<bool> DisplayAlertAsync(string title, string message, string ok, string? cancel = null)
+        {
+            try
+            {
+                async Task<bool> action()
+                {
+                    try
+                    {
+                        bool result = false;
+                        if (Shell.Current is null) return result;
+                        if (cancel is null)
+                        {
+                            await Shell.Current
+                                .DisplayAlertAsync(title, message, ok)
+                                .ConfigureAwait(false);
+                            result = true;
+                        }
+                        else
+                            result = await Shell.Current
+                                .DisplayAlertAsync(title, message, ok, cancel)
+                                .ConfigureAwait(false);
+                        return result;
+                    }
+                    catch (Exception exc)
+                    {
+                        OnError(new ShellErrorEventArgs(exc));
+                        return false;
+                    }
+                }
+                bool succeeded = false;
+                if (Dispatcher is not null)
+                {
+                    succeeded = Dispatcher.IsDispatchRequired ? await Dispatcher.DispatchAsync(action) : await action();
+                }
+                else
+                {
+                    succeeded = await action();
+                }
+                return succeeded;
+            }
+            catch (Exception exc)
+            {
+                // Log error
+                OnError(new ShellErrorEventArgs(exc));
+                return false;
+            }
+        }
+
+        public async Task<string?> DisplayPromptAsync(string title, string message, string ok, string cancel = "Cancel", string? placeholder = null, int maxLength = -1, Keyboard? keyboard = null, string? initialValue = null)
+        {
+            try
+            {
+                string? prompt = null;
+                async Task<string?> action()
+                {
+                    try
+                    {
+                        if (Shell.Current is null) return null;
+                        return await Shell.Current
+                            .DisplayPromptAsync(title, message, ok, cancel, placeholder, maxLength, keyboard, initialValue)
+                            .ConfigureAwait(false);
+                    }
+                    catch (Exception exc)
+                    {
+                        OnError(new ShellErrorEventArgs(exc));
+                        return null;
+                    }
+                }
+                if (Dispatcher is not null)
+                {
+                    prompt = Dispatcher.IsDispatchRequired ? await Dispatcher.DispatchAsync(action) : await action();
+                }
+                else
+                {
+                    prompt = await action();
+                }
+                return prompt;
+            }
+            catch (Exception exc)
+            {
+                // Log error
+                OnError(new ShellErrorEventArgs(exc));
+                return null;
+            }
+        }
+
         /// <summary>
         /// Returns true if the current path (route) is the root page
         /// </summary>
@@ -222,6 +307,7 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
                 return string.Empty;
             }
         }
+
         public void SubscribeNavigated()
         {
             if (Shell.Current is not null)
