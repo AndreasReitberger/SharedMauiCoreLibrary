@@ -18,6 +18,7 @@ namespace AndreasReitberger.Shared.Core.Interfaces
         public Task<bool> GoToRootAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false, string rootPrefix = "///");
         public Task<bool> GoBackAsync(Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false, bool confirm = false, Func<Task<bool>>? confirmFunction = null);
         public Task<bool> DisplayAlertAsync(string title, string message, string ok, string? cancel = null);
+        public Task<string?> DisplayActionSheetAsync(string title, string cancel, string? destruction = null, params string[] buttons);
         public Task<string?> DisplayPromptAsync(string title, string message, string ok, string cancel = "Cancel", string? placeholder = null, int maxLength = -1, Keyboard? keyboard = null, string? initialValue = null);
         bool IsCurrentPathRoot();
         public void SubscribeNavigated();
