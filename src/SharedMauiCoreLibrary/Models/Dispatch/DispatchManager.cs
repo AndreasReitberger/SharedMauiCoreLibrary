@@ -52,10 +52,54 @@ namespace AndreasReitberger.Shared.Core.Dispatch
 
         #region Methods
 
+        public void Dispatch(IDispatcher? dispatcher, Action action, bool forceUiThread = false)
+        {
+            dispatcher ??= DispatcherProvider.Current.GetForCurrentThread();
+            if (dispatcher is null)
+            {
+#if DEBUG
+                // Show when a dispatching was done or not
+                Debug.WriteLine($"{nameof(DispatchManager)}: Dispatcher => The `Dispatcher` property was null!");
+#endif
+                return;
+            }
+#if DEBUG
+            // Show when a dispatching was done or not
+            Debug.WriteLine($"{nameof(DispatchManager)}: Dispatcher => '{(dispatcher.IsDispatchRequired ? "dispatched" : "not dispatched")}'");
+            if (dispatcher.IsDispatchRequired)
+            {
+                // Just for a breaking point
+            }
+#endif
+            if (dispatcher.IsDispatchRequired || forceUiThread)
+            {
+                dispatcher.Dispatch(() =>
+                {
+                    try
+                    {
+                        action.Invoke();
+                    }
+                    catch (Exception exc)
+                    {
+                        OnError(new Events.DispatchErrorEventArgs(exc)
+                        {
+                            DispatchRequired = dispatcher.IsDispatchRequired
+                        });
+                    }
+                });
+            }
+            else
+            {
+                action.Invoke();
+            }
+        }
         public void Dispatch(Action action, bool forceUiThread = false)
+            => Dispatch(dispatcher: Dispatcher, action: action, forceUiThread: forceUiThread);
+        
+        public void Dispatch(IDispatcher? dispatcher, Func<Task> action, bool forceUiThread = false)
         {
-            Dispatcher ??= DispatcherProvider.Current.GetForCurrentThread();
-            if (Dispatcher is null)
+            dispatcher ??= DispatcherProvider.Current.GetForCurrentThread(); 
+            if (dispatcher is null)
             {
 #if DEBUG
                 // Show when a dispatching was done or not
@@ -65,15 +109,15 @@ namespace AndreasReitberger.Shared.Core.Dispatch
             }
 #if DEBUG
             // Show when a dispatching was done or not
-            Debug.WriteLine($"{nameof(DispatchManager)}: Dispatcher => '{(Dispatcher.IsDispatchRequired ? "dispatched" : "not dispatched")}'");
-            if (Dispatcher.IsDispatchRequired)
+            Debug.WriteLine($"{nameof(DispatchManager)}: Dispatcher => '{(dispatcher.IsDispatchRequired ? "dispatched" : "not dispatched")}'");
+            if (dispatcher.IsDispatchRequired)
             {
                 // Just for a breaking point
             }
 #endif
-            if (Dispatcher.IsDispatchRequired || forceUiThread)
+            if (dispatcher.IsDispatchRequired || forceUiThread)
             {
-                Dispatcher.Dispatch(() =>
+                dispatcher.Dispatch(() =>
                 {
                     try
                     {
@@ -83,7 +127,7 @@ namespace AndreasReitberger.Shared.Core.Dispatch
                     {
                         OnError(new Events.DispatchErrorEventArgs(exc)
                         {
-                            DispatchRequired = Dispatcher.IsDispatchRequired
+                            DispatchRequired = dispatcher.IsDispatchRequired
                         });
                     }
                 });
@@ -93,11 +137,13 @@ namespace AndreasReitberger.Shared.Core.Dispatch
                 action.Invoke();
             }
         }
-
         public void Dispatch(Func<Task> action, bool forceUiThread = false)
+            => Dispatch(dispatcher: Dispatcher, action: action, forceUiThread: forceUiThread);
+
+        public async Task DispatchAsync(IDispatcher? dispatcher, Action action, bool forceUiThread = false)
         {
-            Dispatcher ??= DispatcherProvider.Current.GetForCurrentThread(); 
-            if (Dispatcher is null)
+            dispatcher ??= DispatcherProvider.Current.GetForCurrentThread();
+            if (dispatcher is null)
             {
 #if DEBUG
                 // Show when a dispatching was done or not
@@ -107,15 +153,15 @@ namespace AndreasReitberger.Shared.Core.Dispatch
             }
 #if DEBUG
             // Show when a dispatching was done or not
-            Debug.WriteLine($"{nameof(DispatchManager)}: Dispatcher => '{(Dispatcher.IsDispatchRequired ? "dispatched" : "not dispatched")}'");
-            if (Dispatcher.IsDispatchRequired)
+            Debug.WriteLine($"{nameof(DispatchManager)}: Dispatcher => '{(dispatcher.IsDispatchRequired ? "dispatched" : "not dispatched")}'");
+            if (dispatcher.IsDispatchRequired)
             {
                 // Just for a breaking point
             }
 #endif
-            if (Dispatcher.IsDispatchRequired || forceUiThread)
+            if (dispatcher.IsDispatchRequired || forceUiThread)
             {
-                Dispatcher.Dispatch(() =>
+                await dispatcher.DispatchAsync(() =>
                 {
                     try
                     {
@@ -125,7 +171,7 @@ namespace AndreasReitberger.Shared.Core.Dispatch
                     {
                         OnError(new Events.DispatchErrorEventArgs(exc)
                         {
-                            DispatchRequired = Dispatcher.IsDispatchRequired
+                            DispatchRequired = dispatcher.IsDispatchRequired
                         });
                     }
                 });
@@ -135,12 +181,13 @@ namespace AndreasReitberger.Shared.Core.Dispatch
                 action.Invoke();
             }
         }
+        public Task DispatchAsync(Action action, bool forceUiThread = false)
+            => DispatchAsync(dispatcher: Dispatcher, action: action, forceUiThread: forceUiThread);
 
-        /// <returns><c>Task</c></returns>
-        public async Task DispatchAsync(Action action, bool forceUiThread = false)
+        public async Task DispatchAsync(IDispatcher? dispatcher, Func<Task> action, bool forceUiThread = false)
         {
-            Dispatcher ??= DispatcherProvider.Current.GetForCurrentThread();
-            if (Dispatcher is null)
+            dispatcher ??= DispatcherProvider.Current.GetForCurrentThread();
+            if (dispatcher is null)
             {
 #if DEBUG
                 // Show when a dispatching was done or not
@@ -150,57 +197,15 @@ namespace AndreasReitberger.Shared.Core.Dispatch
             }
 #if DEBUG
             // Show when a dispatching was done or not
-            Debug.WriteLine($"{nameof(DispatchManager)}: Dispatcher => '{(Dispatcher.IsDispatchRequired ? "dispatched" : "not dispatched")}'");
-            if (Dispatcher.IsDispatchRequired)
+            Debug.WriteLine($"{nameof(DispatchManager)}: Dispatcher => '{(dispatcher.IsDispatchRequired ? "dispatched" : "not dispatched")}'");
+            if (dispatcher.IsDispatchRequired)
             {
                 // Just for a breaking point
             }
 #endif
-            if (Dispatcher.IsDispatchRequired || forceUiThread)
+            if (dispatcher.IsDispatchRequired || forceUiThread)
             {
-                await Dispatcher.DispatchAsync(() =>
-                {
-                    try
-                    {
-                        action.Invoke();
-                    }
-                    catch (Exception exc)
-                    {
-                        OnError(new Events.DispatchErrorEventArgs(exc)
-                        {
-                            DispatchRequired = Dispatcher.IsDispatchRequired
-                        });
-                    }
-                });
-            }
-            else
-            {
-                action.Invoke();
-            }
-        }
-
-        public async Task DispatchAsync(Func<Task> action, bool forceUiThread = false)
-        {
-            Dispatcher ??= DispatcherProvider.Current.GetForCurrentThread();
-            if (Dispatcher is null)
-            {
-#if DEBUG
-                // Show when a dispatching was done or not
-                Debug.WriteLine($"{nameof(DispatchManager)}: Dispatcher => The `Dispatcher` property was null!");
-#endif
-                return;
-            }
-#if DEBUG
-            // Show when a dispatching was done or not
-            Debug.WriteLine($"{nameof(DispatchManager)}: Dispatcher => '{(Dispatcher.IsDispatchRequired ? "dispatched" : "not dispatched")}'");
-            if (Dispatcher.IsDispatchRequired)
-            {
-                // Just for a breaking point
-            }
-#endif
-            if (Dispatcher.IsDispatchRequired || forceUiThread)
-            {
-                await Dispatcher.DispatchAsync(async () =>
+                await dispatcher.DispatchAsync(async () =>
                 {
                     try
                     {
@@ -210,7 +215,7 @@ namespace AndreasReitberger.Shared.Core.Dispatch
                     {
                         OnError(new Events.DispatchErrorEventArgs(exc)
                         {
-                            DispatchRequired = Dispatcher.IsDispatchRequired
+                            DispatchRequired = dispatcher.IsDispatchRequired
                         });
                     }
                 });
@@ -220,6 +225,8 @@ namespace AndreasReitberger.Shared.Core.Dispatch
                 await action.Invoke();
             }
         }
+        public Task DispatchAsync(Func<Task> action, bool forceUiThread = false)
+            => DispatchAsync(dispatcher: Dispatcher, action: action, forceUiThread: forceUiThread);
         #endregion
 
     }

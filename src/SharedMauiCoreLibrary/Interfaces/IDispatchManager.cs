@@ -11,9 +11,13 @@
         #endregion
 
         #region Methods
+        public void Dispatch(IDispatcher? dispatcher, Action action, bool forceUiThread = false);
         public void Dispatch(Action action, bool forceUiThread = false);
+        public void Dispatch(IDispatcher? dispatcher, Func<Task> action, bool forceUiThread = false);
         public void Dispatch(Func<Task> action, bool forceUiThread = false);
+        public Task DispatchAsync(IDispatcher? dispatcher, Action action, bool forceUiThread = false);
         public Task DispatchAsync(Action action, bool forceUiThread = false);
+        public Task DispatchAsync(IDispatcher? dispatcher, Func<Task> action, bool forceUiThread = false);
         public Task DispatchAsync(Func<Task> action, bool forceUiThread = false);
         #endregion
 
