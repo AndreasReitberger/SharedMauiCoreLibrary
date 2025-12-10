@@ -1,8 +1,11 @@
-﻿using AndreasReitberger.Shared.Core.Interfaces;
+﻿using AndreasReitberger.Shared.Core.Dispatch;
+using AndreasReitberger.Shared.Core.Events;
+using AndreasReitberger.Shared.Core.Interfaces;
 using AndreasReitberger.Shared.Core.Localization;
-using AndreasReitberger.Shared.Core.Dispatch;
 using AndreasReitberger.Shared.Core.NavigationManager;
 using CommunityToolkit.Maui;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Diagnostics;
 using System.Runtime.Versioning;
 
 namespace AndreasReitberger.Shared.Core.Hosting
@@ -29,16 +32,25 @@ namespace AndreasReitberger.Shared.Core.Hosting
             builder
                 .UseMauiCommunityToolkit()
                 .ConfigureDispatching()
+                .RegisterDispatcher()
                 ;
             return builder;
         }
 
-        public static MauiAppBuilder RegisterDispatcher(this MauiAppBuilder builder)
+        public static MauiAppBuilder RegisterDispatcher(this MauiAppBuilder builder, IDispatcher? dispatcher = null)
         {
-            if (Dispatcher.GetForCurrentThread() is IDispatcher dispatcher)
+            dispatcher ??= builder.Services.BuildServiceProvider().GetService<IDispatcher>();
+            if (dispatcher is not null)
             {
-                builder.Services.AddSingleton<IDispatcher>(dispatcher);
-                builder.Services.AddSingleton<IDispatchManager>(new DispatchManager(dispatcher));
+                DispatchManager manager = new(dispatcher);
+#if DEBUG
+                manager.Error += (a, b) =>
+                {
+                    if (b is DispatchErrorEventArgs args)
+                        Debug.WriteLine($"{nameof(DispatchManager)}: Dispatch error occured: \n{args}");
+                };
+#endif
+                builder.Services.TryAddSingleton<IDispatchManager>(manager);
             }
             return builder;
         }
@@ -50,7 +62,7 @@ namespace AndreasReitberger.Shared.Core.Hosting
                 BaseFlagImageUri = flagImageBaseDir
             };
             manager.SetLanguages(languages);
-            builder.Services.AddSingleton<ILocalizationManager>(manager);
+            builder.Services.TryAddSingleton<ILocalizationManager>(manager);
             return builder;
         }
 
@@ -60,7 +72,7 @@ namespace AndreasReitberger.Shared.Core.Hosting
             {
                 BaseFlagImageUri = flagImageBaseDir
             };
-            builder.Services.AddSingleton<ILocalizationManager>(manager);
+            builder.Services.TryAddSingleton<ILocalizationManager>(manager);
             return builder;
         }
 
@@ -69,7 +81,7 @@ namespace AndreasReitberger.Shared.Core.Hosting
             dispatcher ??= builder.Services.BuildServiceProvider().GetService<IDispatcher>();
             ShellNavigator navigator = dispatcher is not null ? new(rootPage, dispatcher) : new(rootPage);
             navigator.AvailableEntryPages = [.. entryPages ?? [ rootPage]];
-            builder.Services.AddSingleton<IShellNavigator>(navigator);
+            builder.Services.TryAddSingleton<IShellNavigator>(navigator);
             return builder;
         }
     }
