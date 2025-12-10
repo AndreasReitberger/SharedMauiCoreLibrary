@@ -4,6 +4,10 @@ namespace AndreasReitberger.Shared.Core.Interfaces
 {
     public interface IShellNavigator
     {
+        #region Instance
+        public static IShellNavigator? Instance { get; private set; }
+        #endregion
+
         #region Properties
         public string CurrentRoute { get; }
         public string PreviousRoute { get; set; }

@@ -1,6 +1,5 @@
 ﻿using AndreasReitberger.Shared.Core.Events;
 using AndreasReitberger.Shared.Core.Interfaces;
-using Microsoft.Maui;
 using System.Diagnostics;
 
 namespace AndreasReitberger.Shared.Core.NavigationManager
@@ -59,18 +58,8 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         #region Constructor
         public ShellNavigator()
         {
-            Dispatcher = DispatcherProvider.Current.GetForCurrentThread();
-            Shell.Current?.Navigated += (a, b) =>
-            {
-                string msg = $"Navigation: From '{b.Previous?.Location}' to '{b.Current?.Location}'. Source = '{b.Source}'";
-                OnNavigationDone(new NavigationDoneEventArgs()
-                {
-                    NavigatedFrom = b.Previous?.Location,
-                    NavigatedTo = b.Current?.Location,
-                    Source = b.Source,
-                });
-
-            };
+            Dispatcher ??= DispatcherProvider.Current.GetForCurrentThread();
+            SubscribeNavigated();
         }
 
         public ShellNavigator(string rootPage) : this()
@@ -86,6 +75,13 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         public ShellNavigator(string rootPage, IDispatcher dispatcher) : this(rootPage)
         {
             Dispatcher = dispatcher;
+        }
+        #endregion
+
+        #region Dtor
+        ~ShellNavigator()
+        {
+            UnsubscribeNavigated();
         }
         #endregion
 
