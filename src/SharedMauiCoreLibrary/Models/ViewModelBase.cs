@@ -1,5 +1,4 @@
 ﻿using AndreasReitberger.Shared.Core.Interfaces;
-using CommunityToolkit.Maui.Storage;
 
 namespace AndreasReitberger.Shared.Core
 {
@@ -52,6 +51,8 @@ namespace AndreasReitberger.Shared.Core
                     IsBusyCounter--;
             }
         }
+        public new void SetBusy(bool isBusy)
+            => SetBusy(isBusy, Dispatcher);
 
         public async Task SetBusyAsync(bool isBusy, IDispatcher? dispatcher)
         {
@@ -75,6 +76,8 @@ namespace AndreasReitberger.Shared.Core
                     IsBusyCounter--;
             }
         }
+        public Task SetBusyAsync(bool isBusy)
+            => SetBusyAsync(isBusy, Dispatcher);
         #endregion
 
         #region Dispose
