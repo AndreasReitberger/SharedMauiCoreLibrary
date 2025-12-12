@@ -32,12 +32,12 @@ namespace AndreasReitberger.Shared.Core.Hosting
             builder
                 .UseMauiCommunityToolkit()
                 .ConfigureDispatching()
-                .RegisterDispatcher()
+                .ConfigureDispatchManager()
                 ;
             return builder;
         }
 
-        public static MauiAppBuilder RegisterDispatcher(this MauiAppBuilder builder, IDispatcher? dispatcher = null)
+        public static MauiAppBuilder ConfigureDispatchManager(this MauiAppBuilder builder, IDispatcher? dispatcher = null)
         {
             dispatcher ??= builder.Services.BuildServiceProvider().GetService<IDispatcher>();
             if (dispatcher is not null)

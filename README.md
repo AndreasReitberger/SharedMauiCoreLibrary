@@ -19,6 +19,26 @@ Get the latest version from nuget.org<br>
 [![NuGet](https://img.shields.io/nuget/v/SharedMauiCoreLibrary.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/SharedMauiCoreLibrary/)
 [![NuGet](https://img.shields.io/nuget/dt/SharedMauiCoreLibrary.svg)](https://www.nuget.org/packages/SharedMauiCoreLibrary)
 
+# Setup
+Add the `MauiProgram.cs` add following line.
+
+```cs
+MauiAppBuilder builder = MauiApp.CreateBuilder();
+builder
+    .UseMauiApp<App>()
+    .UseMauiCommunityToolkit()
+    .ConfigureSyncfusionCore()
+    .ConfigureCoreLibrary()     // <= add this
+    //...
+```
+This will automatically initialize following extensions.
+
+```cs
+.UseMauiCommunityToolkit()
+.ConfigureDispatching()
+.ConfigureDispatchManager()       // Inits the DispatchManager with the configured dispatcher
+```
+
 ## Available content
 Please find a list of available content below.
 
