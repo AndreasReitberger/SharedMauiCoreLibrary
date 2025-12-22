@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Globalization;
+﻿using System.Globalization;
 using AndreasReitberger.Shared.Core.Localization;
 
 namespace AndreasReitberger.Shared.Core.Events
@@ -14,8 +13,7 @@ namespace AndreasReitberger.Shared.Core.Events
         #endregion
 
         #region Overrides
-        public override string ToString() => JsonConvert.SerializeObject(this, Formatting.Indented);
-
+        public override string ToString() => JsonSerializer.Serialize(this!, CoreSourceGenerationContext.Default.LanguageChangedEventArgs);
         #endregion
     }
 }

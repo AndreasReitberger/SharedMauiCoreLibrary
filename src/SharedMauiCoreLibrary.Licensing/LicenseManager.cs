@@ -4,7 +4,6 @@ using AndreasReitberger.Shared.Core.Licensing.Events;
 using AndreasReitberger.Shared.Core.Licensing.Interfaces;
 using AndreasReitberger.Shared.Core.Licensing.WooCommerce;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Newtonsoft.Json;
 using RestSharp;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -496,13 +495,12 @@ namespace AndreasReitberger.Shared.Core.Licensing
                     parameters.Add("domain", license.Domain);
                 }
                 string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
-
-                WooActivationResponse[] result = JsonConvert.DeserializeObject<WooActivationResponse[]>(jsonResult);
+                WooActivationResponse[] result = JsonSerializer.Deserialize(jsonResult, LicenseSourceGenerationContext.Default.WooActivationResponseArray);
                 return result;
             }
             catch (Exception exc)
             {
-                OnError(new ErrorEventArgs(exc) { });
+                OnError(new LicenseErrorEventArgs(exc) { });
                 return null;
             }
         }
@@ -526,12 +524,12 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 }
                 string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
 
-                WooCodeVersionResponse[] result = JsonConvert.DeserializeObject<WooCodeVersionResponse[]>(jsonResult);
+                WooCodeVersionResponse[] result = JsonSerializer.Deserialize(jsonResult, LicenseSourceGenerationContext.Default.WooCodeVersionResponseArray);
                 return result;
             }
             catch (Exception exc)
             {
-                OnError(new ErrorEventArgs(exc) { });
+                OnError(new LicenseErrorEventArgs(exc) { });
                 return null;
             }
         }
@@ -546,12 +544,12 @@ namespace AndreasReitberger.Shared.Core.Licensing
                     { "product_unique_id", productCode }
                 };         
                 string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
-                WooCodeVersionResponse[] result = JsonConvert.DeserializeObject<WooCodeVersionResponse[]>(jsonResult);
+                WooCodeVersionResponse[] result = JsonSerializer.Deserialize(jsonResult, LicenseSourceGenerationContext.Default.WooCodeVersionResponseArray);
                 return result;
             }
             catch (Exception exc)
             {
-                OnError(new ErrorEventArgs(exc) { });
+                OnError(new LicenseErrorEventArgs(exc) { });
                 return null;
             }
         }
@@ -573,12 +571,12 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 };
                 string jsonResult = await RestApiCallAsync(command, Method.Get, parameters: parameters, headers: headers, new(10000));
 
-                EnvatoVerifyPurchaseCodeRespone result = JsonConvert.DeserializeObject<EnvatoVerifyPurchaseCodeRespone>(jsonResult);
+                EnvatoVerifyPurchaseCodeRespone result = JsonSerializer.Deserialize(jsonResult, LicenseSourceGenerationContext.Default.EnvatoVerifyPurchaseCodeRespone);
                 return result;
             }
             catch (Exception exc)
             {
-                OnError(new ErrorEventArgs(exc) { });
+                OnError(new LicenseErrorEventArgs(exc) { });
                 return null;
             }
         }
