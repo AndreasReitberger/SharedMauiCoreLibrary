@@ -17,7 +17,7 @@ namespace AndreasReitberger.Shared.Core.Licensing.Hosting
         public static MauiAppBuilder ConfigureAppUpdater(this MauiAppBuilder builder, ILicenseManager licenseManager, IDispatcher? dispatcher = null)
         {
             dispatcher ??= builder.Services.BuildServiceProvider().GetService<IDispatcher>();
-            AppUpdateManager manager = new(dispatcher, licenseManager);
+            AppUpdateManager manager = dispatcher is null ? new(licenseManager) : new(dispatcher, licenseManager);
             builder.Services.AddSingleton<IAppUpdateManager>(manager);
             return builder;
         }

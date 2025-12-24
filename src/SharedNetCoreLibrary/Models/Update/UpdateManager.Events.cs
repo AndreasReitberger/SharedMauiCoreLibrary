@@ -4,7 +4,6 @@ namespace AndreasReitberger.Shared.Core.Update
 {
     public partial class UpdateManager : ObservableObject
     {
-
         #region Events
         public event EventHandler<UpdateAvailableArgs>? UpdateAvailable;
         protected virtual void OnUpdateAvailable(UpdateAvailableArgs e)

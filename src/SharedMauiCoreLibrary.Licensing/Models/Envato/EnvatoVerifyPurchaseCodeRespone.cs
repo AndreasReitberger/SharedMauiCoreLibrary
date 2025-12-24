@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Newtonsoft.Json;
 
 namespace AndreasReitberger.Shared.Core.Licensing.Envato
 {
@@ -17,31 +16,31 @@ namespace AndreasReitberger.Shared.Core.Licensing.Envato
     {
         #region Properties
         [ObservableProperty]
-        [JsonProperty("amount")]
+        [JsonPropertyName("amount")]
         public partial string Amount { get; set; } = string.Empty;
 
         [ObservableProperty]
-        [JsonProperty("sold_At")]
+        [JsonPropertyName("sold_At")]
         public partial string SoldAt { get; set; } = string.Empty;
 
         [ObservableProperty]
-        [JsonProperty("license")]
+        [JsonPropertyName("license")]
         public partial string License { get; set; } = string.Empty;
 
         [ObservableProperty]
-        [JsonProperty("support_amount")]
+        [JsonPropertyName("support_amount")]
         public partial string SupportAmount { get; set; } = string.Empty;
 
         [ObservableProperty]
-        [JsonProperty("supported_until")]
+        [JsonPropertyName("supported_until")]
         public partial string SupportedUntil { get; set; } = string.Empty;
 
         [ObservableProperty]
-        [JsonProperty("item")]
+        [JsonPropertyName("item")]
         public partial EnvatoItem? Item { get; set; }
 
         [ObservableProperty]
-        [JsonProperty("code")]
+        [JsonPropertyName("code")]
         public partial string PurchaseCode { get; set; } = string.Empty;
         #endregion
     }

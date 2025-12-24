@@ -28,7 +28,6 @@ namespace AndreasReitberger.Shared.Core
 
         [ObservableProperty]
         public partial int IsLoadingDataCounter { get; set; } = 0;
-
         partial void OnIsLoadingDataCounterChanged(int value)
         {
             // Avoid negative values
@@ -41,7 +40,6 @@ namespace AndreasReitberger.Shared.Core
 
         [ObservableProperty]
         public partial int IsBusyCounter { get; set; } = 0;
-
         partial void OnIsBusyCounterChanged(int value)
         {
             // Avoid negative values
@@ -96,27 +94,6 @@ namespace AndreasReitberger.Shared.Core
 
         [RelayCommand]
         void NavigatedFrom() => IsNavigatedTo = false;
-        #endregion
-
-        #region Dispose
-        /*
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        protected void Dispose(bool disposing)
-        {
-            // Ordinarily, we release unmanaged resources here;
-            // but all are wrapped by safe handles.
-
-            // Release disposable objects.
-            if (disposing)
-            {
-
-            }
-        }
-        */
         #endregion
 
     }

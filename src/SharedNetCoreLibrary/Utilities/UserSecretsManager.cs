@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+#if NEWTONSOFT
 using Newtonsoft.Json.Linq;
+#endif
 using System.Reflection;
 
 namespace AndreasReitberger.Shared.Core.Utilities
@@ -10,7 +12,11 @@ namespace AndreasReitberger.Shared.Core.Utilities
     {
         #region Instance
         static UserSecretsManager? _instance = null;
+#if NET9_0_OR_GREATER
+        static readonly Lock Lock = new();
+#else
         static readonly object Lock = new();
+#endif
         public static UserSecretsManager Settings
         {
             get
@@ -30,11 +36,15 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 }
             }
         }
-        #endregion
+#endregion
 
         #region Variables
+#if NEWTONSOFT
         JObject? _secrets;
-        #endregion
+#else
+        JsonDocument? _secrets;
+#endif
+#endregion
 
         #region Properties
         [ObservableProperty]
@@ -68,7 +78,11 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 {
                     using StreamReader reader = new(stream);
                     string json = reader.ReadToEnd();
+#if NEWTONSOFT
                     _secrets = JObject.Parse(json);
+#else
+                    _secrets = JsonDocument.Parse(json);
+#endif
                 }
             }
             catch (Exception ex)
@@ -76,13 +90,21 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 OnError(new ErrorEventArgs(ex));
             }
         }
-
+#if NEWTONSOFT
         public T? ToObject<T>()
+#else
+        public T? ToObject<T>(JsonSerializerContext? context = null)
+#endif
         {
             if (_secrets is null) return default;
+#if NEWTONSOFT
             return _secrets.ToObject<T>();
+#else
+            context ??= CoreSourceGenerationContext.Default;
+            return (T?)JsonSerializer.Deserialize(_secrets.RootElement.GetRawText(), typeof(T), context);
+#endif
         }
-        #endregion
+#endregion
 
         #region Static
 #nullable enable
@@ -101,13 +123,23 @@ namespace AndreasReitberger.Shared.Core.Utilities
             {
                 try
                 {
-                    var path = name.Split(':');
-
+                    string[] path = name.Split(':');
+#if NEWTONSOFT
                     JToken node = _secrets[path[0]];
                     for (int index = 1; index < path.Length; index++)
                     {
                         node = node[path[index]];
                     }
+#else
+                    JsonElement node = _secrets.RootElement;
+                    foreach (var segment in path)
+                    {
+                        if (node.TryGetProperty(segment, out var child))
+                            node = child;
+                        else
+                            return string.Empty;
+                    }
+#endif
                     return node.ToString();
                 }
                 catch (Exception ex)

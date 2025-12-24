@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Newtonsoft.Json;
 
 namespace AndreasReitberger.Shared.Core.Licensing.WooCommerce
 {
@@ -13,15 +12,15 @@ namespace AndreasReitberger.Shared.Core.Licensing.WooCommerce
     {
         #region Properties
         [ObservableProperty]
-        [JsonProperty("status")]
+        [JsonPropertyName("status")]
         public partial string Status { get; set; } = string.Empty;
 
         [ObservableProperty]
-        [JsonProperty("status_code")]
+        [JsonPropertyName("status_code")]
         public partial string ErrorCode { get; set; } = string.Empty;
 
         [ObservableProperty]
-        [JsonProperty("message")]
+        [JsonPropertyName("message")]
         public partial WooCodeVersionMessage? VersionMessage { get; set; }
         #endregion
     }

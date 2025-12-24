@@ -13,7 +13,6 @@ namespace AndreasReitberger.Shared.Core
         #region Ctor
         public ViewModelBase() : base()
         {
-
             Dispatcher = DispatcherProvider.Current.GetForCurrentThread();
         }
         public ViewModelBase(IDispatcher? dispatcher) : base()
