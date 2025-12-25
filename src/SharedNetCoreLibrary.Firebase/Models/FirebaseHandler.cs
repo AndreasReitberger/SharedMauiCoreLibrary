@@ -36,6 +36,7 @@ namespace AndreasReitberger.Shared.Firebase
         #endregion
 
         #region Properties
+
         [ObservableProperty]
         public partial ConcurrentDictionary<Type, IDisposable> Subscriptions { get; set; } = [];
         #endregion
@@ -61,7 +62,7 @@ namespace AndreasReitberger.Shared.Firebase
         public FirebaseHandler(string domain, string uri, string api) : base()
         {
             apiKey = api;
-            baseUri = uri;      
+            baseUri = uri;
             authDomain = domain;
 
             UseDefaultConfig();

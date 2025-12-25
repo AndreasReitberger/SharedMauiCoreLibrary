@@ -1,8 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 #if NEWTONSOFT
 using Newtonsoft.Json.Linq;
-#else
-using System.Text.Json;
 #endif
 using System.Reflection;
 
@@ -14,7 +12,11 @@ namespace AndreasReitberger.Shared.Core.Utilities
     {
         #region Instance
         static UserSecretsManager? _instance = null;
+#if NET9_0_OR_GREATER
+        static readonly Lock Lock = new();
+#else
         static readonly object Lock = new();
+#endif
         public static UserSecretsManager Settings
         {
             get
@@ -34,7 +36,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 }
             }
         }
-        #endregion
+#endregion
 
         #region Variables
 #if NEWTONSOFT
@@ -88,14 +90,18 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 OnError(new ErrorEventArgs(ex));
             }
         }
-
+#if NEWTONSOFT
         public T? ToObject<T>()
+#else
+        public T? ToObject<T>(JsonSerializerContext? context = null)
+#endif
         {
             if (_secrets is null) return default;
 #if NEWTONSOFT
             return _secrets.ToObject<T>();
 #else
-            return JsonSerializer.Deserialize<T>(_secrets.RootElement.GetRawText()); ;
+            context ??= CoreSourceGenerationContext.Default;
+            return (T?)JsonSerializer.Deserialize(_secrets.RootElement.GetRawText(), typeof(T), context);
 #endif
         }
 #endregion
@@ -117,7 +123,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
             {
                 try
                 {
-                    var path = name.Split(':');
+                    string[] path = name.Split(':');
 #if NEWTONSOFT
                     JToken node = _secrets[path[0]];
                     for (int index = 1; index < path.Length; index++)
@@ -129,13 +135,9 @@ namespace AndreasReitberger.Shared.Core.Utilities
                     foreach (var segment in path)
                     {
                         if (node.TryGetProperty(segment, out var child))
-                        {
                             node = child;
-                        }
                         else
-                        {
                             return string.Empty;
-                        }
                     }
 #endif
                     return node.ToString();

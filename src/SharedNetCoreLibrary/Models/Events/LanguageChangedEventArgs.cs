@@ -18,13 +18,11 @@ namespace AndreasReitberger.Shared.Core.Events
         #endregion
 
         #region Overrides
+
 #if NEWTONSOFT
         public override string ToString() => JsonConvert.SerializeObject(this, Formatting.Indented);
 #else
-        public override string ToString() => JsonSerializer.Serialize(this, new JsonSerializerOptions
-        {
-            WriteIndented = true
-        });
+        public override string ToString() => JsonSerializer.Serialize(this!, CoreSourceGenerationContext.Default.LanguageChangedEventArgs);
 #endif
         #endregion
     }

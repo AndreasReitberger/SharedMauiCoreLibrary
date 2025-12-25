@@ -11,6 +11,10 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         {
             Error?.Invoke(this, EventArgs.Empty);
         }
+        protected virtual void OnError(ShellErrorEventArgs e)
+        {
+            Error?.Invoke(this, e);
+        }
         protected virtual void OnError(UnhandledExceptionEventArgs e)
         {
             Error?.Invoke(this, e);

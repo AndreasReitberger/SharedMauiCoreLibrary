@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Newtonsoft.Json;
 
 namespace AndreasReitberger.Shared.Core.Licensing.WooCommerce
 {
@@ -7,11 +6,11 @@ namespace AndreasReitberger.Shared.Core.Licensing.WooCommerce
     {
         #region Properties
         [ObservableProperty]
-        [JsonProperty("low")]
+        [JsonPropertyName("low")]
         public partial string LowQualityBanner { get; set; } = string.Empty;
 
         [ObservableProperty]
-        [JsonProperty("high")]
+        [JsonPropertyName("high")]
         public partial string HighQualityBanner { get; set; } = string.Empty;
         #endregion
     }

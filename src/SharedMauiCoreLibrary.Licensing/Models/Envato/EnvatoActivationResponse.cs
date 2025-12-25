@@ -1,6 +1,5 @@
 ﻿using AndreasReitberger.Shared.Core.Licensing.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Newtonsoft.Json;
 
 namespace AndreasReitberger.Shared.Core.Licensing.Envato
 {
@@ -19,31 +18,31 @@ namespace AndreasReitberger.Shared.Core.Licensing.Envato
     {
         #region Properties
         [ObservableProperty]
-        [JsonProperty("activated")]
+        [JsonPropertyName("activated")]
         public partial bool Activated { get; set; } = false;
 
         [ObservableProperty]
-        [JsonProperty("instance")]
+        [JsonPropertyName("instance")]
         public partial int Instance { get; set; }
 
         [ObservableProperty]
-        [JsonProperty("message")]
+        [JsonPropertyName("message")]
         public partial string Message { get; set; } = string.Empty;
 
         [ObservableProperty]
-        [JsonProperty("timestamp")]
+        [JsonPropertyName("timestamp")]
         public partial int Timestamp { get; set; }
 
         [ObservableProperty]
-        [JsonProperty("sig")]
+        [JsonPropertyName("sig")]
         public partial string Sig { get; set; } = string.Empty;
 
         [ObservableProperty]
-        [JsonProperty("code")]
+        [JsonPropertyName("code")]
         public partial string ErrorCode { get; set; } = string.Empty;
 
         [ObservableProperty]
-        [JsonProperty("error")]
+        [JsonPropertyName("error")]
         public partial string ErrorMessage { get; set; } = string.Empty;
         #endregion
     }

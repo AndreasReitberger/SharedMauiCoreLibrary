@@ -12,7 +12,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
 #if NEWTONSOFT
         public static T? ToObject<T>(string jsonString, T? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerSettings? settings = null)
 #else
-        public static T? ToObject<T>(string jsonString, T? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerOptions? settings = null)
+        public static T? ToObject<T>(string jsonString, T? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerContext? settings = null)
 #endif
         {
             try
@@ -26,7 +26,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
                     }
                 };
 #else
-                settings ??= new JsonSerializerOptions();
+                settings ??= CoreSourceGenerationContext.Default;
 #endif
                 // Check if it is saved as plain string. If so, just return the string
                 if (typeof(T) == typeof(string) && !(jsonString.StartsWith('"') && jsonString.EndsWith('"')))
@@ -35,7 +35,8 @@ namespace AndreasReitberger.Shared.Core.Utilities
 #if NEWTONSOFT
                     return JsonConvert.DeserializeObject<T>(jsonString, settings) ?? defaultValue;
 #else
-                    return JsonSerializer.Deserialize<T>(jsonString, settings) ?? defaultValue;
+                    //return JsonSerializer.Deserialize<T>(jsonString, settings) ?? defaultValue;
+                    return (T?)JsonSerializer.Deserialize(jsonString, typeof(T), settings) ?? defaultValue;
 #endif
             }
             catch (Exception exc)
@@ -47,7 +48,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
 #if NEWTONSOFT
         public static string? ToSettingsString<T>(T settingsObject, string? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerSettings? settings = null)
 #else
-        public static string? ToSettingsString<T>(T settingsObject, string? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerOptions? settings = null)
+        public static string? ToSettingsString<T>(T settingsObject, string? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerContext? settings = null)
 #endif
         {
             try
@@ -62,11 +63,8 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 };
                 return JsonConvert.SerializeObject(settingsObject, Formatting.Indented, settings) ?? defaultValue;
 #else
-                settings ??= new JsonSerializerOptions
-                {
-                    WriteIndented = true
-                };
-                return JsonSerializer.Serialize(settingsObject, settings) ?? defaultValue;
+                settings ??= CoreSourceGenerationContext.Default;
+                return JsonSerializer.Serialize(settingsObject, typeof(T), settings) ?? defaultValue;
 #endif
             }
             catch (Exception exc)

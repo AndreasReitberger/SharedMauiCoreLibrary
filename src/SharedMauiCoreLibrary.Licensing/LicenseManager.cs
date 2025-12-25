@@ -4,7 +4,6 @@ using AndreasReitberger.Shared.Core.Licensing.Events;
 using AndreasReitberger.Shared.Core.Licensing.Interfaces;
 using AndreasReitberger.Shared.Core.Licensing.WooCommerce;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Newtonsoft.Json;
 using RestSharp;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -49,8 +48,6 @@ namespace AndreasReitberger.Shared.Core.Licensing
         public void Initialize(Uri licenseServer = null, int? port = null)
         {
             if (licenseServer != null) LicenseServer = licenseServer;
-
-
             RestClientOptions options;
             HttpClient = new();
             if (port != null)
@@ -356,11 +353,13 @@ namespace AndreasReitberger.Shared.Core.Licensing
                     WooCodeVersionResponse[] wooResult = await QueryLatestApplicationVersionFromWooCommerceAsync(WooSoftwareLicenseAction.CodeVersion, license).ConfigureAwait(false);
                     if (wooResult?.All(result => result.Status == "success" && (result.ErrorCode == "s403")) == true)
                     {
+                        WooCodeVersionResponse res = wooResult.First();
                         result = new()
                         {
                             Success = true,
-                            //Message = string.Join("|", wooResult?.Select(result => result.VersionMessage)),
+                            Message = res.VersionMessage.UpgradeNotice,
                             TimeStamp = DateTimeOffset.Now,
+                            Version = res.VersionMessage.Version
                         };
                     }
                     else
@@ -370,6 +369,49 @@ namespace AndreasReitberger.Shared.Core.Licensing
                             Success = false,
                             //Message = string.Join("|", wooResult?.Select(result => result.VersionMessage)),
                             TimeStamp = DateTimeOffset.Now,
+                        };
+                    }
+                    break;
+                case LicenseServerTarget.Envato:
+                    throw new NotSupportedException($"The {target} doesn't support this function!");
+                case LicenseServerTarget.Custom:
+                default:
+                    throw new NotImplementedException($"The features for {target} aren' implemented yet!");
+                    //break;
+            }
+            if (result.Success) OnSuccess?.Invoke();
+            else OnError?.Invoke();
+            return result;
+        }
+
+        public async Task<IApplicationVersionResult> GetLatestApplicationVersionAsync(string productCode, LicenseServerTarget target, Func<string> OnSuccess = null, Func<string> OnError = null)
+        {
+            if (RestClient == null) Initialize();
+            ApplicationVersionResult result = new() { Success = false, TimeStamp = DateTimeOffset.Now };
+            if (string.IsNullOrEmpty(productCode)) return result;
+            switch (target)
+            {
+                case LicenseServerTarget.WooCommerce:
+                    WooCodeVersionResponse[] wooResult = await QueryLatestApplicationVersionFromWooCommerceAsync(WooSoftwareLicenseAction.CodeVersion, productCode).ConfigureAwait(false);
+                    if (wooResult?.All(result => result.Status == "success" && (result.ErrorCode == "s403")) == true)
+                    {
+                        WooCodeVersionResponse res = wooResult.First();
+                        result = new()
+                        {
+                            Success = true,
+                            Message = res.VersionMessage.UpgradeNotice,
+                            TimeStamp = DateTimeOffset.Now,
+                            Version = res.VersionMessage.Version
+                        };
+                    }
+                    else
+                    {
+                        result = new()
+                        {
+                            Success = false,
+                            //Message = string.Join("|", wooResult?.Select(result => result.VersionMessage)),
+                            TimeStamp = DateTimeOffset.Now,
+                            Version = "0.0.0",
                         };
                     }
                     break;
@@ -453,13 +495,12 @@ namespace AndreasReitberger.Shared.Core.Licensing
                     parameters.Add("domain", license.Domain);
                 }
                 string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
-
-                WooActivationResponse[] result = JsonConvert.DeserializeObject<WooActivationResponse[]>(jsonResult);
+                WooActivationResponse[] result = JsonSerializer.Deserialize(jsonResult, LicenseSourceGenerationContext.Default.WooActivationResponseArray);
                 return result;
             }
             catch (Exception exc)
             {
-                OnError(new ErrorEventArgs(exc) { });
+                OnError(new LicenseErrorEventArgs(exc) { });
                 return null;
             }
         }
@@ -483,12 +524,32 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 }
                 string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
 
-                WooCodeVersionResponse[] result = JsonConvert.DeserializeObject<WooCodeVersionResponse[]>(jsonResult);
+                WooCodeVersionResponse[] result = JsonSerializer.Deserialize(jsonResult, LicenseSourceGenerationContext.Default.WooCodeVersionResponseArray);
                 return result;
             }
             catch (Exception exc)
             {
-                OnError(new ErrorEventArgs(exc) { });
+                OnError(new LicenseErrorEventArgs(exc) { });
+                return null;
+            }
+        }
+        async Task<WooCodeVersionResponse[]> QueryLatestApplicationVersionFromWooCommerceAsync(string action, string productCode)
+        {
+            try
+            {
+                string command = string.Empty;
+                Dictionary<string, string> parameters = new()
+                {
+                    { "woo_sl_action", action },
+                    { "product_unique_id", productCode }
+                };         
+                string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
+                WooCodeVersionResponse[] result = JsonSerializer.Deserialize(jsonResult, LicenseSourceGenerationContext.Default.WooCodeVersionResponseArray);
+                return result;
+            }
+            catch (Exception exc)
+            {
+                OnError(new LicenseErrorEventArgs(exc) { });
                 return null;
             }
         }
@@ -510,19 +571,19 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 };
                 string jsonResult = await RestApiCallAsync(command, Method.Get, parameters: parameters, headers: headers, new(10000));
 
-                EnvatoVerifyPurchaseCodeRespone result = JsonConvert.DeserializeObject<EnvatoVerifyPurchaseCodeRespone>(jsonResult);
+                EnvatoVerifyPurchaseCodeRespone result = JsonSerializer.Deserialize(jsonResult, LicenseSourceGenerationContext.Default.EnvatoVerifyPurchaseCodeRespone);
                 return result;
             }
             catch (Exception exc)
             {
-                OnError(new ErrorEventArgs(exc) { });
+                OnError(new LicenseErrorEventArgs(exc) { });
                 return null;
             }
         }
         #endregion
 
-#endregion
+        #endregion
 
-#endregion
+        #endregion
     }
 }

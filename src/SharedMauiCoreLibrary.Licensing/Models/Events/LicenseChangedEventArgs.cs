@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace AndreasReitberger.Shared.Core.Licensing.Events
+﻿namespace AndreasReitberger.Shared.Core.Licensing.Events
 {
     public class LicenseChangedEventArgs : EventArgs
     {
@@ -12,7 +10,7 @@ namespace AndreasReitberger.Shared.Core.Licensing.Events
         #endregion
 
         #region Overrides
-        public override string ToString() => JsonConvert.SerializeObject(this, Formatting.Indented);
+        public override string ToString() => JsonSerializer.Serialize(this!, LicenseSourceGenerationContext.Default.LicenseChangedEventArgs);
         #endregion
     }
 }

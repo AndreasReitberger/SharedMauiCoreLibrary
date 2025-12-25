@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\..\common.props" />
-	<Import Project="..\..\framework.maui.net9.props" Condition="'$(DefineConstants.Contains(NET9))'"/>
-	<Import Project="..\..\framework.maui.props" Condition="'$(DefineConstants.Contains(NET10))'"/>
+	<Import Project="..\..\framework.maui.net9.props" Condition="'$(DefineConstants.Contains(NET9))'" />
+	<Import Project="..\..\framework.maui.props" Condition="'$(DefineConstants.Contains(NET10))'" />
 	
 	<PropertyGroup>
 		<PackageTags>MAUI, Utilites, Core, Library, Helper, C#, dotnet</PackageTags>
@@ -39,13 +39,12 @@
 
 	<!-- Used for net10-->
 	<ItemGroup Condition="'$(DefineConstants.Contains(NET10))'">
-		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.10" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.20" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="13.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -46,5 +46,9 @@ namespace AndreasReitberger.Shared.Core.Localization
             IsOfficial = isOfficial;
         }
         #endregion
+
+        #region Overrides
+        public override string ToString() => JsonSerializer.Serialize(this!, CoreSourceGenerationContext.Default.LocalizationInfo);
+        #endregion
     }
 }

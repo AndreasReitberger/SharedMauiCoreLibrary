@@ -1,5 +1,4 @@
 ﻿using AndreasReitberger.Shared.Core.Interfaces;
-using CommunityToolkit.Maui.Storage;
 
 namespace AndreasReitberger.Shared.Core
 {
@@ -12,8 +11,8 @@ namespace AndreasReitberger.Shared.Core
         #endregion
 
         #region Ctor
-        public ViewModelBase() : base() { 
-        
+        public ViewModelBase() : base()
+        {
             Dispatcher = DispatcherProvider.Current.GetForCurrentThread();
         }
         public ViewModelBase(IDispatcher? dispatcher) : base()
@@ -25,7 +24,7 @@ namespace AndreasReitberger.Shared.Core
             Dispatcher = dispatcher;
             Provider = provider;
         }
-        
+
         #endregion
 
         #region Methods
@@ -51,6 +50,8 @@ namespace AndreasReitberger.Shared.Core
                     IsBusyCounter--;
             }
         }
+        public new void SetBusy(bool isBusy)
+            => SetBusy(isBusy, Dispatcher);
 
         public async Task SetBusyAsync(bool isBusy, IDispatcher? dispatcher)
         {
@@ -74,6 +75,8 @@ namespace AndreasReitberger.Shared.Core
                     IsBusyCounter--;
             }
         }
+        public Task SetBusyAsync(bool isBusy)
+            => SetBusyAsync(isBusy, Dispatcher);
         #endregion
 
         #region Dispose
