@@ -36,6 +36,7 @@
 		<!-- Ref: https://learn.microsoft.com/en-us/dotnet/maui/deployment/trimming?view=net-maui-10.0#suppress-analysis-warnings -->
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
 		<TrimmerSingleWarn>false</TrimmerSingleWarn>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
