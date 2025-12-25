@@ -1,28 +1,30 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿#if NEWTONSOFT
+using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json.Linq;
 using System.Reflection;
 using ErrorEventArgs = System.IO.ErrorEventArgs;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace AndreasReitberger.Shared.Core.Utilities
 {
     // Source: https://github.com/ncarandini/XFUserSecrets/blob/master/TPCWare.XFUserSecrets/Utils/UserSecretsManager.cs
     // Changed: Yes
-    public partial class UserSecretsManager : ObservableObject
+    [Obsolete("Use the UserSecretsManager instead which uses System.Text.Json")]
+    public partial class NUserSecretsManager : ObservableObject
     {
         #region Instance
-        static UserSecretsManager? _instance = null;
+        static NUserSecretsManager? _instance = null;
 #if NET9_0_OR_GREATER
         static readonly Lock Lock = new();
 #else
         static readonly object Lock = new();
 #endif
-        public static UserSecretsManager Settings
+        public static NUserSecretsManager Settings
         {
             get
             {
                 lock (Lock)
                 {
-                    _instance ??= new UserSecretsManager();
+                    _instance ??= new NUserSecretsManager();
                 }
                 return _instance;
             }
@@ -35,11 +37,11 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 }
             }
         }
-#endregion
+        #endregion
 
         #region Variables
 
-        JsonDocument? _secrets;
+        JObject? _secrets;
 
         #endregion
 
@@ -55,8 +57,8 @@ namespace AndreasReitberger.Shared.Core.Utilities
         #endregion
 
         #region Ctor
-        public UserSecretsManager() { }
-        public UserSecretsManager(string appNamespace, string userSecretsFileName)
+        public NUserSecretsManager() { }
+        public NUserSecretsManager(string appNamespace, string userSecretsFileName)
         {
             AppNamespace = appNamespace;
             UserSecretsFileName = userSecretsFileName;
@@ -75,7 +77,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 {
                     using StreamReader reader = new(stream);
                     string json = reader.ReadToEnd();
-                    _secrets = JsonDocument.Parse(json);
+                    _secrets = JObject.Parse(json);
                 }
             }
             catch (Exception ex)
@@ -83,12 +85,10 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 OnError(new ErrorEventArgs(ex));
             }
         }
-
-        public T? ToObject<T>(JsonSerializerContext? context = null)
+        public T? ToObject<T>()
         {
             if (_secrets is null) return default;
-            context ??= CoreSourceGenerationContext.Default;
-            return (T?)JsonSerializer.Deserialize(_secrets.RootElement.GetRawText(), typeof(T), context);
+            return _secrets.ToObject<T>();
         }
         #endregion
 
@@ -110,13 +110,10 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 try
                 {
                     string[] path = name.Split(':');
-                    JsonElement node = _secrets.RootElement;
-                    foreach (var segment in path)
+                    JToken node = _secrets[path[0]];
+                    for (int index = 1; index < path.Length; index++)
                     {
-                        if (node.TryGetProperty(segment, out var child))
-                            node = child;
-                        else
-                            return string.Empty;
+                        node = node[path[index]];
                     }
                     return node.ToString();
                 }
@@ -147,3 +144,4 @@ namespace AndreasReitberger.Shared.Core.Utilities
         #endregion
     }
 }
+#endif

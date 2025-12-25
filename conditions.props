@@ -2,8 +2,9 @@
 <Project>
 	<PropertyGroup>
 		<!-- Here you can choose if you want to build as executable or as package -->
+		<!-- Enable additionally Newtonsoft.JSON -->
 		<!--<DefineConstants>$(DefineConstants);NEWTONSOFT</DefineConstants>-->
 		<!--<DefineConstants>$(DefineConstants);NET9</DefineConstants>-->
-		<!----><DefineConstants>$(DefineConstants);NET10</DefineConstants>
+		<DefineConstants>$(DefineConstants);NET10</DefineConstants>
 	</PropertyGroup>
 </Project>

@@ -1,5 +1,6 @@
-﻿using Firebase.Auth;
-using Newtonsoft.Json;
+﻿using AndreasReitberger.Shared.Firebase.SourceGeneration;
+using Firebase.Auth;
+using System.Text.Json;
 
 namespace AndreasReitberger.Shared.Firebase.Events
 {
@@ -12,7 +13,8 @@ namespace AndreasReitberger.Shared.Firebase.Events
         #endregion
 
         #region Overrides
-        public override string ToString() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+        public override string ToString() => JsonSerializer.Serialize(this!, FirebaseSourceGenerationContext.Default.CurrentUserChangedEventArgs);
 
         #endregion
     }

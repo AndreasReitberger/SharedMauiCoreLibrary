@@ -12,25 +12,17 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\licenses\CommunityToolkit.Mvvm.txt" Link="Licenses\CommunityToolkit.Mvvm.txt" />
-    <None Include="..\..\licenses\Newtonsoft.Json.txt" Link="Licenses\Newtonsoft.Json.txt" />
+    <None Condition="'$(DefineConstants.Contains(NEWTONSOFT))'" Include="..\..\licenses\Newtonsoft.Json.txt" Link="Licenses\Newtonsoft.Json.txt" />
   </ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="System.Text.Json" Version="10.0.1" />
 		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
-	<!--
 	<ItemGroup Condition="'$(DefineConstants.Contains(NEWTONSOFT))'">
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />		
 	</ItemGroup>
-	<ItemGroup Condition="'!$(DefineConstants.Contains(NEWTONSOFT))'">
-		<PackageReference Include="System.Text.Json" Version="10.0.0" />
-	</ItemGroup>
-	-->
-	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-		<PackageReference Include="System.Text.Json" Version="10.0.1" />
-	</ItemGroup>
-
 	<ItemGroup>
 	  <Folder Include="Licenses\" />
 	</ItemGroup>
