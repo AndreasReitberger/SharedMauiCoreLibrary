@@ -1,5 +1,7 @@
 ﻿#if NEWTONSOFT
 using Newtonsoft.Json;
+#else
+using System.Text.Json;
 #endif
 
 namespace AndreasReitberger.Shared.Core.Utilities

@@ -16,5 +16,6 @@ namespace AndreasReitberger.Shared.Core.Utilities
             return baseMembers;
         }
     }
+
 }
 #endif

@@ -44,7 +44,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
 #else
         JsonDocument? _secrets;
 #endif
-#endregion
+        #endregion
 
         #region Properties
         [ObservableProperty]
@@ -149,7 +149,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 }
             }
         }
-        #endregion
+#endregion
 
         #region Events
 

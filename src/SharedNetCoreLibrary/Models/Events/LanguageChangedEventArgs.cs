@@ -1,4 +1,9 @@
-﻿using System.Globalization;
+﻿#if NEWTONSOFT
+using Newtonsoft.Json;
+#else
+using System.Text.Json;
+#endif
+using System.Globalization;
 using AndreasReitberger.Shared.Core.Localization;
 
 namespace AndreasReitberger.Shared.Core.Events
@@ -13,7 +18,12 @@ namespace AndreasReitberger.Shared.Core.Events
         #endregion
 
         #region Overrides
+
+#if NEWTONSOFT
+        public override string ToString() => JsonConvert.SerializeObject(this, Formatting.Indented);
+#else
         public override string ToString() => JsonSerializer.Serialize(this!, CoreSourceGenerationContext.Default.LanguageChangedEventArgs);
+#endif
         #endregion
     }
 }

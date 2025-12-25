@@ -1,5 +1,7 @@
 ﻿#if NEWTONSOFT
 using Newtonsoft.Json;
+#else
+using System.Text.Json;
 #endif
 
 namespace AndreasReitberger.Shared.Core.Utilities
@@ -71,6 +73,6 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 return defaultValue;
             }
         }
-        #endregion
+#endregion
     }
 }
