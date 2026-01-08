@@ -1,4 +1,7 @@
 ﻿using AndreasReitberger.Shared.Core.Interfaces;
+#if DEBUG
+using System.Diagnostics;
+#endif
 
 namespace AndreasReitberger.Shared.Core
 {
@@ -14,15 +17,24 @@ namespace AndreasReitberger.Shared.Core
         public ViewModelBase() : base()
         {
             Dispatcher = DispatcherProvider.Current.GetForCurrentThread();
+#if DEBUG
+            Debug.WriteLine($"[ViewModelBase] Default Ctor called: {Dispatcher}");
+#endif
         }
         public ViewModelBase(IDispatcher? dispatcher) : base()
         {
             Dispatcher = dispatcher;
+#if DEBUG
+            Debug.WriteLine($"[ViewModelBase] Ctor with dispatcher parameter called: {Dispatcher}");
+#endif
         }
         public ViewModelBase(IDispatcher? dispatcher, IServiceProvider? provider) : base(provider: provider)
         {
             Dispatcher = dispatcher;
             Provider = provider;
+#if DEBUG
+            Debug.WriteLine($"[ViewModelBase] Ctor with dispatcher and provider parameter called: {Dispatcher}, {Provider}");
+#endif
         }
 
         #endregion
@@ -30,9 +42,13 @@ namespace AndreasReitberger.Shared.Core
         #region Methods
         public void SetBusy(bool isBusy, IDispatcher? dispatcher)
         {
+            dispatcher ??= Dispatcher;
             // Only dispatch if needed
-            if (dispatcher is not null && dispatcher?.IsDispatchRequired is true)
+            if (dispatcher is not null && dispatcher.IsDispatchRequired is true)
             {
+#if DEBUG
+                Debug.WriteLine($"[ViewModelBase] SetBusy dispatching on ThreadId: {Environment.CurrentManagedThreadId}");
+#endif
                 dispatcher.Dispatch(() =>
                 {
                     if (isBusy)
@@ -44,6 +60,9 @@ namespace AndreasReitberger.Shared.Core
             // Update on the MainThread
             else
             {
+#if DEBUG
+                Debug.WriteLine($"[ViewModelBase] SetBusy executing on MainThreadId: {Environment.CurrentManagedThreadId}");
+#endif
                 if (isBusy)
                     IsBusyCounter++;
                 else
@@ -55,9 +74,13 @@ namespace AndreasReitberger.Shared.Core
 
         public async Task SetBusyAsync(bool isBusy, IDispatcher? dispatcher)
         {
+            dispatcher ??= Dispatcher;
             // Only dispatch if needed
-            if (dispatcher is not null && dispatcher?.IsDispatchRequired is true)
+            if (dispatcher is not null && dispatcher.IsDispatchRequired)
             {
+#if DEBUG
+                Debug.WriteLine($"[ViewModelBase] SetBusyAsync dispatching on ThreadId: {Environment.CurrentManagedThreadId}");
+#endif
                 await dispatcher.DispatchAsync(() =>
                 {
                     if (isBusy)
@@ -69,6 +92,9 @@ namespace AndreasReitberger.Shared.Core
             // Update on the MainThread
             else
             {
+#if DEBUG
+                Debug.WriteLine($"[ViewModelBase] SetBusyAsync executing on MainThreadId: {Environment.CurrentManagedThreadId}");
+#endif
                 if (isBusy)
                     IsBusyCounter++;
                 else
