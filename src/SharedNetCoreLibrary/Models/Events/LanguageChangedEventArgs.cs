@@ -13,7 +13,9 @@ namespace AndreasReitberger.Shared.Core.Events
         #endregion
 
         #region Overrides
+
         public override string ToString() => JsonSerializer.Serialize(this!, CoreSourceGenerationContext.Default.LanguageChangedEventArgs);
+
         #endregion
     }
 }

@@ -309,7 +309,7 @@ public partial class BaseViewModel : ViewModelBase
 ```
 
 #### JsonConvertHelper
-This `Class` uses Newtonsoft.JSON in order to serialize and deserialize objects to strings and vice reverse.
+This `Class` uses System.Text.Json in order to serialize and deserialize objects to strings and vice reverse.
 This is helpful if you want to store Collections or custom objects in the MAUI.Preferences (Settings).
 
 ```cs

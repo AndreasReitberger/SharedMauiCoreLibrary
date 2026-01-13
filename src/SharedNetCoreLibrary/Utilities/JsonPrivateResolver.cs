@@ -1,7 +1,8 @@
 ﻿#if NEWTONSOFT
+using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Reflection;
+using JsonProperty = Newtonsoft.Json.Serialization.JsonProperty;
 
 namespace AndreasReitberger.Shared.Core.Utilities
 {
