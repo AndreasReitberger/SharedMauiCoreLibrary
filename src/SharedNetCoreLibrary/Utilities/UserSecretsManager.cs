@@ -64,6 +64,10 @@ namespace AndreasReitberger.Shared.Core.Utilities
             AppNamespace = appNamespace;
             UserSecretsFileName = userSecretsFileName;
         }
+        public UserSecretsManager(string appNamespace, string userSecretsFileName, Assembly assembly) : this(appNamespace, userSecretsFileName)
+        {
+            CurrentAssembly = assembly;
+        }
         #endregion
 
         #region Methods
@@ -72,7 +76,16 @@ namespace AndreasReitberger.Shared.Core.Utilities
         {
             try
             {
-                CurrentAssembly ??= GetAssembly(typeof(UserSecretsManager));
+                // Override in case a custom assembly is provided
+                if (assembly is not null)
+                    CurrentAssembly = assembly;
+#if NET8_0_OR_GREATER
+                ArgumentNullException.ThrowIfNull(CurrentAssembly, nameof(CurrentAssembly));
+#else
+                if (CurrentAssembly is null)
+                    throw new ArgumentNullException($"The `{nameof(CurrentAssembly)}` cannot be null!");
+#endif
+                //CurrentAssembly ??= GetAssembly(typeof(UserSecretsManager));
                 Stream? stream = CurrentAssembly?.GetManifestResourceStream($"{AppNamespace}.{UserSecretsFileName}");
                 if (stream is not null)
                 {

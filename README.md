@@ -42,6 +42,22 @@ This will automatically initialize following extensions.
 ## Available content
 Please find a list of available content below.
 
+### Utilities
+
+#### UserSecretsManager
+The `UserSecretsManager` helps you to manage your user secrets in your application. It reads the `secrets.json` file stored in the user profile folder.
+
+```cs
+if (Assembly is null)
+{
+    Assembly = IntrospectionExtensions.GetTypeInfo(typeof(MauiProgram)).Assembly;
+    UserSecretsManager.Settings = new UserSecretsManager.UserSecretsManagerBuilder()
+        .WithAppNamespace("SharedMauiXamlStylesLibrary.SampleApp")
+        .WithCustomAssambly(Assembly)
+        .Build();
+}
+```
+
 ### Behaviors
 
 #### Namespace
