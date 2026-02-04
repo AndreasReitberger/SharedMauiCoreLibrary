@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\..\common.props" />
-	<Import Project="..\..\framework.maui.net9.props" Condition="'$(DefineConstants.Contains(NET9))'" />
-	<Import Project="..\..\framework.maui.props" Condition="'$(DefineConstants.Contains(NET10))'" />
+	<Import Project="..\..\framework.maui.props" />
 
 	<PropertyGroup>
 		<PackageTags>MAUI, Utilites, Core, Library, Helper, C#, dotnet, Licensing, Handler</PackageTags>
