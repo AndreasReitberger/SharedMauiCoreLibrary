@@ -10,7 +10,7 @@
 		<Authors>Andreas Reitberger</Authors>
 		<Description>A libray used for .NET MAUI projects to manage licenses.</Description>
 		<PackageReadmeFile>README_Licensing.md</PackageReadmeFile>
-
+		<UseMaui>True</UseMaui>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -40,19 +40,10 @@
 		<None Include="..\..\README_Licensing.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
-	<!-- Used for net9-->
-	<ItemGroup Condition="'$(DefineConstants.Contains(NET9))'">
-		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.120" />
-	</ItemGroup>
-
-	<!-- Used for net10-->
-	<ItemGroup Condition="'$(DefineConstants.Contains(NET10))'">
-		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.31" />
-	</ItemGroup>
-	
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-	  <PackageReference Include="RestSharp" Version="113.1.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="[10.0.30,)" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="RestSharp" Version="113.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>

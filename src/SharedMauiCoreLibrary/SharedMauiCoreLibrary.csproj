@@ -8,6 +8,7 @@
 		<RootNamespace>AndreasReitberger.Shared.Core</RootNamespace>
 		<Title>MAUI-Core Shared Library</Title>
 		<Description>A core libray used for our .NET MAUI libraries.</Description>
+		<UseMaui>True</UseMaui>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -33,13 +34,12 @@
 
 	<!-- Used for net9-->
 	<ItemGroup Condition="'$(DefineConstants.Contains(NET9))'">
-		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.120" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="12.3.0" />
 	</ItemGroup>
 
 	<!-- Used for net10-->
 	<ItemGroup Condition="'$(DefineConstants.Contains(NET10))'">
-		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.31" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="[10.0.30,)" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="14.0.0" />
 	</ItemGroup>
 
