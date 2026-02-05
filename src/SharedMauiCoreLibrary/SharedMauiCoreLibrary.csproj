@@ -7,6 +7,7 @@
 		<RootNamespace>AndreasReitberger.Shared.Core</RootNamespace>
 		<Title>MAUI-Core Shared Library</Title>
 		<Description>A core libray used for our .NET MAUI libraries.</Description>
+		<OutputType>Library</OutputType>
 		<UseMaui>True</UseMaui>
 	</PropertyGroup>
 

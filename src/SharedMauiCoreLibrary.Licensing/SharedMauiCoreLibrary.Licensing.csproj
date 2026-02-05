@@ -9,6 +9,7 @@
 		<Authors>Andreas Reitberger</Authors>
 		<Description>A libray used for .NET MAUI projects to manage licenses.</Description>
 		<PackageReadmeFile>README_Licensing.md</PackageReadmeFile>
+		<OutputType>Library</OutputType>
 		<UseMaui>True</UseMaui>
 	</PropertyGroup>
 
