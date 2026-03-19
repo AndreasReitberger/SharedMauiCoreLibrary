@@ -43,7 +43,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="[10.0.30,)" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.1" />
-		<PackageReference Include="RestSharp" Version="113.1.0" />
+		<PackageReference Include="RestSharp" Version="114.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
