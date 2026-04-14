@@ -434,10 +434,7 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         }
         public void UnsubscribeNavigated()
         {
-            if (Shell.Current is not null)
-            {
-                Shell.Current.Navigated -= OnNavigated;
-            }
+            Shell.Current?.Navigated -= OnNavigated;
         }
 
         private void OnNavigated(object? sender, ShellNavigatedEventArgs e)

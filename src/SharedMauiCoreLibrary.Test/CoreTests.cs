@@ -25,8 +25,11 @@ public class LicenseTests
             byte[] salt = EncryptionManager.CreateRandomSalt(saltSize);
             string hex = EncryptionManager.GetHexStringFromSalt(salt);
 
-            Assert.That(!string.IsNullOrEmpty(hex));
-            Assert.That(hex.Length, Is.EqualTo(saltSize * 2));
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(!string.IsNullOrEmpty(hex));
+                Assert.That(hex, Has.Length.EqualTo(saltSize * 2));
+            }
         }
         catch (Exception ex)
         {
@@ -49,27 +52,27 @@ public class LicenseTests
             Assert.That(!string.IsNullOrEmpty(encryptedWithKey));
 
             string decrytpedTextWithKey = EncryptionManager.DecryptStringFromBase64String(encryptedWithKey, base64Key, 256);
-            Assert.That(plainText == decrytpedTextWithKey);
+            Assert.That(plainText, Is.EqualTo(decrytpedTextWithKey));
 
             int saltSize = 16;
             string saltHexString = EncryptionManager.GetHexStringFromSalt(EncryptionManager.CreateRandomSalt(saltSize));
-            Assert.That(saltHexString.Length == saltSize * 2);
+            Assert.That(saltHexString, Has.Length.EqualTo(saltSize * 2));
             byte[] salt = EncryptionManager.GetSaltFromHexString(saltHexString);
 
             string userpassword = "This is a secret text";
             byte[] hashedPassword = EncryptionManager.SaltWithPasswordString(userpassword, salt, 32);
-            Assert.That(hashedPassword.Length, Is.EqualTo(32));
+            Assert.That(hashedPassword, Has.Length.EqualTo(32));
 
             string encryptedText = EncryptionManager.EncryptStringToBase64String(plainText, hashedPassword, 256);
 
             string decrytpedText = EncryptionManager.DecryptStringFromBase64String(encryptedText, hashedPassword, 256);
-            Assert.That(plainText == decrytpedText);
+            Assert.That(plainText, Is.EqualTo(decrytpedText));
 
             // Recreate hash from user password
             salt = EncryptionManager.GetSaltFromHexString(saltHexString);
             hashedPassword = EncryptionManager.SaltWithPasswordString(userpassword, salt, 32);
             decrytpedText = EncryptionManager.DecryptStringFromBase64String(encryptedText, hashedPassword, 256);
-            Assert.That(plainText == decrytpedText);
+            Assert.That(plainText, Is.EqualTo(decrytpedText));
         }
         catch (Exception ex)
         {
@@ -93,12 +96,12 @@ public class LicenseTests
             string encryptedPassphrase = EncryptionManager.EncryptStringToBase64String(passphrase, hashedPassword);
 
             string decryptedPassphrase = EncryptionManager.DecryptStringFromBase64String(encryptedPassphrase, hashedPassword);
-            Assert.That(passphrase == decryptedPassphrase);
+            Assert.That(passphrase, Is.EqualTo(decryptedPassphrase));
 
             var t = EncryptionManager.EncryptStringToBase64String(plainText, decryptedPassphrase);
             var t2 = EncryptionManager.DecryptStringFromBase64String(t, decryptedPassphrase);
 
-            Assert.That(plainText == t2);
+            Assert.That(plainText, Is.EqualTo(t2));
         }
         catch (Exception ex)
         {
