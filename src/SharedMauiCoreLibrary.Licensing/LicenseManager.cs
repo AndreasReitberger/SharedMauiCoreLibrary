@@ -25,6 +25,9 @@ namespace AndreasReitberger.Shared.Core.Licensing
         [ObservableProperty]
         public partial int? Port { get; set; } = null;
 
+        [ObservableProperty]
+        public partial int Timeout { get; set; } = 10000;
+
 #nullable enable
         [ObservableProperty]
         public partial string? AccessToken { get; set; }
@@ -55,21 +58,21 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 Port = port;
                 options = new()
                 {
+                    Timeout = TimeSpan.FromMilliseconds(Timeout),
                     BaseUrl = new Uri($"{LicenseServer}:{Port}"),
                     Expect100Continue = true,
                 };
                 RestClient = new RestClient(httpClient: HttpClient, options: options);
-                //client = new RestClient(httpClient: HttpClient, $"{LicenseServer}:{Port}",);
             }
             else
             {
                 options = new()
                 {
+                    Timeout = TimeSpan.FromMilliseconds(Timeout),
                     BaseUrl = LicenseServer,
                     Expect100Continue = true,
                 };
                 RestClient = new RestClient(httpClient: HttpClient, options: options);
-                //client = new(LicenseServer);
             }
         }
 
@@ -80,7 +83,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
-                bool licenseFormatValid = LicenseManager.VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
+                bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
                 result.Message = "License format is invalid";
                 return result;
             }
@@ -140,7 +143,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
-                bool licenseFormatValid = LicenseManager.VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
+                bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
                 result.Message = "License format is invalid";
                 return result;
             }
@@ -221,7 +224,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
-                bool licenseFormatValid = LicenseManager.VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
+                bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
                 result.Message = "License format is invalid";
                 return result;
             }
@@ -285,7 +288,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
             if (license == null) return result;
             if (license?.Options?.VerifyLicenseFormat == true && !string.IsNullOrEmpty(license?.Options?.LicenseCheckPattern))
             {
-                bool licenseFormatValid = LicenseManager.VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
+                bool licenseFormatValid = VerifyLicenseFormat(license, license?.Options.LicenseCheckPattern);
                 result.Message = "License format is invalid";
                 return result;
             }
@@ -494,7 +497,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 {
                     parameters.Add("domain", license.Domain);
                 }
-                string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
+                string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, cts: new(Timeout));
                 WooActivationResponse[] result = JsonSerializer.Deserialize(jsonResult, LicenseSourceGenerationContext.Default.WooActivationResponseArray);
                 return result;
             }
@@ -522,7 +525,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                         parameters.Add("domain", license.Domain);
                     }
                 }
-                string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
+                string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, cts: new(Timeout));
 
                 WooCodeVersionResponse[] result = JsonSerializer.Deserialize(jsonResult, LicenseSourceGenerationContext.Default.WooCodeVersionResponseArray);
                 return result;
@@ -543,7 +546,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                     { "woo_sl_action", action },
                     { "product_unique_id", productCode }
                 };         
-                string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, new(10000));
+                string jsonResult = await RestApiCallAsync(command, Method.Get, parameters, cts: new(Timeout));
                 WooCodeVersionResponse[] result = JsonSerializer.Deserialize(jsonResult, LicenseSourceGenerationContext.Default.WooCodeVersionResponseArray);
                 return result;
             }
@@ -569,7 +572,7 @@ namespace AndreasReitberger.Shared.Core.Licensing
                 Dictionary<string, string> parameters = new() {
                     { "code", license.License },
                 };
-                string jsonResult = await RestApiCallAsync(command, Method.Get, parameters: parameters, headers: headers, new(10000));
+                string jsonResult = await RestApiCallAsync(command, Method.Get, parameters: parameters, headers: headers, cts: new(Timeout));
 
                 EnvatoVerifyPurchaseCodeRespone result = JsonSerializer.Deserialize(jsonResult, LicenseSourceGenerationContext.Default.EnvatoVerifyPurchaseCodeRespone);
                 return result;
