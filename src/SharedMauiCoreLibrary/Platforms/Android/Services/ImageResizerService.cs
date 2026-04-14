@@ -7,7 +7,7 @@ namespace AndreasReitberger.Shared.Core.Services
     {
         // Source: https://github.com/xamarin/xamarin-forms-samples/blob/master/XamFormsImageResize/XamFormsImageResize/ImageResizer.cs
         [SupportedOSPlatform(SPlatforms.AndroidVersion)]
-        public partial byte[] ResizeImage(byte[] imageData, float width, float height)
+        public static partial  byte[] ResizeImage(byte[] imageData, float width, float height)
         {
             // Load the bitmap
             Bitmap? originalImage = BitmapFactory.DecodeByteArray(imageData, 0, imageData.Length);
