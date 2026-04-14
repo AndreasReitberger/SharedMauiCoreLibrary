@@ -10,7 +10,7 @@ namespace AndreasReitberger.Shared.Core.Services
         // Source: https://github.com/xamarin/xamarin-forms-samples/blob/master/XamFormsImageResize/XamFormsImageResize/ImageResizer.cs
         [SupportedOSPlatform(SPlatforms.IOSVersion)]
         [SupportedOSPlatform(SPlatforms.MACCatalystVersion)]
-        public partial byte[] ResizeImage(byte[] imageData, float width, float height)
+        public static partial byte[] ResizeImage(byte[] imageData, float width, float height)
         {
             UIImage? originalImage = ImageFromByteArray(imageData);
             if (originalImage is null) return [];
@@ -51,7 +51,7 @@ namespace AndreasReitberger.Shared.Core.Services
             return [];
         }
 
-        UIImage? ImageFromByteArray(byte[] data)
+        static UIImage? ImageFromByteArray(byte[] data)
         {
             if (data is null)
             {
