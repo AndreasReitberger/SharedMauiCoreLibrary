@@ -5,6 +5,7 @@ namespace AndreasReitberger.Shared.Core.Licensing.Interfaces
     public interface ILicenseManager
     {
         #region Properties
+        int Timeout { get; set; }
         Uri? LicenseServer { get; set; }
         ILicenseInfo? CurrentLicense { get; set; }
 
