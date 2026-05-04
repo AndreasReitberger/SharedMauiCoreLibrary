@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\common.props" />
+	<Import Project="..\..\framework.maui.props" />
+
+	<PropertyGroup>
+		<Version>1.0.0-preview1</Version>
+		<PackageTags>MAUI, Utilites, Core, Library, Helper, C#, dotnet, Database, Handler, SQLite</PackageTags>
+		<RootNamespace>AndreasReitberger.Shared.Core.Database</RootNamespace>
+		<Title>MAUI-Core Shared Database Library</Title>
+		<Authors>Andreas Reitberger</Authors>
+		<Description>A libray used for .NET MAUI projects to manage databases.</Description>
+		<PackageReadmeFile>README_Database.md</PackageReadmeFile>
+		<OutputType>Library</OutputType>
+		<UseMaui>True</UseMaui>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Platforms\Android\Utilities\**" />
+	  <Compile Remove="Services\**" />
+	  <EmbeddedResource Remove="Platforms\Android\Utilities\**" />
+	  <EmbeddedResource Remove="Services\**" />
+	  <MauiCss Remove="Platforms\Android\Utilities\**" />
+	  <MauiCss Remove="Services\**" />
+	  <MauiXaml Remove="Platforms\Android\Utilities\**" />
+	  <MauiXaml Remove="Services\**" />
+	  <None Remove="Platforms\Android\Utilities\**" />
+	  <None Remove="Services\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\licenses\CommunityToolkit.Maui.txt" Link="Licenses\CommunityToolkit.Maui.txt" />
+	  <None Include="..\..\licenses\CommunityToolkit.Mvvm.txt" Link="Licenses\CommunityToolkit.Mvvm.txt" />
+	  <None Include="..\..\licenses\Microsoft.Maui.Controls.Compatibility.txt" Link="Licenses\Microsoft.Maui.Controls.Compatibility.txt" />
+	  <None Include="..\..\licenses\Microsoft.Maui.Controls.txt" Link="Licenses\Microsoft.Maui.Controls.txt" />
+	  <None Include="..\..\licenses\Microsoft.SourceLink.GitHub.txt" Link="Licenses\Microsoft.SourceLink.GitHub.txt" />
+	  <None Include="..\..\licenses\CommunityToolkit.Mvvm.txt" Link="Licenses\CommunityToolkit.Mvvm.txt" />
+	  <None Include="..\..\licenses\SQLite-Net Extensions.txt" Link="Licenses\SQLite-Net Extensions.txt" />
+	  <None Include="..\..\licenses\sqlite-net.txt" Link="Licenses\sqlite-net.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README_Database.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="sqlite-net-sqlcipher" Version="1.9.172" />
+		<PackageReference Include="SQLiteNetCipherExtensions" Version="2.1.0" />
+		<PackageReference Include="SQLiteNetCipherExtensions.Async" Version="2.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Licenses\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\SharedMauiCoreLibrary\SharedMauiCoreLibrary.csproj" />
+	</ItemGroup>
+</Project>

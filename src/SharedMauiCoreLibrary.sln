@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36915.13 d17.14
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11626.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedMauiCoreLibrary", "SharedMauiCoreLibrary\SharedMauiCoreLibrary.csproj", "{9B283D7C-1C1C-4DB6-9A2F-A10FE77D869D}"
 EndProject
@@ -21,6 +21,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedNetCoreLibrary", "SharedNetCoreLibrary\SharedNetCoreLibrary.csproj", "{4A707836-BF84-4F80-8FC9-C54637C5B9B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedNetCoreLibrary.Firebase", "SharedNetCoreLibrary.Firebase\SharedNetCoreLibrary.Firebase.csproj", "{00586AAB-E222-3DD5-C7DE-656505FA6191}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedMauiCoreLibrary.Database.SQLite", "SharedMauiCoreLibrary.Database.SQLite\SharedMauiCoreLibrary.Database.SQLite.csproj", "{EA49B45A-7396-2BBF-5373-D5D11B848101}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedMauiCoreLibrary.Database.SQL", "SharedMauiCoreLibrary.Database.SQL\SharedMauiCoreLibrary.Database.SQL.csproj", "{D99C7D38-4018-EE17-274E-875905DD03CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +52,14 @@ Global
 		{00586AAB-E222-3DD5-C7DE-656505FA6191}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00586AAB-E222-3DD5-C7DE-656505FA6191}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00586AAB-E222-3DD5-C7DE-656505FA6191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA49B45A-7396-2BBF-5373-D5D11B848101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA49B45A-7396-2BBF-5373-D5D11B848101}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA49B45A-7396-2BBF-5373-D5D11B848101}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA49B45A-7396-2BBF-5373-D5D11B848101}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D99C7D38-4018-EE17-274E-875905DD03CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D99C7D38-4018-EE17-274E-875905DD03CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D99C7D38-4018-EE17-274E-875905DD03CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D99C7D38-4018-EE17-274E-875905DD03CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
