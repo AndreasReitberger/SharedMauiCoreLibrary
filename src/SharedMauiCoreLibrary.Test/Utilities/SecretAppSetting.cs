@@ -8,5 +8,6 @@
         public string ItemId { get; set; } = string.Empty;
         public string AccessToken { get; set; } = string.Empty;
         public string PurchaseCode { get; set; } = string.Empty;
+        public string Passphrase { get; set; } = string.Empty;
     }
 }

@@ -2,9 +2,10 @@
 
   <Import Project="..\..\conditions.props" />
   <PropertyGroup>
-	  <TargetFramework>net10.0</TargetFramework>
+	<TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<LangVersion>preview</LangVersion>
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
@@ -28,6 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SharedMauiCoreLibrary.Database.SQLite\SharedMauiCoreLibrary.Database.SQLite.csproj" />
+    <ProjectReference Include="..\SharedMauiCoreLibrary.Database.SQL\SharedMauiCoreLibrary.Database.SQL.csproj" />
     <ProjectReference Include="..\SharedMauiCoreLibrary.Licensing\SharedMauiCoreLibrary.Licensing.csproj" />
     <ProjectReference Include="..\SharedMauiCoreLibrary\SharedMauiCoreLibrary.csproj" />
   </ItemGroup>
