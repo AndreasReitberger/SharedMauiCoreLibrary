@@ -31,18 +31,11 @@ namespace AndreasReitberger.Shared.Core.Database.Utilities
         //        return at;
         //    }
         //}
-        public WindowsLogin()
-        {
-            Identity = WindowsIdentity.GetCurrent();
-        }
+        public WindowsLogin() => Identity = WindowsIdentity.GetCurrent();
+        
 
-
-        public WindowsLogin(string username, string domain, string password)
-        {
-            Login(username, domain, password);
-        }
-
-
+        public WindowsLogin(string username, string domain, string password) => Login(username, domain, password);
+        
         public void Login(string username, string domain, string password)
         {
             Identity?.Dispose();
@@ -82,13 +75,20 @@ namespace AndreasReitberger.Shared.Core.Database.Utilities
             m_accessToken = nint.Zero;
             Identity?.Dispose();
             Identity = null;
-
         } // End Sub Logout 
 
 
         void IDisposable.Dispose()
         {
-            Logout(); // End Sub Dispose 
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
-    } // End Class WindowsLogin 
-}
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Logout(); // End Sub Dispose 
+            }
+        }
+    }
+} // End Class WindowsLogin 

@@ -1,15 +1,12 @@
-# SharedMauiCoreLibrary.Database
+# 📋 SharedMauiCoreLibrary.Database
 A shared library, which enables local (SQLite) or remote (SQL) database connections of your .NET MAUI applications.
 
-# Nuget
+# 📦 Nuget
 Get the latest version from nuget.org<br>
 [![NuGet](https://img.shields.io/nuget/v/SharedMauiCoreLibrary.Database.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/SharedMauiCoreLibrary.Database/)
 [![NuGet](https://img.shields.io/nuget/dt/SharedMauiCoreLibrary.Database.svg)](https://www.nuget.org/packages/SharedMauiCoreLibrary.Database)
 
-## Available content
-Please find a list of available content below.
-
-## Usage
+## 📄 Usage
 
 ### SQL
 

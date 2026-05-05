@@ -2,14 +2,13 @@
 using AndreasReitberger.Shared.Core.Licensing.Enums;
 using AndreasReitberger.Shared.Core.Licensing.Interfaces;
 using AndreasReitberger.Shared.Core.Licensing.Models;
-using AndreasReitberger.Shared.Core.Utilities;
 using SharedMauiCoreLibrary.Test.Utilities;
 
 namespace SharedMauiCoreLibrary.Test;
 
 public class Tests
 {
-    string licenseUri = "andreas-reitberger.de";
+    readonly string licenseUri = "ar3dp.de";
     LicenseManager? manager;
     LicenseInfo? info;
     SecretAppSetting? appSecrets;
@@ -17,7 +16,7 @@ public class Tests
     [SetUp]
     public void Setup()
     {
-        appSecrets = new SecretAppSettingReader().ReadSectionFromConfigurationRoot<SecretAppSetting>("CoreTests");
+        appSecrets = SecretAppSettingReaderExtension.ReadSectionFromConfigurationRoot<SecretAppSetting>("CoreTests");
 
         manager = new LicenseManager.LicenseManagerConnectionBuilder()
             .WithLicenseServer(serverAddress: licenseUri, port: null, https: true)
@@ -45,16 +44,16 @@ public class Tests
             if (manager is null)
                 throw new ArgumentNullException(nameof(manager));
             ILicenseQueryResult result = await manager.CheckLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
-            Assert.That(result?.Success == true);
+            Assert.That(result?.Success, Is.True);
 
             result = await manager.DeactivateLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
-            Assert.That(result?.Success == true);
+            Assert.That(result?.Success, Is.True);
 
             result = await manager.CheckLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
-            Assert.That(result?.Success == false);
+            Assert.That(result?.Success, Is.False);
 
             result = await manager.ActivateLicenseAsync(license: info, LicenseServerTarget.WooCommerce);
-            Assert.That(result?.Success == true);
+            Assert.That(result?.Success, Is.True);
         }
         catch (Exception ex)
         {
@@ -85,7 +84,7 @@ public class Tests
                 .Build();
 
             ILicenseQueryResult result = await manager.CheckLicenseAsync(license: info, LicenseServerTarget.Envato);
-            Assert.That(result?.Success == true);
+            Assert.That(result?.Success, Is.True);
         }
         catch (Exception ex)
         {

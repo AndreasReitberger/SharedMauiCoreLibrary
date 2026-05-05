@@ -25,11 +25,20 @@ namespace AndreasReitberger.Shared.Core.Database.Interfaces
         public Task ConnectAsync();
         public Task DisconnectAsync();
         public Task<CreateTableResult?> CreateTableAsync<T>(CreateFlags flags) where T : new();
+        public Task<CreateTablesResult?> CreateTablesAsync<T>(List<Type> types, CreateFlags flags = CreateFlags.None) where T : new();
         public Task<List<T>?> GetAllWithChildrenAsync<T>(bool recursive) where T : new();
         public Task<T?> GetWithChildrenAsync<T>(object primaryKey, bool recursive) where T : new();
-        public Task SetWithChildrenAsync<T>(T insert, bool replace = false, bool recursive = true) where T : new();
-        public Task SetAllWithChildrenAsync<T>(IList<T> insert, bool replace = false, bool recursive = true) where T : new();
+        public Task InsertWithChildrenAsync<T>(T insert, bool replace = false, bool recursive = true) where T : new();
+        public Task InsertAllWithChildrenAsync<T>(IList<T> insert, bool replace = false, bool recursive = true) where T : new();
         public Task<int> DeleteWithChildrenAsync<T>(object primaryKey) where T : new();
+        public List<TableMapping>? GetTableMappings();
+        public Task<List<int>> DropAllTableAsync();
+        public Task<bool> TryDropTableAsync<T>();
+        public Task<bool> TryDropTableAsync(TableMapping mapping);
+        public Task<List<int>> ClearAllTableAsync();
+        public Task<int> ClearTableAsync(TableMapping mapping);
+        public Task<List<int>> TryClearAllTableAsync();
+        public Task BackupDatabaseAsync(string targetFolder, string databaseName);
         #endregion
 
         #region Rekey

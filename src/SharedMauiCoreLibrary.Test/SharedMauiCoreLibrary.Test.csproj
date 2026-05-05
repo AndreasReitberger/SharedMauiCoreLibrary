@@ -2,9 +2,10 @@
 
   <Import Project="..\..\conditions.props" />
   <PropertyGroup>
-	  <TargetFramework>net10.0</TargetFramework>
+	<TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<LangVersion>preview</LangVersion>
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>

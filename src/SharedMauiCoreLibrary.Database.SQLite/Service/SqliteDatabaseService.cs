@@ -68,6 +68,15 @@ namespace AndreasReitberger.Shared.Core.Database.Service
             return null;
         }
 
+        public async Task<CreateTablesResult?> CreateTablesAsync<T>(List<Type> types,CreateFlags flags = CreateFlags.None) where T : new()
+        {
+            if (Database is not null)
+            {
+                return await Database.CreateTablesAsync(flags, [.. types]).ConfigureAwait(false);
+            }
+            return null;
+        }
+
         public async Task<List<T>?> GetAllWithChildrenAsync<T>(bool recursive = true) where T : new()
         {
             if (Database is not null)
@@ -81,12 +90,16 @@ namespace AndreasReitberger.Shared.Core.Database.Service
         {
             if (Database is not null)
             {
-                return await Database.GetWithChildrenAsync<T>(primaryKey, recursive: recursive).ConfigureAwait(false);
+                try
+                {
+                    return await Database.GetWithChildrenAsync<T>(primaryKey, recursive: recursive).ConfigureAwait(false);
+                }
+                catch { }
             }
             return default;
         }
 
-        public async Task SetWithChildrenAsync<T>(T insert, bool replace = false, bool recursive = true) where T : new()
+        public async Task InsertWithChildrenAsync<T>(T insert, bool replace = false, bool recursive = true) where T : new()
         {
             if (Database is not null)
             {
@@ -97,7 +110,7 @@ namespace AndreasReitberger.Shared.Core.Database.Service
             }
         }
 
-        public async Task SetAllWithChildrenAsync<T>(IList<T> insert, bool replace = false, bool recursive = true) where T : new()
+        public async Task InsertAllWithChildrenAsync<T>(IList<T> insert, bool replace = false, bool recursive = true) where T : new()
         {
             if (Database is not null)
             {
@@ -115,6 +128,105 @@ namespace AndreasReitberger.Shared.Core.Database.Service
             }
             return default;
         }
+
+        public List<TableMapping>? GetTableMappings() => Database?.TableMappings.ToList();
+        
+        public async Task<List<int>> DropAllTableAsync()
+        {
+            List<int> ids = [];
+            if (Database is not null)
+            {
+                foreach (TableMapping mapping in Database.TableMappings)
+                {
+                    ids.Add(await Database.DropTableAsync(mapping).ConfigureAwait(false));
+                }
+            }
+            return ids;
+        }
+
+        public async Task<List<int>> TryDropAllTableAsync()
+        {
+            List<int> ids = [];
+            if (Database is not null)
+            { 
+                foreach (TableMapping mapping in Database.TableMappings)
+                {
+                    try
+                    {
+                        ids.Add(await Database.DropTableAsync(mapping).ConfigureAwait(false));
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
+                }
+            }
+            return ids;
+        }
+
+        public async Task<bool> TryDropTableAsync<T>()
+        {
+            try
+            {
+                if (Database is null) return false;
+                if (Database.TableMappings.FirstOrDefault(m => m.MappedType == typeof(T)) is TableMapping mapping)
+                {
+                    int result = await Database.DropTableAsync(mapping).ConfigureAwait(false);
+                    return result > 0;
+                }
+            }
+            catch (Exception) { }
+            return false;
+        }
+
+        public async Task<bool> TryDropTableAsync(TableMapping mapping)
+        {
+            try
+            {
+                if (Database is null) return false;
+                int result = await Database.DropTableAsync(mapping);
+                return result > 0;
+            }
+            catch (Exception) { }
+            return false;
+        }
+
+        public async Task<List<int>> ClearAllTableAsync()
+        {
+            List<int> ids = [];
+            if (Database is not null)
+            {
+                foreach (TableMapping mapping in Database.TableMappings)
+                {
+                    ids.Add(await Database.DeleteAllAsync(mapping).ConfigureAwait(false));
+                }
+            }
+            return ids;
+        }
+
+        public Task<int> ClearTableAsync(TableMapping mapping) => Database?.DeleteAllAsync(mapping);
+        
+        public async Task<List<int>> TryClearAllTableAsync()
+        {
+            List<int> ids = [];
+            if (Database is not null)
+            {
+                foreach (TableMapping mapping in Database.TableMappings)
+                {
+                    try
+                    {
+                        ids.Add(await Database.DeleteAllAsync(mapping).ConfigureAwait(false));
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
+                }
+            }
+            return ids;
+        }
+
+        public Task BackupDatabaseAsync(string targetFolder, string databaseName) => Database?.BackupAsync(targetFolder, databaseName);
         #endregion
 
         #region Rekey
