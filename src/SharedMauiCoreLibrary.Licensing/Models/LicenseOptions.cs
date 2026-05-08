@@ -1,7 +1,7 @@
 ﻿using AndreasReitberger.Shared.Core.Licensing.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace AndreasReitberger.Shared.Core.Licensing.Models
+namespace AndreasReitberger.Shared.Core.Licensing
 {
     public partial class LicenseOptions : ObservableObject, ILicenseOptions
     {
