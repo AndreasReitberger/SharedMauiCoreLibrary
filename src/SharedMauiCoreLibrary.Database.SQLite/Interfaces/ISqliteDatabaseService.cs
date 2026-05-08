@@ -25,7 +25,7 @@ namespace AndreasReitberger.Shared.Core.Database.Interfaces
         public Task ConnectAsync();
         public Task DisconnectAsync();
         public Task<CreateTableResult?> CreateTableAsync<T>(CreateFlags flags) where T : new();
-        public Task<CreateTablesResult?> CreateTablesAsync<T>(List<Type> types, CreateFlags flags = CreateFlags.None) where T : new();
+        public Task<CreateTablesResult?> CreateTablesAsync(List<Type> types, CreateFlags flags = CreateFlags.None);
         public Task<List<T>?> GetAllWithChildrenAsync<T>(bool recursive) where T : new();
         public Task<T?> GetWithChildrenAsync<T>(object primaryKey, bool recursive) where T : new();
         public Task InsertWithChildrenAsync<T>(T insert, bool replace = false, bool recursive = true) where T : new();
