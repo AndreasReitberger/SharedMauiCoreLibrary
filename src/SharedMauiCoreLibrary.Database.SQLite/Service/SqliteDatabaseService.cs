@@ -68,7 +68,7 @@ namespace AndreasReitberger.Shared.Core.Database.Service
             return null;
         }
 
-        public async Task<CreateTablesResult?> CreateTablesAsync<T>(List<Type> types,CreateFlags flags = CreateFlags.None) where T : new()
+        public async Task<CreateTablesResult?> CreateTablesAsync(List<Type> types,CreateFlags flags = CreateFlags.None)
         {
             if (Database is not null)
             {
@@ -204,7 +204,12 @@ namespace AndreasReitberger.Shared.Core.Database.Service
             return ids;
         }
 
-        public Task<int> ClearTableAsync(TableMapping mapping) => Database?.DeleteAllAsync(mapping);
+        public async Task<int> ClearTableAsync(TableMapping mapping)
+        {
+            if (Database is not null)
+                await Database.DeleteAllAsync(mapping).ConfigureAwait(false);
+            return -1;
+        }
         
         public async Task<List<int>> TryClearAllTableAsync()
         {
@@ -226,7 +231,11 @@ namespace AndreasReitberger.Shared.Core.Database.Service
             return ids;
         }
 
-        public Task BackupDatabaseAsync(string targetFolder, string databaseName) => Database?.BackupAsync(targetFolder, databaseName);
+        public async Task BackupDatabaseAsync(string targetFolder, string databaseName)
+        {
+            if (Database is not null)
+                await Database.BackupAsync(targetFolder, databaseName).ConfigureAwait(false);
+        }
         #endregion
 
         #region Rekey
