@@ -5,6 +5,7 @@ using System.Reflection;
 
 namespace AndreasReitberger.Shared.Core.Utilities
 {
+    [Obsolete("Use `UserSecretsManager` instead of this class")]
     public class SecretAppSettingReader
     {
         #region Properties

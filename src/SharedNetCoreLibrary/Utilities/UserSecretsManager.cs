@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AndreasReitberger.Shared.Core.Interfaces;
+using CommunityToolkit.Mvvm.ComponentModel;
 #if NEWTONSOFT
 using Newtonsoft.Json.Linq;
 #endif
@@ -8,16 +9,16 @@ namespace AndreasReitberger.Shared.Core.Utilities
 {
     // Source: https://github.com/ncarandini/XFUserSecrets/blob/master/TPCWare.XFUserSecrets/Utils/UserSecretsManager.cs
     // Changed: Yes
-    public partial class UserSecretsManager : ObservableObject
+    public partial class UserSecretsManager : ObservableObject, IUserSecretsManager
     {
         #region Instance
-        static UserSecretsManager? _instance = null;
+        static IUserSecretsManager? _instance = null;
 #if NET9_0_OR_GREATER
         static readonly Lock Lock = new();
 #else
         static readonly object Lock = new();
 #endif
-        public static UserSecretsManager Settings
+        public static IUserSecretsManager Settings
         {
             get
             {
@@ -39,12 +40,10 @@ namespace AndreasReitberger.Shared.Core.Utilities
 #endregion
 
         #region Variables
-#if NEWTONSOFT
-        JObject? _secrets;
-#else
+
         JsonDocument? _secrets;
-#endif
-#endregion
+
+        #endregion
 
         #region Properties
         [ObservableProperty]
@@ -103,28 +102,36 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 OnError(new ErrorEventArgs(ex));
             }
         }
-#if NEWTONSOFT
-        public T? ToObject<T>()
-#else
         public T? ToObject<T>(JsonSerializerContext? context = null)
-#endif
         {
             if (_secrets is null) return default;
-#if NEWTONSOFT
-            return _secrets.ToObject<T>();
-#else
             context ??= CoreSourceGenerationContext.Default;
             return (T?)JsonSerializer.Deserialize(_secrets.RootElement.GetRawText(), typeof(T), context);
-#endif
         }
-#endregion
+        public T? ReadSection<T>(string sectionName, JsonSerializerContext? context = null)
+        {
+            // Needs the Directory.Build.targets in order to work (copies the secret.json as EmbeddedResource to the app)
+            string settings = Settings[sectionName].ToString();
+            context ??= CoreSourceGenerationContext.Default;
+            return (T?)JsonSerializer.Deserialize(settings, typeof(T), context);
+        }
+        public T? ReadSectionFromConfigurationRoot<T>(Type type, string sectionName, JsonSerializerContext? context = null)
+        {
+            // It seems that this way makes problems if the app is published on Windows in Release mode
+            // Needs the Directory.Build.targets in order to work (copies the secret.json as EmbeddedResource to the app)
+            CurrentAssembly ??= GetAssembly(type);
+            context ??= CoreSourceGenerationContext.Default;
+            string settings = Settings[sectionName].ToString();
+            if (string.IsNullOrEmpty(settings))
+                return default;
+            return (T?)JsonSerializer.Deserialize(settings, typeof(T), context);
+        }
+
+        #endregion
 
         #region Static
 #nullable enable
-        public static Assembly? GetAssembly(Type type)
-        {
-            return IntrospectionExtensions.GetTypeInfo(type)?.Assembly;
-        }
+        public static Assembly? GetAssembly(Type type) => IntrospectionExtensions.GetTypeInfo(type)?.Assembly;
 #nullable disable
         #endregion
 
@@ -137,13 +144,6 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 try
                 {
                     string[] path = name.Split(':');
-#if NEWTONSOFT
-                    JToken node = _secrets[path[0]];
-                    for (int index = 1; index < path.Length; index++)
-                    {
-                        node = node[path[index]];
-                    }
-#else
                     JsonElement node = _secrets.RootElement;
                     foreach (var segment in path)
                     {
@@ -152,7 +152,6 @@ namespace AndreasReitberger.Shared.Core.Utilities
                         else
                             return string.Empty;
                     }
-#endif
                     return node.ToString();
                 }
                 catch (Exception ex)
