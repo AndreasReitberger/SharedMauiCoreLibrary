@@ -1,8 +1,9 @@
 ﻿using AndreasReitberger.Shared.Core.Licensing;
 using AndreasReitberger.Shared.Core.Licensing.Enums;
 using AndreasReitberger.Shared.Core.Licensing.Interfaces;
-using AndreasReitberger.Shared.Core.Licensing.Models;
+using AndreasReitberger.Shared.Core.Utilities;
 using SharedMauiCoreLibrary.Test.Utilities;
+using System.Reflection;
 
 namespace SharedMauiCoreLibrary.Test;
 
@@ -16,7 +17,12 @@ public class Tests
     [SetUp]
     public void Setup()
     {
-        appSecrets = SecretAppSettingReaderExtension.ReadSectionFromConfigurationRoot<SecretAppSetting>("CoreTests");
+        var assembly = IntrospectionExtensions.GetTypeInfo(typeof(Tests)).Assembly;
+        UserSecretsManager secrets = new UserSecretsManager.UserSecretsManagerBuilder()
+            .WithAppNamespace("SharedMauiCoreLibrary.Test")
+            .WithCustomAssambly(assembly)
+            .Build();
+        appSecrets = secrets.ReadSection<SecretAppSetting>("CoreTests");
 
         manager = new LicenseManager.LicenseManagerConnectionBuilder()
             .WithLicenseServer(serverAddress: licenseUri, port: null, https: true)

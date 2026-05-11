@@ -11,34 +11,6 @@ namespace AndreasReitberger.Shared.Core.Utilities
     // Changed: Yes
     public partial class UserSecretsManager : ObservableObject, IUserSecretsManager
     {
-        #region Instance
-        static IUserSecretsManager? _instance = null;
-#if NET9_0_OR_GREATER
-        static readonly Lock Lock = new();
-#else
-        static readonly object Lock = new();
-#endif
-        public static IUserSecretsManager Settings
-        {
-            get
-            {
-                lock (Lock)
-                {
-                    _instance ??= new UserSecretsManager();
-                }
-                return _instance;
-            }
-            set
-            {
-                if (_instance == value) return;
-                lock (Lock)
-                {
-                    _instance = value;
-                }
-            }
-        }
-#endregion
-
         #region Variables
 
         JsonDocument? _secrets;
@@ -90,11 +62,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 {
                     using StreamReader reader = new(stream);
                     string json = reader.ReadToEnd();
-#if NEWTONSOFT
-                    _secrets = JObject.Parse(json);
-#else
                     _secrets = JsonDocument.Parse(json);
-#endif
                 }
             }
             catch (Exception ex)
@@ -111,20 +79,36 @@ namespace AndreasReitberger.Shared.Core.Utilities
         public T? ReadSection<T>(string sectionName, JsonSerializerContext? context = null)
         {
             // Needs the Directory.Build.targets in order to work (copies the secret.json as EmbeddedResource to the app)
-            string settings = Settings[sectionName].ToString();
-            context ??= CoreSourceGenerationContext.Default;
-            return (T?)JsonSerializer.Deserialize(settings, typeof(T), context);
+#if NET6_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(CurrentAssembly);
+#else
+            if (CurrentAssembly is null)
+                throw new ArgumentNullException(nameof(CurrentAssembly));
+#endif
+            string settings = this[sectionName].ToString();
+            //context ??= CoreSourceGenerationContext.Default;
+            if (string.IsNullOrEmpty(settings))
+                return default;
+            return context is not null ?
+                (T?)JsonSerializer.Deserialize(settings, typeof(T), context) :
+#pragma warning disable IL2026
+                JsonSerializer.Deserialize<T>(settings);
+#pragma warning restore IL2026
         }
         public T? ReadSectionFromConfigurationRoot<T>(Type type, string sectionName, JsonSerializerContext? context = null)
         {
             // It seems that this way makes problems if the app is published on Windows in Release mode
             // Needs the Directory.Build.targets in order to work (copies the secret.json as EmbeddedResource to the app)
             CurrentAssembly ??= GetAssembly(type);
-            context ??= CoreSourceGenerationContext.Default;
-            string settings = Settings[sectionName].ToString();
+            //context ??= CoreSourceGenerationContext.Default;
+            string settings = this[sectionName].ToString();
             if (string.IsNullOrEmpty(settings))
                 return default;
-            return (T?)JsonSerializer.Deserialize(settings, typeof(T), context);
+            return context is not null ? 
+                (T?)JsonSerializer.Deserialize(settings, typeof(T), context) :
+#pragma warning disable IL2026
+                JsonSerializer.Deserialize<T>(settings);
+#pragma warning restore IL2026
         }
 
         #endregion
@@ -144,6 +128,8 @@ namespace AndreasReitberger.Shared.Core.Utilities
                 try
                 {
                     string[] path = name.Split(':');
+                    if (_secrets is null)
+                        return string.Empty;
                     JsonElement node = _secrets.RootElement;
                     foreach (var segment in path)
                     {

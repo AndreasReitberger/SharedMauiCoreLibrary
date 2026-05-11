@@ -3,6 +3,7 @@ using AndreasReitberger.Shared.Core.Utilities;
 using CommunityToolkit.Mvvm.ComponentModel;
 using SharedMauiCoreLibrary.Test.Utilities;
 using SQLite;
+using System.Reflection;
 
 namespace SharedMauiCoreLibrary.Test;
 
@@ -36,7 +37,12 @@ public class DatabaseTests
     [SetUp]
     public void Setup()
     {
-        appSecrets = SecretAppSettingReaderExtension.ReadSectionFromConfigurationRoot<SecretAppSetting>("CoreTests");
+        var assembly = IntrospectionExtensions.GetTypeInfo(typeof(Tests)).Assembly;
+        UserSecretsManager secrets = new UserSecretsManager.UserSecretsManagerBuilder()
+            .WithAppNamespace("SharedMauiCoreLibrary.Test")
+            .WithCustomAssambly(assembly)
+            .Build();
+        appSecrets = secrets.ReadSection<SecretAppSetting>("CoreTests");
         if (appSecrets is not null)
         {
             sqlite = new SqliteDatabaseService.SqliteConnectionBuilder()
