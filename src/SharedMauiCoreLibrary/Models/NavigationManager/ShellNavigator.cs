@@ -1,6 +1,8 @@
 ﻿using AndreasReitberger.Shared.Core.Events;
 using AndreasReitberger.Shared.Core.Interfaces;
+#if DEBUG
 using System.Diagnostics;
+#endif
 
 namespace AndreasReitberger.Shared.Core.NavigationManager
 {
@@ -96,7 +98,10 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         /// <param name="animate">Whether to animate the navigation</param>
         /// <param name="rootPrefix">The prefix for the root indication, default "///"</param>
         /// <returns><c>Task</c></returns>
-        public Task<bool> GoToRootAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true, string rootPrefix = "///")
+        public Task<bool> GoToRootAsync(string target, ShellNavigationQueryParameters? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true, string rootPrefix = "///")
+            => GoToAsync(target: $"{rootPrefix}{target}", parameters, flyoutIsPresented, delay, animate);
+        
+        public Task<bool> GoToRootAsync(string target, IDictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true, string rootPrefix = "///")
             => GoToAsync(target: $"{rootPrefix}{target}", parameters, flyoutIsPresented, delay, animate);
 
         /// <summary>
@@ -108,7 +113,10 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         /// <param name="delay">A delay in ms for the navigation</param>
         /// <param name="animate">Whether to animate the navigation</param>
         /// <returns><c>Task</c></returns>
-        public async Task<bool> GoToAsync(string target, Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true)
+        public Task<bool> GoToAsync(string target, ShellNavigationQueryParameters? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true)
+            => GoToAsync(target: target, parameters: parameters, flyoutIsPresented, delay, animate);
+        
+        public async Task<bool> GoToAsync(string target, IDictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true)
         {
             try
             {
@@ -175,7 +183,10 @@ namespace AndreasReitberger.Shared.Core.NavigationManager
         /// <param name="confirm">Whether to confirm the navigation</param>
         /// <param name="confirmFunction">Function which is executed to get the confirmation</param>
         /// <returns><c>Task</c></returns>
-        public async Task<bool> GoBackAsync(Dictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true, bool confirm = false, Func<Task<bool>>? confirmFunction = null)
+        public Task<bool> GoBackAsync(ShellNavigationQueryParameters? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true, bool confirm = false, Func<Task<bool>>? confirmFunction = null)
+            => GoBackAsync(parameters, flyoutIsPresented, delay, animate, confirm, confirmFunction);
+        
+        public async Task<bool> GoBackAsync(IDictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = true, bool confirm = false, Func<Task<bool>>? confirmFunction = null)
         {
             bool executeGoBack = true;
             if (confirm && confirmFunction is not null)
