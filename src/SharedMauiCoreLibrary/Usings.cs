@@ -1,5 +1,4 @@
-﻿global using AndreasReitberger.Shared.Core;
-global using CommunityToolkit.Mvvm.ComponentModel;
+﻿global using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AndreasReitberger.Shared.Core;
 public static class SPlatforms

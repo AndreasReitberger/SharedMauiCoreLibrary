@@ -1,4 +1,4 @@
-﻿using AndreasReitberger.Shared.Core.Models.DTO;
+﻿using AndreasReitberger.Shared.Core.DTO;
 
 namespace AndreasReitberger.Shared.Core.Utilities
 {

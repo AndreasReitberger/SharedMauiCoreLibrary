@@ -1,6 +1,7 @@
 ﻿using AndreasReitberger.Shared.Core.Licensing.Envato;
 using AndreasReitberger.Shared.Core.Licensing.Events;
 using AndreasReitberger.Shared.Core.Licensing.WooCommerce;
+using AndreasReitberger.Shared.Core.SourceGeneration;
 
 namespace AndreasReitberger.Shared.Core.Licensing.SourceGeneration
 {
@@ -20,6 +21,6 @@ namespace AndreasReitberger.Shared.Core.Licensing.SourceGeneration
     [JsonSerializable(typeof(WooActivationResponse[]))]
     [JsonSerializable(typeof(WooCodeVersionResponse[]))]
     [JsonSourceGenerationOptions(WriteIndented = true)]
-    public partial class LicenseSourceGenerationContext : JsonSerializerContext { }
+    public partial class LicenseSourceGenerationContext : CoreSourceGenerationContext { }
 
 }
