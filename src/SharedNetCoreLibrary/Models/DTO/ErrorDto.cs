@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace AndreasReitberger.Shared.Core.Models.DTO
+namespace AndreasReitberger.Shared.Core.DTO
 {
     public partial class ErrorDto : ObservableObject
     {

@@ -1,6 +1,6 @@
 ﻿namespace AndreasReitberger.Shared.Core.Events
 {
-    public partial class NavigationDoneEventArgs : EventArgs
+    public partial class NavigationDoneEventArgs : NavigationErrorEventArgs
     {
         #region Properties
 
