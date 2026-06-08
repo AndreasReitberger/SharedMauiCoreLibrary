@@ -1,6 +1,7 @@
 ﻿using AndreasReitberger.Shared.Core.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Diagnostics;
 
 namespace AndreasReitberger.Shared.Core
 {
@@ -90,11 +91,33 @@ namespace AndreasReitberger.Shared.Core
 
         #region Commands
         [RelayCommand]
-        void NavigatedTo() => IsNavigatedTo = true;
+        protected virtual void NavigatedTo() => IsNavigatedTo = true;
 
         [RelayCommand]
-        void NavigatedFrom() => IsNavigatedTo = false;
+        protected virtual void NavigatedFrom() => IsNavigatedTo = false;
         #endregion
 
+        #region Dispose
+        
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        public virtual void Dispose(bool disposing)
+        {
+            // Ordinarily, we release unmanaged resources here;
+            // but all are wrapped by safe handles.
+
+            // Release disposable objects.
+            if (disposing)
+            {
+#if DEBUG
+                Debug.WriteLine($"{nameof(ViewModelCoreBase)}: Disposed (Disposing = '{disposing}')");
+#endif
+            }
+        }
+        
+        #endregion
     }
 }

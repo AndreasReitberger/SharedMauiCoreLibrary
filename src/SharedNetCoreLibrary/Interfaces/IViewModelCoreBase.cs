@@ -2,7 +2,7 @@
 
 namespace AndreasReitberger.Shared.Core.Interfaces
 {
-    public interface IViewModelCoreBase : INotifyPropertyChanged
+    public interface IViewModelCoreBase : INotifyPropertyChanged, IDisposable
     {
         #region Properties
         IServiceProvider? Provider { get; set; }
@@ -17,11 +17,6 @@ namespace AndreasReitberger.Shared.Core.Interfaces
         bool IsResuming { get; set; }
         bool IsPortrait { get; set; }
 
-        #endregion
-
-        #region Commands
-        //public IRelayCommand NavigatedToCommand();
-        //public IRelayCommand NavigatedFromCommand();
         #endregion
 
         #region Methods
