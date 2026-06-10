@@ -8,13 +8,15 @@ namespace AndreasReitberger.Shared.Core.Utilities
     {
         #region Converts
 #if NEWTONSOFT
-        public static T? ToObject<T>(string jsonString, T? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerSettings? settings = null)
+        public static T? ToObject<T>(string? jsonString, T? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerSettings? settings = null)
 #else
-        public static T? ToObject<T>(string jsonString, T? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerContext? settings = null)
+        public static T? ToObject<T>(string? jsonString, T? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerContext? settings = null)
 #endif
         {
             try
             {
+                if (jsonString is null)
+                    return defaultValue;
 #if NEWTONSOFT
                 settings ??= new JsonSerializerSettings()
                 {
@@ -44,13 +46,14 @@ namespace AndreasReitberger.Shared.Core.Utilities
             }
         }
 #if NEWTONSOFT
-        public static string? ToSettingsString<T>(T settingsObject, string? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerSettings? settings = null)
+        public static string? ToSettingsString<T>(T? settingsObject, string? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerSettings? settings = null)
 #else
-        public static string? ToSettingsString<T>(T settingsObject, string? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerContext? settings = null)
+        public static string? ToSettingsString<T>(T? settingsObject, string? defaultValue = default, Action<Exception>? OnError = null, JsonSerializerContext? settings = null)
 #endif
         {
             try
             {
+                if (settingsObject is null) return defaultValue;
 #if NEWTONSOFT
                 settings ??= new JsonSerializerSettings()
                 {
