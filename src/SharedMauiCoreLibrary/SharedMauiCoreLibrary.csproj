@@ -25,7 +25,6 @@
 	  <None Include="..\..\licenses\Microsoft.Maui.Controls.Compatibility.txt" Link="Licenses\Microsoft.Maui.Controls.Compatibility.txt" />
 	  <None Include="..\..\licenses\Microsoft.Maui.Controls.txt" Link="Licenses\Microsoft.Maui.Controls.txt" />
 	  <None Include="..\..\licenses\Microsoft.SourceLink.GitHub.txt" Link="Licenses\Microsoft.SourceLink.GitHub.txt" />
-	  <None Include="..\..\licenses\Newtonsoft.Json.txt" Link="Licenses\Newtonsoft.Json.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -33,8 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!--<PackageReference Include="Microsoft.Maui.Controls" Version="[10.0.50,)" />-->
-		<PackageReference Include="CommunityToolkit.Maui" Version="14.1.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="14.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
 	</ItemGroup>
 
