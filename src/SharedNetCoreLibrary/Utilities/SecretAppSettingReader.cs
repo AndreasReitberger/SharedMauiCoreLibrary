@@ -1,7 +1,4 @@
-﻿#if NEWTONSOFT
-using Newtonsoft.Json;
-#endif
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace AndreasReitberger.Shared.Core.Utilities
 {
@@ -12,7 +9,6 @@ namespace AndreasReitberger.Shared.Core.Utilities
         public static Assembly? Assembly { get; set; }
         #endregion
 
-#if !NEWTONSOFT
         public static T? ReadSectionFromConfigurationRoot<T>(Type type, string appNameSpace, string sectionName, JsonSerializerContext? context = null)
         {
             // It seems that this way makes problems if the app is published on Windows in Release mode
@@ -33,5 +29,4 @@ namespace AndreasReitberger.Shared.Core.Utilities
             return (T?)JsonSerializer.Deserialize(settings, typeof(T), context);
         }
     }
-#endif
 }

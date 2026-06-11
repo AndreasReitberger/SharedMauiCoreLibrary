@@ -1,8 +1,5 @@
 ﻿using AndreasReitberger.Shared.Core.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
-#if NEWTONSOFT
-using Newtonsoft.Json.Linq;
-#endif
 using System.Reflection;
 
 namespace AndreasReitberger.Shared.Core.Utilities
