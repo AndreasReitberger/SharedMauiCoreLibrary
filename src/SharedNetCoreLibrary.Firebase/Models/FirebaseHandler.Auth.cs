@@ -5,6 +5,7 @@ using Firebase.Auth.Repository;
 using Firebase.Database;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Text.Json.Serialization;
 
 namespace AndreasReitberger.Shared.Firebase
 {
@@ -17,7 +18,7 @@ namespace AndreasReitberger.Shared.Firebase
 
         #region Properties
 
-        [ObservableProperty]
+        [ObservableProperty, JsonIgnore]
         public partial FirebaseAuthConfig? Config { get; set; }
         partial void OnConfigChanged(FirebaseAuthConfig? value)
         {
@@ -25,7 +26,7 @@ namespace AndreasReitberger.Shared.Firebase
                 authClient = new(value);
         }
 
-        [ObservableProperty]
+        [ObservableProperty, JsonIgnore]
         public partial UserCredential? CurrentUser { get; set; }
         partial void OnCurrentUserChanged(UserCredential? value)
         {
