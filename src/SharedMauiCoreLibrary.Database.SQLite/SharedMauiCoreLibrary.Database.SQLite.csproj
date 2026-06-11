@@ -28,14 +28,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="..\..\licenses\SQLCipher Community Edition License.txt" Link="Licenses\SQLCipher Community Edition License.txt" />
+	  <None Include="..\..\licenses\sqlite-net-sqlcipher.txt" Link="Licenses\sqlite-net-sqlcipher.txt" />
+	  <None Include="..\..\licenses\sqlite-net.txt" Link="Licenses\sqlite-net.txt" />
+	  <None Include="..\..\licenses\SQLitePCL.raw.txt" Link="Licenses\SQLitePCL.raw.txt" />
 	  <None Include="..\..\licenses\CommunityToolkit.Maui.txt" Link="Licenses\CommunityToolkit.Maui.txt" />
 	  <None Include="..\..\licenses\CommunityToolkit.Mvvm.txt" Link="Licenses\CommunityToolkit.Mvvm.txt" />
 	  <None Include="..\..\licenses\Microsoft.Maui.Controls.Compatibility.txt" Link="Licenses\Microsoft.Maui.Controls.Compatibility.txt" />
 	  <None Include="..\..\licenses\Microsoft.Maui.Controls.txt" Link="Licenses\Microsoft.Maui.Controls.txt" />
 	  <None Include="..\..\licenses\Microsoft.SourceLink.GitHub.txt" Link="Licenses\Microsoft.SourceLink.GitHub.txt" />
 	  <None Include="..\..\licenses\CommunityToolkit.Mvvm.txt" Link="Licenses\CommunityToolkit.Mvvm.txt" />
-	  <None Include="..\..\licenses\SQLite-Net Extensions.txt" Link="Licenses\SQLite-Net Extensions.txt" />
-	  <None Include="..\..\licenses\sqlite-net.txt" Link="Licenses\sqlite-net.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
