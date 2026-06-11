@@ -12,7 +12,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\licenses\CommunityToolkit.Mvvm.txt" Link="Licenses\CommunityToolkit.Mvvm.txt" />
-    <None Include="..\..\licenses\Newtonsoft.Json.txt" Link="Licenses\Newtonsoft.Json.txt" />
   </ItemGroup>
 
 	<ItemGroup>
