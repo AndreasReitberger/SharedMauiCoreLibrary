@@ -8,7 +8,8 @@ namespace AndreasReitberger.Shared.Core.Licensing.SourceGeneration
     [JsonSerializable(typeof(FirebaseHandler))]
     [JsonSerializable(typeof(CurrentUserChangedEventArgs))]
     [JsonSerializable(typeof(UserDataChangedEventArgs))]
-    [JsonSourceGenerationOptions(WriteIndented = true)]
-    public partial class FirebaseSourceGenerationContext : CoreSourceGenerationContext { }
+    [JsonSourceGenerationOptions(WriteIndented = true, GenerationMode = JsonSourceGenerationMode.Metadata)]
+    public partial class FirebaseSourceGenerationContext : JsonSerializerContext // CoreSourceGenerationContext
+    { }
 
 }
