@@ -18,6 +18,6 @@ namespace AndreasReitberger.Shared.Core.SourceGeneration
     [JsonSerializable(typeof(ThemeColorInfo))]
     [JsonSerializable(typeof(ColorPickerElement))]
     [JsonSourceGenerationOptions(WriteIndented = true)]
-    public partial class MauiSourceGenerationContext : CoreSourceGenerationContext { }
+    public partial class MauiSourceGenerationContext : JsonSerializerContext { }
 
 }

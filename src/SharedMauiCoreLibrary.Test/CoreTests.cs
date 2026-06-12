@@ -1,4 +1,6 @@
-﻿using AndreasReitberger.Shared.Core.Utilities;
+﻿using AndreasReitberger.Shared.Core.SourceGeneration;
+using AndreasReitberger.Shared.Core.Utilities;
+using SharedMauiCoreLibrary.Test.Models;
 
 namespace SharedMauiCoreLibrary.Test;
 
@@ -102,6 +104,32 @@ public class LicenseTests
             var t2 = EncryptionManager.DecryptStringFromBase64String(t, decryptedPassphrase);
 
             Assert.That(plainText, Is.EqualTo(t2));
+        }
+        catch (Exception ex)
+        {
+            Assert.Fail(ex.Message);
+        }
+    }
+
+    [Test]
+    public void JsonSerializerCombineTest()
+    {
+        try
+        {
+            TestModel tm = new()
+            {
+                Name = "test",
+                IsActive = true,
+                Start = DateTime.Now.AddHours(-1),
+                End = DateTime.Now,
+                Items = ["Item1", "Item2", "Item3"]
+            };
+            var combinedOptions = JsonOptionsProvider.CombinedOptions(SourceGeneration.TestContext.Default, CoreSourceGenerationContext.Default, MauiSourceGenerationContext.Default);
+            string? json = JsonConvertHelper.ToSettingsString(tm, options: combinedOptions);
+            Assert.That(!string.IsNullOrEmpty(json));
+
+            TestModel? tm2 = JsonConvertHelper.ToObject<TestModel>(json, options: combinedOptions);
+            Assert.That(tm2, Is.Not.Null);
         }
         catch (Exception ex)
         {

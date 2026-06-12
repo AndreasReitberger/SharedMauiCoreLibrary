@@ -21,6 +21,6 @@ namespace AndreasReitberger.Shared.Core.Licensing.SourceGeneration
     [JsonSerializable(typeof(WooActivationResponse[]))]
     [JsonSerializable(typeof(WooCodeVersionResponse[]))]
     [JsonSourceGenerationOptions(WriteIndented = true)]
-    public partial class LicenseSourceGenerationContext : CoreSourceGenerationContext { }
+    public partial class LicenseSourceGenerationContext : JsonSerializerContext { }
 
 }
