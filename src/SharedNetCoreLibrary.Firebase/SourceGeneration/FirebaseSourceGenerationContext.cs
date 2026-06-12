@@ -1,9 +1,7 @@
-﻿using AndreasReitberger.Shared.Core.SourceGeneration;
-using AndreasReitberger.Shared.Firebase;
-using AndreasReitberger.Shared.Firebase.Events;
+﻿using AndreasReitberger.Shared.Firebase.Events;
 using System.Text.Json.Serialization;
 
-namespace AndreasReitberger.Shared.Core.Licensing.SourceGeneration
+namespace AndreasReitberger.Shared.Firebase.SourceGeneration
 {
     [JsonSerializable(typeof(FirebaseHandler))]
     [JsonSerializable(typeof(CurrentUserChangedEventArgs))]
