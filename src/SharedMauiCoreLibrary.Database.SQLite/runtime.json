@@ -1,0 +1,13 @@
+{
+  "runtimes": {
+    "alpine-x64": {
+      "#import": [ "linux-musl-x64" ]
+    },
+    "alpine-arm64": {
+      "#import": [ "linux-musl-arm64" ]
+    },
+    "alpine-arm": {
+      "#import": [ "linux-musl-arm" ]
+    }
+  }
+}

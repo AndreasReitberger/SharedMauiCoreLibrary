@@ -12,6 +12,7 @@
 		<PackageReadmeFile>README_Database.md</PackageReadmeFile>
 		<OutputType>Library</OutputType>
 		<UseMaui>True</UseMaui>
+    <RuntimeIdentifierGraphPath>$(MSBuildThisFileDirectory)runtime.json</RuntimeIdentifierGraphPath>
 	</PropertyGroup>
 
 	<ItemGroup>
