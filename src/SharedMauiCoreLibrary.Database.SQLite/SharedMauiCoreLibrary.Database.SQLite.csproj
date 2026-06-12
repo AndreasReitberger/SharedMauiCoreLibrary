@@ -3,7 +3,7 @@
 	<Import Project="..\..\framework.maui.props" />
 
 	<PropertyGroup>
-		<Version>1.0.0</Version>
+		<Version>1.0.1</Version>
 		<PackageTags>MAUI, Utilites, Core, Library, Helper, C#, dotnet, Database, Handler, SQLite</PackageTags>
 		<RootNamespace>AndreasReitberger.Shared.Core.Database</RootNamespace>
 		<Title>MAUI-Core Shared Database Library</Title>
@@ -46,7 +46,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="sqlite-net-sqlcipher" Version="1.9.172" />
 		<PackageReference Include="SQLiteNetCipherExtensions" Version="2.1.0" />
 		<PackageReference Include="SQLiteNetCipherExtensions.Async" Version="2.1.0" />
