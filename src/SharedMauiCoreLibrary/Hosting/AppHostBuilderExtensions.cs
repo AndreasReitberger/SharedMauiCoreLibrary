@@ -20,7 +20,6 @@ namespace AndreasReitberger.Shared.Core.Hosting
         /// Configures the core library features for a .NET MAUI application using the specified builder.
         /// Included features:
         /// - UseMauiCommunityToolkit()
-        /// - ConfigureDispatching()
         /// </summary>
         /// <remarks>This method adds essential services and features from the core library, including the
         /// .NET MAUI Community Toolkit and dispatching support. Call this method during application startup to ensure
@@ -31,8 +30,8 @@ namespace AndreasReitberger.Shared.Core.Hosting
         {
             builder
                 .UseMauiCommunityToolkit()
-                .ConfigureDispatching()
-                .ConfigureDispatchManager()
+                //.ConfigureDispatching()
+                //.ConfigureDispatchManager()
                 ;
             return builder;
         }
