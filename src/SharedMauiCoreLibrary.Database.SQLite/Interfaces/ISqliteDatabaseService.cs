@@ -1,5 +1,4 @@
-﻿using AndreasReitberger.Shared.Core.Interfaces;
-using SQLite;
+﻿using SQLite;
 
 namespace AndreasReitberger.Shared.Core.Database.Interfaces
 {
@@ -30,6 +29,8 @@ namespace AndreasReitberger.Shared.Core.Database.Interfaces
         public Task<T?> GetWithChildrenAsync<T>(object primaryKey, bool recursive) where T : new();
         public Task InsertWithChildrenAsync<T>(T insert, bool replace = false, bool recursive = true) where T : new();
         public Task InsertAllWithChildrenAsync<T>(IList<T> insert, bool replace = false, bool recursive = true) where T : new();
+        public Task UpdateWithChildrenAsync<T>(T insert, bool recursive = true) where T : new();
+        public Task UpdateAllWithChildrenAsync<T>(IList<T> insert, bool recursive = true) where T : new();
         public Task<int> DeleteWithChildrenAsync<T>(object primaryKey) where T : new();
         public List<TableMapping>? GetTableMappings();
         public Task<List<int>> DropAllTableAsync();

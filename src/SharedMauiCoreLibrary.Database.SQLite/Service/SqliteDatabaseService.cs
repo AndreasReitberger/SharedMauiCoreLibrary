@@ -120,6 +120,13 @@ namespace AndreasReitberger.Shared.Core.Database.Service
                     await Database.InsertAllWithChildrenAsync(insert, recursive: recursive).ConfigureAwait(false);
             }
         }
+
+        public Task UpdateWithChildrenAsync<T>(T insert, bool recursive = true) where T : new()
+            => InsertWithChildrenAsync(insert, replace: true, recursive);
+
+        public Task UpdateAllWithChildrenAsync<T>(IList<T> insert, bool recursive = true) where T : new()
+            => InsertAllWithChildrenAsync(insert, replace: true, recursive);
+
         public async Task<int> DeleteWithChildrenAsync<T>(object primaryKey) where T : new()
         {
             if (Database is not null)
