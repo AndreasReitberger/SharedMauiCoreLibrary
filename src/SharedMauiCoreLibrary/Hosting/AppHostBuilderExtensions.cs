@@ -3,9 +3,11 @@ using AndreasReitberger.Shared.Core.Events;
 using AndreasReitberger.Shared.Core.Interfaces;
 using AndreasReitberger.Shared.Core.Localization;
 using AndreasReitberger.Shared.Core.NavigationManager;
+using AndreasReitberger.Shared.Core.Utilities;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.Versioning;
 
 namespace AndreasReitberger.Shared.Core.Hosting
@@ -81,6 +83,17 @@ namespace AndreasReitberger.Shared.Core.Hosting
             ShellNavigator navigator = dispatcher is not null ? new(rootPage, dispatcher) : new(rootPage);
             navigator.AvailableEntryPages = [.. entryPages ?? [ rootPage]];
             builder.Services.TryAddSingleton<IShellNavigator>(navigator);
+            return builder;
+        }
+
+        public static MauiAppBuilder ConfigureUserSecrets(this MauiAppBuilder builder, Type type, string @namespace)
+        {
+            Assembly assembly = IntrospectionExtensions.GetTypeInfo(type).Assembly;
+            UserSecretsManager settings = new UserSecretsManager.UserSecretsManagerBuilder()
+                .WithAppNamespace(@namespace)
+                .WithCustomAssambly(assembly)
+                .Build();
+            builder.Services.TryAddSingleton<IUserSecretsManager>(settings);
             return builder;
         }
     }
