@@ -46,6 +46,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+    <!-- Needed, because SQLite uses a deprecated version of Newtonsoft.Json... -->
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="sqlite-net-sqlcipher" Version="1.9.172" />
 		<PackageReference Include="SQLiteNetCipherExtensions" Version="2.1.0" />
 		<PackageReference Include="SQLiteNetCipherExtensions.Async" Version="2.1.0" />
