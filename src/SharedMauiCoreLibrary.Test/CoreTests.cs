@@ -1,4 +1,5 @@
-﻿using AndreasReitberger.Shared.Core.SourceGeneration;
+﻿using AndreasReitberger.Shared.Core.NavigationManager;
+using AndreasReitberger.Shared.Core.SourceGeneration;
 using AndreasReitberger.Shared.Core.Utilities;
 using SharedMauiCoreLibrary.Test.Models;
 
@@ -130,6 +131,20 @@ public class LicenseTests
 
             TestModel? tm2 = JsonConvertHelper.ToObject<TestModel>(json, options: combinedOptions);
             Assert.That(tm2, Is.Not.Null);
+        }
+        catch (Exception ex)
+        {
+            Assert.Fail(ex.Message);
+        }
+    }
+
+    [Test]
+    public async Task ShellNavigatorTestAsync()
+    {
+        try
+        {
+            await ShellNavigator.Instance.GoToAsync("//MainPage", new ShellNavigationQueryParameters() { { "param1", "value1" } });
+            Assert.That(true);
         }
         catch (Exception ex)
         {
