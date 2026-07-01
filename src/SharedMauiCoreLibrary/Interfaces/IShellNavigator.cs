@@ -18,11 +18,11 @@ namespace AndreasReitberger.Shared.Core.Interfaces
 
         #region Methods
 
-        public Task<bool> GoToAsync(string target, ShellNavigationQueryParameters? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false);
+        //public Task<bool> GoToAsync(string target, ShellNavigationQueryParameters? parameters, bool? flyoutIsPresented = null, int delay = -1, bool animate = false);
+        //public Task<bool> GoToRootAsync(string target, ShellNavigationQueryParameters? parameters, bool? flyoutIsPresented = null, int delay = -1, bool animate = false, string rootPrefix = "///");
+        //public Task<bool> GoBackAsync(ShellNavigationQueryParameters? parameters, bool? flyoutIsPresented = null, int delay = -1, bool animate = false, bool confirm = false, Func<Task<bool>>? confirmFunction = null);
         public Task<bool> GoToAsync(string target, IDictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false);
-        public Task<bool> GoToRootAsync(string target, ShellNavigationQueryParameters? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false, string rootPrefix = "///");
         public Task<bool> GoToRootAsync(string target, IDictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false, string rootPrefix = "///");
-        public Task<bool> GoBackAsync(ShellNavigationQueryParameters? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false, bool confirm = false, Func<Task<bool>>? confirmFunction = null);
         public Task<bool> GoBackAsync(IDictionary<string, object>? parameters = null, bool? flyoutIsPresented = null, int delay = -1, bool animate = false, bool confirm = false, Func<Task<bool>>? confirmFunction = null);
         public Task<bool> DisplayAlertAsync(string title, string message, string ok, string? cancel = null);
         public Task<string?> DisplayActionSheetAsync(string title, string cancel, string? destruction = null, params string[] buttons);
