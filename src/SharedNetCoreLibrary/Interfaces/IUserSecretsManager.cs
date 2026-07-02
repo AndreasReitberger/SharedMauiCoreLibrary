@@ -13,6 +13,7 @@ namespace AndreasReitberger.Shared.Core.Interfaces
         #region Methods
         public void Initialize(Assembly? assembly = null);
         public T? ToObject<T>(JsonSerializerContext? context = null);
+        public T? Read<T>(JsonSerializerContext? context = null);
         public T? ReadSection<T>(string sectionName, JsonSerializerContext? context = null);
         public T? ReadSectionFromConfigurationRoot<T>(Type type, string sectionName, JsonSerializerContext? context = null);
         public string this[string name] { get; }

@@ -73,6 +73,7 @@ namespace AndreasReitberger.Shared.Core.Utilities
             context ??= CoreSourceGenerationContext.Default;
             return (T?)JsonSerializer.Deserialize(_secrets.RootElement.GetRawText(), typeof(T), context);
         }
+        public T? Read<T>(JsonSerializerContext? context = null) => ReadSection<T>(AppNamespace, context);
         public T? ReadSection<T>(string sectionName, JsonSerializerContext? context = null)
         {
             // Needs the Directory.Build.targets in order to work (copies the secret.json as EmbeddedResource to the app)
