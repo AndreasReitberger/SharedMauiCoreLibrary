@@ -1,5 +1,4 @@
-﻿using AndreasReitberger.Shared.Firebase.Events;
-using Firebase.Auth;
+﻿using Firebase.Auth;
 using Firebase.Auth.Providers;
 using Firebase.Database;
 using System.Collections.Concurrent;
@@ -8,10 +7,6 @@ namespace AndreasReitberger.Shared.Firebase.Interfaces
 {
     public interface IFirebaseHandler
     {
-        #region Static
-        public static FirebaseHandler? Instance;
-        #endregion
-
         #region Properties
         public bool EnableEncryption { get; set; }
         public ConcurrentDictionary<Type, IDisposable> Subscriptions { get; set; }

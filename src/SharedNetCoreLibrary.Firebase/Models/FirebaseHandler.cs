@@ -18,23 +18,6 @@ namespace AndreasReitberger.Shared.Firebase
         protected FirebaseClient? client;
         #endregion
 
-        #region Instance
-        static FirebaseHandler? _instance;
-        public static FirebaseHandler? Instance
-        {
-            get
-            {
-                //_instance ??= new();
-                return _instance;
-            }
-            set
-            {
-                if (_instance == value) return;
-                _instance = value;
-            }
-        }
-        #endregion
-
         #region Properties
 
         [ObservableProperty]
@@ -46,27 +29,15 @@ namespace AndreasReitberger.Shared.Firebase
         public FirebaseHandler(string uri) : base()
         {
             baseUri = uri;
-
             UseDefaultConfig();
-            Instance = this;
         }
-
-        public FirebaseHandler(string domain, string uri) : base()
+        public FirebaseHandler(string domain, string uri) : this(uri)
         {
-            baseUri = uri;
             authDomain = domain;
-
-            UseDefaultConfig();
-            Instance = this;
         }
-        public FirebaseHandler(string domain, string uri, string api) : base()
+        public FirebaseHandler(string domain, string uri, string api) : this(domain, uri)
         {
             apiKey = api;
-            baseUri = uri;
-            authDomain = domain;
-
-            UseDefaultConfig();
-            Instance = this;
         }
         #endregion
 
