@@ -178,7 +178,7 @@ namespace AndreasReitberger.Shared.Firebase
             return Token;
         }
 
-        public async Task<string> LoginAndGetTokenAsync(string username, string password, Func<Tuple<string, Tuple<object, Type>>, Task> onDataChanged)
+        public async Task<string> LoginAndGetTokenAsync(string username, string password, Func<Tuple<string, Tuple<object, Type>>, Task>? onDataChanged = null)
         {
             UserCredential? user = await LoginWithEmailAndPasswordAsync(username, password, onDataChanged);
             if (user is null) return string.Empty;
