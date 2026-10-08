@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedMauiCoreLibrary", "Sh
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{137C492A-7E0D-4B3C-8E99-F0F398DA7667}"
 	ProjectSection(SolutionItems) = preProject
+		..\cleanup.ps1 = ..\cleanup.ps1
 		..\common.props = ..\common.props
 		..\conditions.props = ..\conditions.props
 		..\framework.maui.props = ..\framework.maui.props
