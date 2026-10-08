@@ -73,7 +73,6 @@ namespace AndreasReitberger.Shared.Firebase
             appSecret = secret;
             authDomain = domain;
             UseDefaultConfig();
-            Instance = this;
         }
         #endregion
 
